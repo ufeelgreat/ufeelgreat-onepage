@@ -86,15 +86,30 @@ ufeelgreat-onepage/
 ---
 
 ## TO DO
-- [x] Décision finale : HTML/CSS/JS + Netlify ✓
-- [x] Extraction du contenu (via Gemini sur site Framer) ✓
-- [x] Structuration brief.md + CLAUDE.md ✓
-- [ ] Valider l'architecture et le plan de développement par phases
-- [ ] Créer content.json avec tout le contenu
+
+### Phase 0 — Contenu & Storytelling (PRIORITAIRE avant tout dev)
+- [x] Extraction brute du contenu Framer (via Gemini) ✓
+- [ ] **Travail storytelling & valorisation profil** → voir epic-contenu.md
+- [ ] Valider le contenu final section par section
+- [ ] Produire content.json finalisé
+
+### Phase 1 — Fondations techniques
+- [x] Décision stack : HTML/CSS/JS + Netlify ✓
+- [x] Init Git + repo GitHub + connect Netlify ✓
+- [x] Structuration brief.md + CLAUDE.md + epic-contenu.md ✓
 - [ ] Créer index.html — structure HTML de base (toutes sections)
-- [ ] Créer style.css — design system (variables, typographie, layout)
-- [ ] Développer le Toggle Switch (Vue Production / Vue Management)
-- [ ] Implémenter les scroll reveal animations (Intersection Observer)
-- [ ] Section Portfolio/Projets (film Cancun CrakMedia, Snaaake-the-game, animations Motion)
+- [ ] Créer style.css — design system (variables, typographie, reset)
+
+### Phase 2 — Mise en forme
+- [ ] Layout de chaque section (desktop + mobile)
+- [ ] Hero gradient, cartes, témoignages, timeline
+
+### Phase 3 — Interactivité
+- [ ] Toggle Switch (Vue Production / Vue Management)
+- [ ] Scroll reveal animations (Intersection Observer)
+- [ ] Navigation pill sticky
+
+### Phase 4 — Portfolio + finalisation
+- [ ] Section Portfolio/Projets (film Cancun, Snaaake, Motion Twitch)
 - [ ] Optimisation images (WebP, compression)
-- [ ] Deploy Netlify + domaine custom
+- [ ] Deploy domaine custom
