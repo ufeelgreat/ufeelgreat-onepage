@@ -19,7 +19,7 @@
 
 ### Composants
 - **Border-radius cartes** : 24px–32px
-- **Toggle Switch** : bascule entre deux vues (Production Audiovisuelle / Management & Opérations)
+- **Système filtres + cartes** *(remplace le Toggle Switch)* : boutons-filtres par catégorie en haut de la section Expertise. Toutes les cartes visibles par défaut ; le filtre réduit l'opacité des cartes hors catégorie (ou les masque avec animation douce). Multi-sélection possible. Montre le profil hybride sans cacher aucune compétence.
 - **Scroll Reveal** : Slide-up + Fade-in via Intersection Observer
 
 ### Responsive

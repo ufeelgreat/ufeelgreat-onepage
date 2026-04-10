@@ -74,10 +74,29 @@ PHASE 5 — Finalisation & Launch
 **Livrable** : `script.js` avec tous les comportements interactifs.
 
 **Composants à développer** :
-- Toggle switch Production / Management (fade ou slide entre les deux vues)
+- **Système de filtres + cartes (remplace le Toggle)** — voir détail ci-dessous
 - Scroll reveal : Slide-up + Fade-in sur chaque section (Intersection Observer)
 - Navigation pill sticky avec scroll-spy (highlight de la section active)
 - Éventuellement : hover effects sur les cartes témoignages / projets
+
+### Système de filtres + cartes (Expertise)
+**Concept** : les compétences sont présentées sous forme de cartes groupées par catégorie.
+En haut de la section, des boutons-filtres permettent d'activer/désactiver des catégories.
+Toutes les cartes sont visibles par défaut — le filtre met en avant certaines sans cacher les autres (opacité réduite sur les non-sélectionnées, ou masquage doux).
+
+**Avantage** : le profil hybride reste visible en entier. Le recruteur production voit les cartes prod en avant ; le recruteur management voit les cartes ops — sans que l'autre dimension disparaisse.
+
+**Catégories envisagées** (à affiner en Phase 0) :
+- Production audiovisuelle
+- Management & coordination
+- Outils & technique
+- *(autres à définir selon le contenu validé)*
+
+**Comportement UX** :
+- Par défaut : toutes les cartes actives (vue complète du profil)
+- Clic filtre : les cartes hors catégorie passent en opacité réduite ou se masquent avec animation douce
+- Multi-sélection possible (ex: Production + Outils simultanément)
+- Transition : CSS opacity/scale + `transition` fluide
 
 **Dépendances** : Phase 2 terminée (le JS s'appuie sur les classes CSS en place).
 
@@ -132,7 +151,7 @@ PHASE 5 — Finalisation & Launch
 | # | Question | Statut |
 |---|----------|--------|
 | 1 | Cible principale du site (poste visé) | ⏳ À définir en Phase 0 |
-| 2 | Le Toggle est-il le bon device narratif ? | ⏳ À valider en Phase 0 |
+| 2 | ~~Le Toggle est-il le bon device narratif ?~~ → **Décision prise : système de filtres + cartes** | ✅ Résolu |
 | 3 | Nombre de projets Portfolio | ⏳ À définir en Phase 4 |
 | 4 | Format présentation Snaaake (iframe / lien / screenshot) | ⏳ À définir en Phase 4 |
 | 5 | Hébergement vidéos (YouTube, Vimeo, ou fichier direct) | ⏳ À définir en Phase 4 |

@@ -21,10 +21,11 @@ Un contenu validé section par section, prêt à être intégré dans content.js
 - [ ] Reformuler pour que ça sonne comme un positionnement, pas un CV
 - [ ] Identifier l'angle différenciateur : facilitateur ? pont créatif/technique ? les deux ?
 
-### Expertise & Méthodologie (Toggle)
-- [ ] Valider la pertinence du Toggle — est-ce que les deux vues racontent quelque chose de cohérent ?
-- [ ] Reformuler les bullet points en bénéfices concrets, pas en missions
-- [ ] Vérifier que la vue "Management & Opérations" n'affaiblit pas le profil production
+### Expertise & Méthodologie (Filtres + Cartes)
+- [ ] Définir les catégories de filtres (ex: Production audiovisuelle / Management & coordination / Outils & technique)
+- [ ] Définir le contenu de chaque carte : titre, 2-3 lignes max, catégorie(s) associée(s)
+- [ ] Reformuler chaque compétence en bénéfice concret, pas en mission
+- [ ] Vérifier que l'ensemble des cartes raconte un profil cohérent et complémentaire
 
 ### Soft Skills & Maîtrise technique
 - [ ] Hiérarchiser : qu'est-ce qui doit ressortir en premier ?
