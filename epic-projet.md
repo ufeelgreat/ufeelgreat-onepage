@@ -93,10 +93,16 @@ Toutes les cartes sont visibles par défaut — le filtre met en avant certaines
 - *(autres à définir selon le contenu validé)*
 
 **Comportement UX** :
-- Par défaut : toutes les cartes actives (vue complète du profil)
-- Clic filtre : les cartes hors catégorie passent en opacité réduite ou se masquent avec animation douce
-- Multi-sélection possible (ex: Production + Outils simultanément)
-- Transition : CSS opacity/scale + `transition` fluide
+- Par défaut : toutes les cartes affichées en plein format, groupées par catégorie
+- **Clic filtre** : les cartes de la catégorie sélectionnée restent en plein format ; les autres se réduisent et s'empilent en pile compacte (effet "deck de cartes") — signal visuel clair : "il y a plus, mais ce n'est pas le focus"
+- **Pile slideable** : on peut faire défiler les cartes empilées sans activer de filtre — la curiosité reste accessible, rien n'est caché
+- Multi-sélection à évaluer (ex: Production + Outils → deux groupes en plein format, le reste empilé)
+- Transition : CSS transform/scale + position animée pour l'effet pile
+
+**Questions ouvertes sur l'interaction**
+- Seuil de réduction des cartes empilées : quelle taille ? (ex: 20% de la hauteur originale, juste le titre visible)
+- La pile est-elle swipeable au doigt sur mobile ou clic seulement ?
+- Nombre max de catégories de filtres (3–4 recommandé pour ne pas surcharger la nav de filtres)
 
 **Dépendances** : Phase 2 terminée (le JS s'appuie sur les classes CSS en place).
 
