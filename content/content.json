@@ -8,14 +8,20 @@
       "15 ans à livrer ce qui est promis",
       "Chef d'équipe qui fait grandir, pas juste gérer",
       "Vidéo, digital, IA : l'environnement change — j'ai toujours suivi"
+    ],
+    "images": [
+      "assets/images/hero/instagram-photo-1.jpg",
+      "assets/images/hero/instagram-photo-2.jpg",
+      "assets/images/hero/instagram-photo-3.jpg",
+      "assets/images/hero/instagram-photo-4.jpg"
     ]
   },
 
   "vision": {
-    "intro": "15 ans en production audiovisuelle et coordination de projets. Expérience en environnements digitaux rapides.",
+    "intro": "15 ans en <mark>production audiovisuelle</mark> et <mark>coordination de projets</mark>. Expérience en environnements digitaux rapides.",
     "body": [
-      "Je me suis toujours retrouvé entre deux mondes : assez technique pour comprendre les équipes qui créent, assez opérationnel pour que les projets avancent vraiment. Ce n'est pas courant — et c'est là que j'apporte le plus.",
-      "Mon rôle naturel : transformer un brief flou en quelque chose de concret, coordonner ce qui doit l'être, désamorcer ce qui bloquerait, et livrer. Pas d'esbroufe, pas de politique — juste du résultat."
+      "Je me suis toujours retrouvé entre deux mondes : assez <mark>technique</mark> pour comprendre les équipes qui créent, assez <mark>opérationnel</mark> pour que les projets avancent vraiment. Ce n'est pas courant — et c'est là que j'apporte le plus.",
+      "Mon rôle naturel : transformer un <mark>brief flou</mark> en quelque chose de concret, coordonner ce qui doit l'être, désamorcer ce qui bloquerait, et <mark>livrer</mark>. Pas d'esbroufe, pas de politique — juste du résultat."
     ]
   },
 
@@ -29,57 +35,57 @@
     ],
     "cards": [
       {
-        "title": "Du brief au générique de fin",
+        "title": "🎬 Du brief au générique de fin",
         "body": "Je prends un projet de production de la soumission à la livraison : timeline, équipe, client, post-prod.",
         "categories": ["Production audiovisuelle"]
       },
       {
-        "title": "Chef de plateau & régisseur",
+        "title": "🎥 Chef de plateau & régisseur",
         "body": "J'assure que le jour de tournage se passe bien pour tout le monde — y compris les imprévus.",
         "categories": ["Production audiovisuelle"]
       },
       {
-        "title": "Post-prod & motion design",
+        "title": "✂️ Post-prod & motion design",
         "body": "Montage, After Effects, retours client. Je maîtrise la chaîne jusqu'à la dernière note de musique.",
         "categories": ["Production audiovisuelle", "Outils & méthodes"]
       },
       {
-        "title": "Chef d'équipe sans ego",
+        "title": "🤝 Chef d'équipe sans ego",
         "body": "J'encadre des équipes créatives en misant sur la clarté et la confiance, pas la hiérarchie.",
         "categories": ["Coordination & management"]
       },
       {
-        "title": "Solutionneur de blocages",
+        "title": "🔧 Solutionneur de blocages",
         "body": "Quand un projet coince — budget, ressources, délais — je trouve le chemin qui débloque sans sacrifier la qualité.",
         "categories": ["Coordination & management"]
       },
       {
-        "title": "Structure dans le chaos",
+        "title": "📋 Structure dans le chaos",
         "body": "Je transforme ce qui est chaotique en backlog clair, sprint organisé, planning tenu.",
         "categories": ["Coordination & management", "Outils & méthodes"]
       },
       {
-        "title": "Suite Adobe",
+        "title": "🎨 Suite Adobe",
         "body": "Premiere, After Effects, Photoshop : j'interviens en production sans attendre que quelqu'un soit dispo.",
         "categories": ["Outils & méthodes"]
       },
       {
-        "title": "IA générative intégrée",
+        "title": "🤖 IA générative intégrée",
         "body": "Midjourney, ElevenLabs, Kling, Suno : j'ai déployé des workflows IA dans mon équipe avant que ce soit tendance.",
         "categories": ["Outils & méthodes", "Initiatives & projets perso"]
       },
       {
-        "title": "PM & collaboration",
+        "title": "📊 PM & collaboration",
         "body": "Jira, Confluence, Google Workspace. Documentation et coordination asynchrone en environnement agile.",
         "categories": ["Outils & méthodes", "Coordination & management"]
       },
       {
-        "title": "Autonomie technique réelle",
+        "title": "💻 Autonomie technique réelle",
         "body": "Je construis mes propres outils : ce site en HTML/CSS/JS vanilla, un jeu web, une app mobile en React. Je ne dépends pas d'un développeur pour comprendre ce qui se passe.",
         "categories": ["Initiatives & projets perso"]
       },
       {
-        "title": "Formateur & transmetteur",
+        "title": "🎓 Formateur & transmetteur",
         "body": "J'ai conçu et animé des modules pédagogiques en audiovisuel à l'ISCOM Rouen. Expliquer clairement, c'est une compétence que j'utilise encore chaque jour.",
         "categories": ["Initiatives & projets perso", "Coordination & management"]
       }
@@ -91,19 +97,23 @@
     "items": [
       {
         "label": "Je communique clairement",
-        "detail": "Sans jargon, sans réunion inutile. Les gens savent où on en est."
+        "detail": "Sans jargon, sans réunion inutile. Les gens savent où on en est.",
+        "extra": "Je m'adapte à mon interlocuteur : client, équipe technique, direction. Le même message ne se transmet pas de la même façon selon qui l'écoute. Ce que j'ai appris au fil des projets, c'est que la plupart des blocages viennent d'un malentendu — pas d'un problème réel."
       },
       {
         "label": "Je fais grandir les équipes",
-        "detail": "Pas juste déléguer : accompagner, donner du contexte, reconnaître ce qui fonctionne."
+        "detail": "Pas juste déléguer : accompagner, donner du contexte, reconnaître ce qui fonctionne.",
+        "extra": "Un bon chef d'équipe ne se mesure pas à ce qu'il fait lui-même, mais à ce que son équipe devient capable de faire sans lui. J'ai vu des juniors prendre confiance, des profils difficiles s'engager, des équipes entières gagner en autonomie. C'est ce qui me motive."
       },
       {
         "label": "Je livre",
-        "detail": "Pas de surprises de dernière minute. Si ça va dériver, je le dis en avance."
+        "detail": "Pas de surprises de dernière minute. Si ça va dériver, je le dis en avance.",
+        "extra": "Tenir ses engagements, c'est une question de respect envers les autres. Ça implique d'anticiper, de signaler tôt quand quelque chose risque de dérailler, et de ne jamais promettre ce qu'on ne peut pas tenir. Dans ma carrière, j'ai livré des centaines de projets — pas tous parfaits, mais tous livrés."
       },
       {
         "label": "Je suis rigoureux",
-        "detail": "Pas par perfectionnisme — parce que les détails sont là où les projets déraillent."
+        "detail": "Pas par perfectionnisme — parce que les détails sont là où les projets déraillent.",
+        "extra": "La rigueur, ce n'est pas une obsession du détail pour le détail. C'est comprendre où une erreur peut coûter cher — et y faire attention là précisément. Partout ailleurs, je sais aller vite. C'est cette sélectivité qui fait la différence entre quelqu'un de minutieux et quelqu'un d'efficace."
       }
     ]
   },
@@ -112,17 +122,20 @@
     {
       "quote": "Gaël m'a marqué par sa détermination et son sens de l'efficacité. C'est le genre de leader qui anticipe, prépare et optimise. Profondément engagé dans un management éthique, fondé sur le respect des personnes.",
       "author": "Marc-André Daigneault",
-      "title": "Tech Lead, Crakmedia"
+      "title": "Tech Lead, Crakmedia",
+      "photo": "assets/images/testimonials/testimonials-marc-andre.png"
     },
     {
       "quote": "Créatif, méticuleux, ordonné — et il arrive toujours à \"sentir\" le projet. Les clients étaient toujours ravis. Si Gaël revient en France, je signe des deux mains pour l'embaucher à nouveau, voire m'associer avec lui.",
       "author": "Guillaume Garet",
-      "title": "Gérant & Producteur, Aktua Prod"
+      "title": "Gérant & Producteur, Aktua Prod",
+      "photo": "assets/images/testimonials/testimonials-guillaume.png"
     },
     {
       "quote": "Excellente capacité d'adaptation, esprit collaboratif remarquable. Il ne se contente pas de répondre aux attentes : il anticipe les besoins et propose des solutions pertinentes et réfléchies.",
       "author": "Geneviève Émond, CRHA",
-      "title": "Directrice Culture & Expérience employé, Crakmedia"
+      "title": "Directrice Culture & Expérience employé, Crakmedia",
+      "photo": "assets/images/testimonials/testimonials-genevieve.png"
     }
   ],
 
@@ -131,7 +144,7 @@
       "period": "2022 – 2026",
       "title": "Chef d'équipe — Opérations de production digitale",
       "company": "Crakmedia · Montréal",
-      "impact": "Dans une boîte de 180 personnes, j'encadrais une équipe vidéo de 4. Des centaines de campagnes livrées, des workflows IA déployés, une équipe qui a grandi."
+      "impact": "Dans une <mark>entreprise de 180 personnes</mark>, j'encadrais une équipe vidéo de 4. Des centaines de campagnes livrées, des <mark>workflows IA déployés</mark>, une équipe qui a grandi."
     },
     {
       "period": "2018 – 2021",
@@ -180,7 +193,7 @@
         "tags": ["Réalisation", "Tournage", "Montage"],
         "display": "link",
         "link": "https://www.youtube.com/watch?v=XPVmIc-0qgc",
-        "thumbnail": "design/portfolio-cancun.png"
+        "thumbnail": "assets/images/portfolio/portfolio-cancun.png"
       },
       {
         "id": "mangorx",
@@ -190,7 +203,7 @@
         "tags": ["Motion Design", "After Effects", "Publicité"],
         "display": "link",
         "link": null,
-        "thumbnail": "design/portfolio-mangorx.png"
+        "thumbnail": "assets/images/portfolio/portfolio-mangorx.png"
       },
       {
         "id": "fansrevenue",
@@ -201,7 +214,7 @@
         "display": "modal",
         "link": null,
         "linkOnRequest": true,
-        "thumbnail": "design/portfolio-fansrevenue.png"
+        "thumbnail": "assets/images/portfolio/portfolio-fansrevenue.png"
       },
       {
         "id": "crakmedia-ai",
@@ -212,15 +225,15 @@
         "display": "carousel",
         "link": null,
         "linkOnRequest": true,
-        "thumbnail": "design/portfolio-crakmedia-ai-00.png",
+        "thumbnail": "assets/images/portfolio/portfolio-crakmedia-ai-00.png",
         "gallery": [
-          "design/portfolio-crakmedia-ai-00.png",
-          "design/portfolio-crakmedia-ai-01.png",
-          "design/portfolio-crakmedia-ai-02.png",
-          "design/portfolio-crakmedia-ai-03.png",
-          "design/portfolio-crakmedia-ai-04.png",
-          "design/portfolio-crakmedia-ai-05.png",
-          "design/portfolio-crakmedia-ai-06.png"
+          "assets/images/portfolio/portfolio-crakmedia-ai-00.png",
+          "assets/images/portfolio/portfolio-crakmedia-ai-01.png",
+          "assets/images/portfolio/portfolio-crakmedia-ai-02.png",
+          "assets/images/portfolio/portfolio-crakmedia-ai-03.png",
+          "assets/images/portfolio/portfolio-crakmedia-ai-04.png",
+          "assets/images/portfolio/portfolio-crakmedia-ai-05.png",
+          "assets/images/portfolio/portfolio-crakmedia-ai-06.png"
         ]
       },
       {
@@ -231,13 +244,13 @@
         "tags": ["Motion Design", "After Effects", "Live production"],
         "display": "gallery",
         "link": null,
-        "thumbnail": "design/twich-motion-00.png",
+        "thumbnail": "assets/images/portfolio/twich-motion-00.png",
         "gallery": [
-          "design/twich-motion-00.png",
-          "design/twich-motion-01.png",
-          "design/twich-motion-02.png",
-          "design/twich-motion-03.png",
-          "design/twich-motion-05.png"
+          "assets/images/portfolio/twich-motion-00.png",
+          "assets/images/portfolio/twich-motion-01.png",
+          "assets/images/portfolio/twich-motion-02.png",
+          "assets/images/portfolio/twich-motion-03.png",
+          "assets/images/portfolio/twich-motion-05.png"
         ]
       },
       {
@@ -248,7 +261,7 @@
         "tags": ["JavaScript", "Web", "Netlify", "Claude"],
         "display": "link",
         "link": "https://ufeelgreat-snake.netlify.app/",
-        "thumbnail": "design/portfolio-snaaake.png"
+        "thumbnail": "assets/images/portfolio/portfolio-snaaake.png"
       },
       {
         "id": "pemtl",
@@ -271,22 +284,30 @@
       {
         "label": "LinkedIn",
         "handle": "@gaeltrefeu",
-        "url": "https://linkedin.com/in/gaeltrefeu"
+        "url": "https://linkedin.com/in/gaeltrefeu",
+        "icon": "linkedin",
+        "row": 1
       },
       {
         "label": "Instagram",
         "handle": "@ufeelgreat",
-        "url": "https://instagram.com/ufeelgreat"
+        "url": "https://instagram.com/ufeelgreat",
+        "icon": "instagram",
+        "row": 1
       },
       {
         "label": "Téléphone",
         "handle": "+1 (514) 431-7227",
-        "url": "tel:+15144317227"
+        "url": "tel:+15144317227",
+        "icon": "phone",
+        "row": 2
       },
       {
         "label": "Email",
         "handle": "gael.trefeu@gmail.com",
-        "url": "mailto:gael.trefeu@gmail.com"
+        "url": "mailto:gael.trefeu@gmail.com",
+        "icon": "email",
+        "row": 2
       }
     ]
   }

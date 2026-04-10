@@ -36,11 +36,19 @@
        SECTION 1 — HERO
   ============================================================ -->
   <section id="hero" class="section section--hero">
-    <div class="container">
-      <p class="hero__badge" data-content="hero.badge"></p>
-      <h1 class="hero__title" data-content="hero.title"></h1>
-      <p class="hero__description" data-content="hero.description"></p>
-      <ul class="hero__highlights" data-content="hero.highlights" role="list"></ul>
+    <div class="container hero__container">
+
+      <!-- Contenu texte -->
+      <div class="hero__content">
+        <p class="hero__badge" data-content="hero.badge"></p>
+        <h1 class="hero__title" data-content="hero.title"></h1>
+        <p class="hero__description" data-content="hero.description"></p>
+        <ul class="hero__highlights" data-content="hero.highlights" role="list"></ul>
+      </div>
+
+      <!-- Mosaïque photos Instagram -->
+      <div class="hero__images" data-content="hero.images" aria-label="Photos Instagram de Gaël Tréfeu"></div>
+
     </div>
   </section>
 
@@ -49,8 +57,8 @@
   ============================================================ -->
   <section id="vision" class="section section--vision reveal">
     <div class="container">
-      <p class="vision__intro" data-content="vision.intro"></p>
-      <div class="vision__body" data-content="vision.body"></div>
+      <p class="vision__intro" data-html="vision.intro"></p>
+      <div class="vision__body" data-html-list="vision.body"></div>
     </div>
   </section>
 
@@ -71,13 +79,13 @@
   </section>
 
   <!-- ============================================================
-       SECTION 4 — SOFT SKILLS & MAÎTRISE TECHNIQUE
+       SECTION 4 — SOFT SKILLS (Accordion)
   ============================================================ -->
   <section id="softskills" class="section section--softskills reveal">
     <div class="container">
       <h2 class="section__title">Profil humain</h2>
       <p class="section__intro" data-content="softSkills.intro"></p>
-      <ul class="softskills__list" data-content="softSkills.items" role="list"></ul>
+      <div class="accordion" data-content="softSkills.items" role="list"></div>
     </div>
   </section>
 
@@ -106,7 +114,7 @@
   ============================================================ -->
   <section id="loves" class="section section--loves reveal">
     <div class="container">
-      <h2 class="section__title">Ce que j'aime dans ce métier</h2>
+      <h2 class="section__title">💛 Ce que j'aime dans ce métier</h2>
       <p class="section__intro" data-content="loves.intro"></p>
       <ul class="loves__list" data-content="loves.items" role="list"></ul>
     </div>
@@ -131,7 +139,86 @@
       <p class="contact__intro" data-content="contact.intro"></p>
       <p class="contact__cta" data-content="contact.cta"></p>
       <p class="contact__availability" data-content="contact.availability"></p>
-      <ul class="contact__links" data-content="contact.links" role="list"></ul>
+
+      <!-- Liens réseaux / coordonnées -->
+      <div class="contact__links-wrapper" data-content="contact.links"></div>
+
+      <!-- Séparateur -->
+      <div class="contact__divider">
+        <span>Ou envoyez-moi un message directement</span>
+      </div>
+
+      <!-- Formulaire de contact (Netlify Forms) -->
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="contact-form"
+        id="contact-form"
+      >
+        <!-- Champ honeypot anti-spam (caché) -->
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="contact-form__honeypot" aria-hidden="true">
+          <label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
+
+        <div class="contact-form__row">
+          <div class="contact-form__field">
+            <label class="contact-form__label" for="cf-name">Nom</label>
+            <input
+              class="contact-form__input"
+              type="text"
+              id="cf-name"
+              name="name"
+              placeholder="Votre nom"
+              required
+            />
+          </div>
+          <div class="contact-form__field">
+            <label class="contact-form__label" for="cf-email">Email</label>
+            <input
+              class="contact-form__input"
+              type="email"
+              id="cf-email"
+              name="email"
+              placeholder="votre@email.com"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="cf-subject">Sujet</label>
+          <input
+            class="contact-form__input"
+            type="text"
+            id="cf-subject"
+            name="subject"
+            placeholder="Objet de votre message"
+          />
+        </div>
+
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="cf-message">Message</label>
+          <textarea
+            class="contact-form__input contact-form__textarea"
+            id="cf-message"
+            name="message"
+            rows="5"
+            placeholder="Votre message..."
+            required
+          ></textarea>
+        </div>
+
+        <button class="contact-form__submit" type="submit">
+          Envoyer le message →
+        </button>
+
+        <!-- Message de confirmation (affiché après envoi JS) -->
+        <p class="contact-form__success" id="form-success" aria-live="polite"></p>
+      </form>
+
     </div>
   </section>
 

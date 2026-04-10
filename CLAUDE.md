@@ -89,11 +89,11 @@ ufeelgreat-onepage/
 
 ### Phase 0 — Contenu & Storytelling (PRIORITAIRE avant tout dev)
 - [x] Extraction brute du contenu Framer (via Gemini) ✓
-- [ ] **Travail storytelling & valorisation profil** → voir epic-contenu.md
-- [ ] Valider le contenu final section par section
-- [ ] Produire content.json finalisé
+- [x] **Travail storytelling & valorisation profil** → voir epic-contenu.md ✓
+- [x] Valider le contenu final section par section ✓
+- [x] Produire content.json finalisé ✓ → content/content.json
 
-### Phase 1 — Fondations techniques
+### Phase 1 — Fondations techniques ← EN COURS
 - [x] Décision stack : HTML/CSS/JS + Netlify ✓
 - [x] Init Git + repo GitHub + connect Netlify ✓
 - [x] Structuration brief.md + CLAUDE.md + epic-contenu.md ✓
