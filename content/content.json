@@ -1,0 +1,293 @@
+{
+  "hero": {
+    "badge": "Montréal, QC · 45°31′N 73°39′O",
+    "title": "Enchanté ! Moi c'est Gaël 😎",
+    "description": "15 ans à faire que les projets se passent bien. Entre le client qui veut, l'équipe qui produit, et les délais qui attendent personne.",
+    "highlights": [
+      "Le lien entre les idées et leur réalisation",
+      "15 ans à livrer ce qui est promis",
+      "Chef d'équipe qui fait grandir, pas juste gérer",
+      "Vidéo, digital, IA : l'environnement change — j'ai toujours suivi"
+    ]
+  },
+
+  "vision": {
+    "intro": "15 ans en production audiovisuelle et coordination de projets. Expérience en environnements digitaux rapides.",
+    "body": [
+      "Je me suis toujours retrouvé entre deux mondes : assez technique pour comprendre les équipes qui créent, assez opérationnel pour que les projets avancent vraiment. Ce n'est pas courant — et c'est là que j'apporte le plus.",
+      "Mon rôle naturel : transformer un brief flou en quelque chose de concret, coordonner ce qui doit l'être, désamorcer ce qui bloquerait, et livrer. Pas d'esbroufe, pas de politique — juste du résultat."
+    ]
+  },
+
+  "expertise": {
+    "intro": "Une double expérience technique & opérationnelle. Filtrez par ce qui vous intéresse — ou tout voir d'un coup.",
+    "filters": [
+      "Production audiovisuelle",
+      "Coordination & management",
+      "Outils & méthodes",
+      "Initiatives & projets perso"
+    ],
+    "cards": [
+      {
+        "title": "Du brief au générique de fin",
+        "body": "Je prends un projet de production de la soumission à la livraison : timeline, équipe, client, post-prod.",
+        "categories": ["Production audiovisuelle"]
+      },
+      {
+        "title": "Chef de plateau & régisseur",
+        "body": "J'assure que le jour de tournage se passe bien pour tout le monde — y compris les imprévus.",
+        "categories": ["Production audiovisuelle"]
+      },
+      {
+        "title": "Post-prod & motion design",
+        "body": "Montage, After Effects, retours client. Je maîtrise la chaîne jusqu'à la dernière note de musique.",
+        "categories": ["Production audiovisuelle", "Outils & méthodes"]
+      },
+      {
+        "title": "Chef d'équipe sans ego",
+        "body": "J'encadre des équipes créatives en misant sur la clarté et la confiance, pas la hiérarchie.",
+        "categories": ["Coordination & management"]
+      },
+      {
+        "title": "Solutionneur de blocages",
+        "body": "Quand un projet coince — budget, ressources, délais — je trouve le chemin qui débloque sans sacrifier la qualité.",
+        "categories": ["Coordination & management"]
+      },
+      {
+        "title": "Structure dans le chaos",
+        "body": "Je transforme ce qui est chaotique en backlog clair, sprint organisé, planning tenu.",
+        "categories": ["Coordination & management", "Outils & méthodes"]
+      },
+      {
+        "title": "Suite Adobe",
+        "body": "Premiere, After Effects, Photoshop : j'interviens en production sans attendre que quelqu'un soit dispo.",
+        "categories": ["Outils & méthodes"]
+      },
+      {
+        "title": "IA générative intégrée",
+        "body": "Midjourney, ElevenLabs, Kling, Suno : j'ai déployé des workflows IA dans mon équipe avant que ce soit tendance.",
+        "categories": ["Outils & méthodes", "Initiatives & projets perso"]
+      },
+      {
+        "title": "PM & collaboration",
+        "body": "Jira, Confluence, Google Workspace. Documentation et coordination asynchrone en environnement agile.",
+        "categories": ["Outils & méthodes", "Coordination & management"]
+      },
+      {
+        "title": "Autonomie technique réelle",
+        "body": "Je construis mes propres outils : ce site en HTML/CSS/JS vanilla, un jeu web, une app mobile en React. Je ne dépends pas d'un développeur pour comprendre ce qui se passe.",
+        "categories": ["Initiatives & projets perso"]
+      },
+      {
+        "title": "Formateur & transmetteur",
+        "body": "J'ai conçu et animé des modules pédagogiques en audiovisuel à l'ISCOM Rouen. Expliquer clairement, c'est une compétence que j'utilise encore chaque jour.",
+        "categories": ["Initiatives & projets perso", "Coordination & management"]
+      }
+    ]
+  },
+
+  "softSkills": {
+    "intro": "Ce que les gens qui ont travaillé avec moi remarquent en premier.",
+    "items": [
+      {
+        "label": "Je communique clairement",
+        "detail": "Sans jargon, sans réunion inutile. Les gens savent où on en est."
+      },
+      {
+        "label": "Je fais grandir les équipes",
+        "detail": "Pas juste déléguer : accompagner, donner du contexte, reconnaître ce qui fonctionne."
+      },
+      {
+        "label": "Je livre",
+        "detail": "Pas de surprises de dernière minute. Si ça va dériver, je le dis en avance."
+      },
+      {
+        "label": "Je suis rigoureux",
+        "detail": "Pas par perfectionnisme — parce que les détails sont là où les projets déraillent."
+      }
+    ]
+  },
+
+  "testimonials": [
+    {
+      "quote": "Gaël m'a marqué par sa détermination et son sens de l'efficacité. C'est le genre de leader qui anticipe, prépare et optimise. Profondément engagé dans un management éthique, fondé sur le respect des personnes.",
+      "author": "Marc-André Daigneault",
+      "title": "Tech Lead, Crakmedia"
+    },
+    {
+      "quote": "Créatif, méticuleux, ordonné — et il arrive toujours à \"sentir\" le projet. Les clients étaient toujours ravis. Si Gaël revient en France, je signe des deux mains pour l'embaucher à nouveau, voire m'associer avec lui.",
+      "author": "Guillaume Garet",
+      "title": "Gérant & Producteur, Aktua Prod"
+    },
+    {
+      "quote": "Excellente capacité d'adaptation, esprit collaboratif remarquable. Il ne se contente pas de répondre aux attentes : il anticipe les besoins et propose des solutions pertinentes et réfléchies.",
+      "author": "Geneviève Émond, CRHA",
+      "title": "Directrice Culture & Expérience employé, Crakmedia"
+    }
+  ],
+
+  "timeline": [
+    {
+      "period": "2022 – 2026",
+      "title": "Chef d'équipe — Opérations de production digitale",
+      "company": "Crakmedia · Montréal",
+      "impact": "Dans une boîte de 180 personnes, j'encadrais une équipe vidéo de 4. Des centaines de campagnes livrées, des workflows IA déployés, une équipe qui a grandi."
+    },
+    {
+      "period": "2018 – 2021",
+      "title": "Monteur vidéo · Motion Designer",
+      "company": "Les Technologies Seedbox · Montréal",
+      "impact": "Production de contenus longs formats en environnement multicaméra. Premier ancrage dans les environnements digitaux, référent qualité sur certains projets."
+    },
+    {
+      "period": "2016 – 2017",
+      "title": "Assistant de direction & coordination projets",
+      "company": "Aktua Prod · Rouen",
+      "impact": "Appui stratégique au dirigeant, coordination de projets institutionnels, gestion relation client. Le moment de comprendre ce que ça change de voir toute la chaîne."
+    },
+    {
+      "period": "2011 – 2016",
+      "title": "Chargé de production",
+      "company": "Arcanes Production · Rouen",
+      "impact": "Gestion complète de projets audiovisuels de bout en bout. C'est là que j'ai appris le métier sous toutes ses coutures — du brief client à la facturation.",
+      "parallel": {
+        "period": "2013 – 2016",
+        "title": "Intervenant professionnel (formateur)",
+        "company": "ISCOM Rouen",
+        "detail": "Modules ponctuels de pré-production audiovisuelle. Projets étudiants réels pour des annonceurs."
+      }
+    }
+  ],
+
+  "loves": {
+    "intro": "Ce qui me donne envie de me lever le matin.",
+    "items": [
+      "Quand un projet flou devient quelque chose de concret — et que tout le monde voit pourquoi ça marche",
+      "Le moment où une équipe tourne vraiment : chacun sait ce qu'il fait, ça avance tout seul",
+      "Trouver la solution que personne n'avait vue sans exploser le budget ni le calendrier",
+      "Les nouveaux outils qui changent ce qu'on peut faire — et les intégrer avant tout le monde"
+    ]
+  },
+
+  "portfolio": {
+    "intro": "Quelques projets pour mettre des images sur ce que je fais.",
+    "projects": [
+      {
+        "id": "cancun",
+        "title": "Film Cancun",
+        "subtitle": "After movie · Crakmedia",
+        "description": "Voyage d'entreprise Crakmedia filmé de A à Z : prises de vue avec mon hybride, Insta 360 et GoPro, puis montage complet du film. Un projet 100% solo du tournage à la livraison.",
+        "tags": ["Réalisation", "Tournage", "Montage"],
+        "display": "link",
+        "link": "https://www.youtube.com/watch?v=XPVmIc-0qgc",
+        "thumbnail": "design/portfolio-cancun.png"
+      },
+      {
+        "id": "mangorx",
+        "title": "MangoRX",
+        "subtitle": "Motion design · Publicité produit",
+        "description": "Vidéo de présentation entièrement en motion design pour un client pharmaceutique marché adulte. Concevoir visuellement un produit sensible avec un rendu propre et professionnel.",
+        "tags": ["Motion Design", "After Effects", "Publicité"],
+        "display": "link",
+        "link": null,
+        "thumbnail": "design/portfolio-mangorx.png"
+      },
+      {
+        "id": "fansrevenue",
+        "title": "FansRevenue — Let's Learn",
+        "subtitle": "Production & motion design · Crakmedia",
+        "description": "Après la pub FansRevenue réalisée en équipe, un format pédagogique a été produit pour décortiquer le projet : pré-prod, tournage, post-prod. J'ai coordonné une partie de la production, réalisé l'intégralité du montage et du motion design.",
+        "tags": ["Production", "Montage", "Motion Design", "Prise de parole"],
+        "display": "modal",
+        "link": null,
+        "linkOnRequest": true,
+        "thumbnail": "design/portfolio-fansrevenue.png"
+      },
+      {
+        "id": "crakmedia-ai",
+        "title": "Prototype IA — Pub Crakmedia",
+        "subtitle": "100% IA générative · Kling · ElevenLabs · Suno",
+        "description": "Publicité parodique produite entièrement avec des outils IA — de l'image à la voix en passant par la musique. 35 à 40h de travail, usage interne. Un test grandeur nature des limites du pipeline sans équipe.",
+        "tags": ["IA générative", "Kling", "ElevenLabs", "Suno", "Prototype"],
+        "display": "carousel",
+        "link": null,
+        "linkOnRequest": true,
+        "thumbnail": "design/portfolio-crakmedia-ai-00.png",
+        "gallery": [
+          "design/portfolio-crakmedia-ai-00.png",
+          "design/portfolio-crakmedia-ai-01.png",
+          "design/portfolio-crakmedia-ai-02.png",
+          "design/portfolio-crakmedia-ai-03.png",
+          "design/portfolio-crakmedia-ai-04.png",
+          "design/portfolio-crakmedia-ai-05.png",
+          "design/portfolio-crakmedia-ai-06.png"
+        ]
+      },
+      {
+        "id": "twitch-motion",
+        "title": "Émission Twitch — Motion Design",
+        "subtitle": "Jingles & transitions · Projet perso",
+        "description": "Ma chaîne Twitch, c'était une vraie mini-émission quotidienne. J'ai créé chaque jingle vidéo, chaque transition de scène en motion design. Réalisation en direct incluse : lancements, déroulé, rythme — tout orchestré solo.",
+        "tags": ["Motion Design", "After Effects", "Live production"],
+        "display": "gallery",
+        "link": null,
+        "thumbnail": "design/twich-motion-00.png",
+        "gallery": [
+          "design/twich-motion-00.png",
+          "design/twich-motion-01.png",
+          "design/twich-motion-02.png",
+          "design/twich-motion-03.png",
+          "design/twich-motion-05.png"
+        ]
+      },
+      {
+        "id": "snaaake",
+        "title": "Snaaake The Game",
+        "subtitle": "Jeu web · Projet perso",
+        "description": "Snake revisité, codé avec Claude en JavaScript vanilla et déployé sur Netlify. Avec leaderboard pour les scores. Un prétexte pour explorer ce qu'on peut construire seul avec de la curiosité et une bonne IA.",
+        "tags": ["JavaScript", "Web", "Netlify", "Claude"],
+        "display": "link",
+        "link": "https://ufeelgreat-snake.netlify.app/",
+        "thumbnail": "design/portfolio-snaaake.png"
+      },
+      {
+        "id": "pemtl",
+        "title": "App Piknic Électronique",
+        "subtitle": "Application web mobile · En cours",
+        "description": "App mobile-first pour suivre la programmation du Piknic Électronique Montréal avec mes amis cet été. React + Supabase + Netlify. En cours de développement.",
+        "tags": ["React", "Supabase", "Mobile-first"],
+        "display": "coming-soon",
+        "link": null,
+        "thumbnail": null
+      }
+    ]
+  },
+
+  "contact": {
+    "intro": "Vous avez lu le CV, vous avez scrollé jusqu'ici.",
+    "cta": "Si vous pensez qu'il y a quelque chose à explorer ensemble — je suis partant.",
+    "availability": "À votre bureau · En visio · Par courriel — à vous de choisir.",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "handle": "@gaeltrefeu",
+        "url": "https://linkedin.com/in/gaeltrefeu"
+      },
+      {
+        "label": "Instagram",
+        "handle": "@ufeelgreat",
+        "url": "https://instagram.com/ufeelgreat"
+      },
+      {
+        "label": "Téléphone",
+        "handle": "+1 (514) 431-7227",
+        "url": "tel:+15144317227"
+      },
+      {
+        "label": "Email",
+        "handle": "gael.trefeu@gmail.com",
+        "url": "mailto:gael.trefeu@gmail.com"
+      }
+    ]
+  }
+}
