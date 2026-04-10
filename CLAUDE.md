@@ -87,29 +87,41 @@ ufeelgreat-onepage/
 
 ## TO DO
 
-### Phase 0 — Contenu & Storytelling (PRIORITAIRE avant tout dev)
-- [x] Extraction brute du contenu Framer (via Gemini) ✓
-- [x] **Travail storytelling & valorisation profil** → voir epic-contenu.md ✓
-- [x] Valider le contenu final section par section ✓
-- [x] Produire content.json finalisé ✓ → content/content.json
+### Phase 0 — Contenu & Storytelling ✓
+- [x] Extraction brute du contenu Framer (via Gemini)
+- [x] Travail storytelling & valorisation profil → docs/epic-contenu.md
+- [x] Valider le contenu final section par section
+- [x] Produire content.json finalisé → content/content.json
 
-### Phase 1 — Fondations techniques ← EN COURS
-- [x] Décision stack : HTML/CSS/JS + Netlify ✓
-- [x] Init Git + repo GitHub + connect Netlify ✓
-- [x] Structuration brief.md + CLAUDE.md + epic-contenu.md ✓
-- [ ] Créer index.html — structure HTML de base (toutes sections)
-- [ ] Créer style.css — design system (variables, typographie, reset)
+### Phase 1 — Fondations techniques ✓
+- [x] Décision stack : HTML/CSS/JS + Netlify
+- [x] Init Git + repo GitHub + connect Netlify
+- [x] Structuration brief.md + CLAUDE.md + epic-contenu.md
+- [x] index.html — structure HTML sémantique complète (9 sections)
+- [x] style.css — design system (custom properties, mobile-first, responsive 768/1024px)
+- [x] script.js — fetch content.json, toutes les injections
+- [x] Mosaïque hero 4 photos Instagram (grille 2×2)
+- [x] Filtres expertise : reflow réel (hide/show) + cartes orange + emojis titres
+- [x] Accordion soft skills (un bloc toujours ouvert, texte enrichi)
+- [x] Témoignages avec portraits + guillemets fermants
+- [x] Portfolio cards click-to-reveal
+- [x] Formulaire contact Netlify Forms (→ activer notif email dans dashboard Netlify)
+- [x] Liens contact 2×2 avec icônes SVG LinkedIn/Instagram + emojis 📞 ✉️
+- [x] Mots-clés surlignés via <mark> orange (vision, timeline)
+- [x] Restructuration dossiers : assets/images/{hero,testimonials,portfolio,profile} + docs/
 
-### Phase 2 — Mise en forme
-- [ ] Layout de chaque section (desktop + mobile)
-- [ ] Hero gradient, cartes, témoignages, timeline
+### Phase 2 — Mise en forme ← PROCHAINE ÉTAPE
+- [ ] Revoir layout Hero (proportions texte / mosaïque, espacements)
+- [ ] Affiner chaque section visuellement (desktop + mobile)
+- [ ] Photo de profil de Gaël dans le Hero ou la section Vision
+- [ ] Vérifier rendu réel via Live Server sur toutes les sections
 
-### Phase 3 — Interactivité
-- [ ] Toggle Switch (Vue Production / Vue Management)
-- [ ] Scroll reveal animations (Intersection Observer)
-- [ ] Navigation pill sticky
+### Phase 3 — Interactivité avancée
+- [ ] Scroll reveal — affiner timing et décalages entre éléments
+- [ ] Navigation pill — vérifier active state sur toutes les sections
+- [ ] Portfolio — modales ou galeries pour projets multi-images (Twitch, Crakmedia IA)
 
 ### Phase 4 — Portfolio + finalisation
-- [ ] Section Portfolio/Projets (film Cancun, Snaaake, Motion Twitch)
 - [ ] Optimisation images (WebP, compression)
+- [ ] Activer notifications email formulaire dans dashboard Netlify
 - [ ] Deploy domaine custom
