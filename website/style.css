@@ -259,7 +259,7 @@ mark {
 
 .hero__highlights li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.6rem;
   font-size: 0.95rem;
 }
@@ -1423,6 +1423,10 @@ mark {
     flex-direction: row;
     flex-wrap: wrap;
     gap: var(--space-sm);
+  }
+
+  .hero__highlights li {
+    align-items: center;
   }
 
   .expertise__grid { grid-template-columns: repeat(2, 1fr); }

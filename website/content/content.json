@@ -3,7 +3,7 @@
     "badge": "Montréal, QC · 45°31′N 73°39′O",
     "avatar": "assets/images/profile/avatar-gael-trefeu.png",
     "title": "Enchanté ! Moi c'est Gaël 😎",
-    "description": "15 ans à faire que les projets se passent bien. Entre le client qui veut, l'équipe qui produit, et les délais qui attendent personne.",
+    "description": "15 ans à faire que les projets se passent bien. Entre le client qui veut, l'équipe qui produit, et les délais qui n'attendent personne.",
     "highlights": [
       "le lien entre les idées et leur réalisation",
       "15 ans à livrer ce qui est promis",
@@ -89,6 +89,21 @@
         "title": "🎓 Formateur & transmetteur",
         "body": "J'ai conçu et animé des modules pédagogiques en audiovisuel à l'ISCOM Rouen. Expliquer clairement, c'est une compétence que j'utilise encore chaque jour.",
         "categories": ["Initiatives & projets perso", "Coordination & management"]
+      },
+      {
+        "title": "🎪 Production événementielle",
+        "body": "Gestion de projets terrain : coordination logistique, équipes, prestataires. L'imprévu fait partie du plan.",
+        "categories": ["Production audiovisuelle", "Coordination & management"]
+      },
+      {
+        "title": "📡 Réalisation en direct",
+        "body": "Régie, OBS, multi-caméras : j'orchestre les lives de bout en bout — du setup technique au déroulé en temps réel.",
+        "categories": ["Production audiovisuelle"]
+      },
+      {
+        "title": "🧠 Orchestration de LLMs",
+        "body": "Je sélectionne et combine les modèles selon leurs forces. Pas juste utiliser l'IA — la piloter.",
+        "categories": ["Outils & méthodes", "Initiatives & projets perso"]
       }
     ]
   },
@@ -249,7 +264,7 @@
         "id": "mangorx",
         "title": "MangoRX",
         "subtitle": "Motion design · Publicité produit",
-        "description": "Vidéo de présentation entièrement en motion design pour un client pharmaceutique marché adulte. Concevoir visuellement un produit sensible avec un rendu propre et professionnel.",
+        "description": "Vidéo de présentation entièrement en motion design pour un client pharmaceutique. Produit sensible traité avec rigueur — rendu propre et professionnel.",
         "tags": ["Motion Design", "After Effects", "Publicité"],
         "display": "link",
         "link": "https://www.youtube.com/watch?v=bIb-yIhRCXs",
@@ -258,8 +273,8 @@
       {
         "id": "fansrevenue",
         "title": "FansRevenue — Let's Learn",
-        "subtitle": "Production & motion design · Crakmedia",
-        "description": "Après la pub FansRevenue réalisée en équipe, un format pédagogique a été produit pour décortiquer le projet : pré-prod, tournage, post-prod. J'ai coordonné une partie de la production, réalisé l'intégralité du montage et du motion design.",
+        "subtitle": "Production & motion design",
+        "description": "Après la pub FansRevenue réalisée en équipe, un format pédagogique a été produit pour décortiquer le projet : pré-prod, tournage, post-prod. J'ai coordonné une partie de la production, réalisé l'intégralité du montage et du motion design de ce Let's Learn.",
         "tags": ["Production", "Montage", "Motion Design", "Prise de parole"],
         "display": "modal",
         "link": null,
@@ -268,13 +283,13 @@
       },
       {
         "id": "pemtl",
-        "title": "App Piknic Électronique",
+        "title": "App Piknic Electronik",
         "subtitle": "Application web mobile · En cours",
-        "description": "App mobile-first pour suivre la programmation du Piknic Électronique Montréal avec mes amis cet été. React + Supabase + Netlify. En cours de développement.",
+        "description": "App mobile-first pour suivre la programmation du Piknic Electronik Montréal avec mes amis cet été. React + Supabase + Netlify. En cours de développement.",
         "tags": ["React", "Supabase", "Mobile-first"],
         "display": "coming-soon",
         "link": null,
-        "thumbnail": null
+        "thumbnail": "assets/images/portfolio/portfolio-pemtl.png"
       }
     ]
   },

@@ -40,7 +40,7 @@ Claude intervient en **trois rôles simultanés** :
 
 ## Stack technique retenue
 - HTML5 + CSS3 (custom properties) + JavaScript vanilla
-- Hébergement : Netlify (`netlify.toml` → `publish = "website"`)
+- Hébergement : Netlify (`netlify.toml` → `publish = "website"`) — Base directory Netlify = vide
 - Aucun framework CSS (Bootstrap, Tailwind) sauf décision explicite et validée
 
 ---
@@ -169,8 +169,17 @@ ufeelgreat-onepage/
 - [x] Avatar : border-radius 2rem
 - [x] Créer website/guide.md (guide maintenance autonome)
 
-### Phase 4 — À venir
+### Phase 4 — Corrections & contenu (2026-04-11)
+- [x] Hero : fix "n'attendent personne"
+- [x] Piknic : orthographe → "Piknic Electronik" + placeholder thumbnail
+- [x] MangoRX : réécriture description (retrait "marché adulte", fix dernière phrase)
+- [x] FansRevenue : retrait mention Crakmedia du subtitle + ajout "de ce Let's Learn"
+- [x] Bullet hero mobile : fix alignement (flex-start sur mobile, center sur desktop)
+- [x] Expertise : 3 nouvelles cartes (Production événementielle, Réalisation en direct, Orchestration de LLMs)
+
+### Phase 5 — À venir
 - [ ] Optimisation images (WebP, compression)
+- [ ] Image portfolio Piknic Electronik (portfolio-pemtl.png)
 - [ ] Activer notifications email formulaire dans dashboard Netlify
 - [ ] Deploy domaine custom
 - [ ] Vérification rendu mobile complet (375px + 768px)
