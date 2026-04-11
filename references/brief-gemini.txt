@@ -1,0 +1,53 @@
+🎨 Brief Technique : Reproduction de Portfolio Mobile-First
+1. Stack Technique Recommandée
+"Génère un composant React unique (ou une page HTML/Tailwind/Lucide) utilisant :
+
+Tailwind CSS pour le styling.
+
+Framer Motion pour les animations (indispensable pour égaler le feeling de Framer).
+
+Lucide React pour les icônes."
+
+2. Identité Visuelle (Design Tokens)
+Palette de couleurs :
+
+Accent Gradient : Un dégradé linéaire allant d'un jaune vif (#FDE047) vers un rose/orangé chaud (#FB7185).
+
+Background principal : Noir profond (#000000).
+
+Surfaces des cartes : Gris très foncé (#121212) avec des bordures fines et subtiles.
+
+Typographie : Utilise une police sans-serif moderne et propre (type Inter ou Geist). Joue sur des graisses "Medium" pour les textes et "Bold" pour les titres.
+
+Rayons de courbure : rounded-3xl (environ 24px) pour toutes les cartes et boutons.
+
+3. Structure de la Page (Sections)
+Hero Section : * Avatar circulaire en haut à gauche. Nom "Gaël" en grand titre.
+
+Badge de localisation (Montréal, QC) avec coordonnées GPS.
+
+Galerie de 4 images avec un masque en forme d'arche (très important pour le style visuel).
+
+Section Expérience : Mise en avant du chiffre "12 ans" dans une carte en dégradé. Texte descriptif en blanc sur fond noir.
+
+Section Services avec Toggle : Créer un switch fonctionnel entre "Production audiovisuelle" et une autre catégorie, qui change le contenu des listes à puces en dessous.
+
+Grille de Compétences (Bento) : Des cartes distinctes pour "Leadership humain", "Organisation" et "Maîtrise technique" avec des emojis en tête.
+
+Section Témoignages : Des cartes sombres avec photo de profil, nom, titre en couleur accentuée, et le texte du témoignage.
+
+4. Animations et Interactivité (Le "Framer Feel")
+Entrées (InView) : Chaque section doit apparaître avec un léger "Slide Up" et un fondu (initial={{ opacity: 0, y: 20 }}) dès qu'elle devient visible à l'écran.
+
+Hover Effects (Desktop) : * Les cartes doivent prendre un léger scale (1.02) et une bordure plus claire au survol.
+
+Les boutons LinkedIn/Contact doivent avoir une transition de couleur fluide.
+
+Staggered Children : Les éléments de listes (bullet points) doivent apparaître les uns après les autres avec un délai de 0.1s.
+
+5. Contenu Spécifique
+Localisation : Montréal, QC (45°31' N - 73°39' O).
+
+Expertise : Production audiovisuelle, coordination d'équipes, 12 ans d'expérience.
+
+Outils : Suite Adobe, JIRA, Google Workspace, IA génératives.

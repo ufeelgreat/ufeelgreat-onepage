@@ -1,0 +1,7 @@
+Primary : #FF7163
+Secondary : #E7FF63
+Third : #475346
+
+Black
+Grays
+White
