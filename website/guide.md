@@ -118,16 +118,34 @@ Pour un projet avec lien sur demande, ajouter `"linkOnRequest": true` (et mettre
 
 > **Important :** Ce dossier a son propre repo Git. Toujours travailler depuis `h:/_ufeelgreat-projects/projets/ufeelgreat-onepage/`, pas depuis le dossier parent.
 
-Dans le terminal :
+Dans le terminal — **3 commandes dans l'ordre, aucune ne peut être sautée** :
 
 ```bash
 cd h:/_ufeelgreat-projects/projets/ufeelgreat-onepage
-git add website/ CLAUDE.md
+
+# 1. Préparer les fichiers modifiés
+git add website/
+
+# 2. Créer le point de sauvegarde (OBLIGATOIRE — sans ça, push n'envoie rien)
 git commit -m "Description courte de la modification"
+
+# 3. Envoyer vers GitHub → déclenche le déploiement Netlify
 git push
 ```
 
+**Ce que fait chaque étape :**
+- `git add` → sélectionne les fichiers à inclure dans la sauvegarde
+- `git commit` → **crée réellement la sauvegarde** avec un message
+- `git push` → envoie cette sauvegarde vers GitHub → Netlify déploie
+
+> Si tu fais `add` + `push` sans `commit`, Git n'a rien à envoyer — les fichiers restent en attente indéfiniment sur ta machine.
+
 Netlify détecte le push automatiquement → déploiement en ~30 secondes.
+
+**Configuration Netlify (à faire une seule fois) :**
+- Dashboard → Site configuration → Build & deploy → Build settings
+- **Base directory** : laisser vide
+- **Publish directory** : `website` (géré par `netlify.toml`, pas besoin de le saisir manuellement)
 
 **Vérifier le déploiement :**
 - Dashboard Netlify → onglet "Deploys" → voir l'état du build
