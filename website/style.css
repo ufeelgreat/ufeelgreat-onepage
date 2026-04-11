@@ -1399,6 +1399,14 @@ mark {
    ------------------------------------------------------------ */
 @media (max-width: 767px) {
   #nav-pill { display: none; }
+
+  .contact__links-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-link__handle {
+    word-break: break-all;
+  }
 }
 
 @media (min-width: 768px) {
