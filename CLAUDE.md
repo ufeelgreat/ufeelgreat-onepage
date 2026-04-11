@@ -40,24 +40,36 @@ Claude intervient en **trois rôles simultanés** :
 
 ## Stack technique retenue
 - HTML5 + CSS3 (custom properties) + JavaScript vanilla
-- Hébergement : Netlify
+- Hébergement : Netlify (`netlify.toml` → `publish = "website"`)
 - Aucun framework CSS (Bootstrap, Tailwind) sauf décision explicite et validée
 
 ---
 
-## Architecture fichiers cible
+## Architecture fichiers
+
 ```
 ufeelgreat-onepage/
-├── index.html
-├── style.css
-├── script.js
-├── assets/
-│   ├── images/
-│   └── fonts/
-├── content/
-│   └── content.json       ← tout le texte externalisé ici
-├── brief.md               ← guide de style + contenu validé
-└── CLAUDE.md
+├── netlify.toml             ← publish = "website"
+├── CLAUDE.md
+├── brief.md
+├── docs/
+│   └── epic-contenu.md
+├── references/              ← captures Framer + assets ref (NON déployé)
+└── website/                 ← SEUL dossier déployé sur Netlify
+    ├── index.html
+    ├── style.css
+    ├── script.js
+    ├── cv1.html             ← CV cachés (accès direct URL)
+    ├── cv2.html
+    ├── cv3.html
+    ├── assets/
+    │   └── images/
+    │       ├── profile/     ← avatar-gael-trefeu.png + avatar-grand-gael-trefeu.png
+    │       ├── testimonials/
+    │       ├── portfolio/   ← 14 thumbnails projets
+    │       └── ticker/      ← ticker-01.png à ticker-14.png
+    └── content/
+        └── content.json     ← tout le texte externalisé ici
 ```
 
 ---
@@ -72,56 +84,93 @@ ufeelgreat-onepage/
 
 ---
 
-## Sections du site (ordre)
-1. Hero
-2. Vision
-3. Expertise & Méthodologie (avec Toggle switch Production / Management)
-4. Soft Skills & Maîtrise technique
-5. Témoignages
-6. Timeline expériences
-7. Ce que j'aime dans ces métiers
-8. Contact & Réseaux
-9. *(À venir)* Portfolio / Projets
+## Palette de couleurs
+```css
+--color-coral:   #FF7163   /* accent principal */
+--color-lime:    #E7FF63   /* accent secondaire */
+--color-olive:   #475346   /* accent tertiaire */
+--color-bg:      #0d0d0d
+--gradient-contact: linear-gradient(160deg, #FF7163 0%, #FF8C42 55%, #FFB347 100%)
+```
+
+---
+
+## Sections du site (ordre actuel)
+1. Hero — badge + titre + highlights + photo profil
+2. Vision — intro + corps en blocs
+3. Ticker — défilement continu 2 lignes (directions opposées)
+4. Expertise ("Ma boîte à outils 🛠️") — filtres + cartes
+5. Profil ("L'humain derrière le CV") — accordion, fond gradient sur item ouvert
+6. Témoignages ("Ils en parlent mieux que moi ✍️")
+7. Parcours ("D'où je viens 📍") — timeline
+8. Ce que j'aime ("Ce que j'💛 dans ces métiers")
+9. Portfolio ("Ce que j'ai fait 🎬") — carousel horizontal, modal overlay
+10. Contact ("Vous avez scrollé jusqu'ici 🤩") — fond coral gradient
+
+---
+
+## Portfolio — ordre des projets
+1. Film Cancun
+2. Snaaake The Game
+3. Prototype IA
+4. Mango RX (lien YouTube)
+5. Émission Twitch (carousel autoplay)
+6. FansRevenue (lien sur demande)
+7. App Piknic (PEMTL)
 
 ---
 
 ## TO DO
 
 ### Phase 0 — Contenu & Storytelling ✓
-- [x] Extraction brute du contenu Framer (via Gemini)
-- [x] Travail storytelling & valorisation profil → docs/epic-contenu.md
+- [x] Extraction brute du contenu Framer
+- [x] Travail storytelling & valorisation profil
 - [x] Valider le contenu final section par section
-- [x] Produire content.json finalisé → content/content.json
+- [x] Produire content.json finalisé
 
 ### Phase 1 — Fondations techniques ✓
-- [x] Décision stack : HTML/CSS/JS + Netlify
 - [x] Init Git + repo GitHub + connect Netlify
-- [x] Structuration brief.md + CLAUDE.md + epic-contenu.md
-- [x] index.html — structure HTML sémantique complète (9 sections)
-- [x] style.css — design system (custom properties, mobile-first, responsive 768/1024px)
+- [x] index.html — structure HTML sémantique complète
+- [x] style.css — design system (custom properties, mobile-first, responsive)
 - [x] script.js — fetch content.json, toutes les injections
-- [x] Mosaïque hero 4 photos Instagram (grille 2×2)
-- [x] Filtres expertise : reflow réel (hide/show) + cartes orange + emojis titres
-- [x] Accordion soft skills (un bloc toujours ouvert, texte enrichi)
-- [x] Témoignages avec portraits + guillemets fermants
-- [x] Portfolio cards click-to-reveal
-- [x] Formulaire contact Netlify Forms (→ activer notif email dans dashboard Netlify)
-- [x] Liens contact 2×2 avec icônes SVG LinkedIn/Instagram + emojis 📞 ✉️
-- [x] Mots-clés surlignés via <mark> orange (vision, timeline)
-- [x] Restructuration dossiers : assets/images/{hero,testimonials,portfolio,profile} + docs/
+- [x] Accordion soft skills, filtres expertise, timeline, formulaire contact
 
-### Phase 2 — Mise en forme ← PROCHAINE ÉTAPE
-- [ ] Revoir layout Hero (proportions texte / mosaïque, espacements)
-- [ ] Affiner chaque section visuellement (desktop + mobile)
-- [ ] Photo de profil de Gaël dans le Hero ou la section Vision
-- [ ] Vérifier rendu réel via Live Server sur toutes les sections
+### Phase 2 — Mise en forme visuelle ✓
+- [x] Palette étendue : coral, lime, olive
+- [x] Fix emoji hero (background-clip bug)
+- [x] Photo profil dans le Hero (avatar-grand-gael-trefeu.png)
+- [x] Ticker animé (2 lignes, directions opposées)
+- [x] Portfolio : grille responsive (3/2/1 col) + modal overlay
+- [x] Carousel Twitch & Prototype IA : autoplay jusqu'à interaction utilisateur
+- [x] Section Contact : fond coral gradient
+- [x] Fonds de sections différenciés
+- [x] Accordion : fond gradient sur item ouvert
+- [x] Titre section "Ce que j'💛 dans ces métiers"
+- [x] Titres sections fun
+- [x] Pages CV cachées : cv1.html, cv2.html, cv3.html
+- [x] Structure website/ comme dossier de publication Netlify
+- [x] netlify.toml → publish = "website"
 
-### Phase 3 — Interactivité avancée
-- [ ] Scroll reveal — affiner timing et décalages entre éléments
-- [ ] Navigation pill — vérifier active state sur toutes les sections
-- [ ] Portfolio — modales ou galeries pour projets multi-images (Twitch, Crakmedia IA)
+### Phase 3 — Corrections & contenu ✓ (2026-04-11)
+- [x] Bullets hero en minuscules
+- [x] Accordion "Je livre" : retirer phrase négative
+- [x] Accordion "Je suis rigoureux" : réécriture naturelle
+- [x] Timeline Aktua Prod : valoriser développement commercial
+- [x] Timeline Arcanes : ajouter terrain (tournages, lives, événementiels)
+- [x] Loves : emojis sur les bullets
+- [x] Portfolio : titre "Talents hybrides 🛠️" pour expertise, "Une sélection de projets 🎬"
+- [x] Portfolio : section déplacée après Testimonials (avant Timeline)
+- [x] Portfolio : grille remplace le slider horizontal
+- [x] Portfolio Prototype IA : retirer image 02 du carousel
+- [x] Portfolio Twitch : 2 liens YouTube + déplacé avant MangoRX
+- [x] Bouton formulaire : texte "Message envoyé ✓" après envoi
+- [x] Mobile : nav pill masquée
+- [x] Mobile : touch-action: manipulation (prévenir zoom double-tap)
+- [x] Avatar : border-radius 2rem
+- [x] Créer website/guide.md (guide maintenance autonome)
 
-### Phase 4 — Portfolio + finalisation
+### Phase 4 — À venir
 - [ ] Optimisation images (WebP, compression)
 - [ ] Activer notifications email formulaire dans dashboard Netlify
 - [ ] Deploy domaine custom
+- [ ] Vérification rendu mobile complet (375px + 768px)
