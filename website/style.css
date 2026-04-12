@@ -211,16 +211,49 @@ mark {
   display: block;
 }
 
+.hero__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
 .hero__badge {
   display: inline-block;
   font-size: 0.8rem;
   font-weight: var(--font-weight-semi);
   color: var(--color-text-muted);
   letter-spacing: 0.04em;
-  margin-bottom: var(--space-md);
   padding: 0.4rem 1rem;
   border: 1px solid var(--color-border);
   border-radius: 999px;
+}
+
+.lang-switcher {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.lang-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  text-decoration: none;
+  line-height: 0;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.lang-pill:hover:not(.lang-pill--active) {
+  border-color: rgba(255, 113, 99, 0.5);
+}
+
+.lang-pill--active {
+  border-color: var(--color-coral);
+  background-color: rgba(255, 113, 99, 0.1);
+  cursor: default;
 }
 
 /* Titre gradient — l'emoji est protégé via .hero__emoji */

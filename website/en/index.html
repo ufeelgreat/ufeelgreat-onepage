@@ -40,7 +40,27 @@
 
       <!-- Text content -->
       <div class="hero__content">
-        <p class="hero__badge" data-content="hero.badge"></p>
+        <div class="hero__topbar">
+          <p class="hero__badge" data-content="hero.badge"></p>
+          <div class="lang-switcher" aria-label="Change language">
+            <a href="/" class="lang-pill" aria-label="Passer à la version française">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="21" height="14" aria-hidden="true">
+                <rect width="10" height="20" fill="#002395"/>
+                <rect x="10" width="10" height="20" fill="#fff"/>
+                <rect x="20" width="10" height="20" fill="#ED2939"/>
+              </svg>
+            </a>
+            <span class="lang-pill lang-pill--active" aria-label="English version (active)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="21" height="14" aria-hidden="true">
+                <rect width="60" height="30" fill="#012169"/>
+                <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="8"/>
+                <path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="12"/>
+                <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/>
+                <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/>
+              </svg>
+            </span>
+          </div>
+        </div>
         <h1 class="hero__title" data-content="hero.title"></h1>
         <p class="hero__description" data-content="hero.description"></p>
         <ul class="hero__highlights" data-content="hero.highlights" role="list"></ul>
