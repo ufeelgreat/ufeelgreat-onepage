@@ -1,0 +1,332 @@
+{
+  "hero": {
+    "badge": "Montréal, QC · 45°31′N 73°39′O",
+    "avatar": "/assets/images/profile/avatar-gael-trefeu.png",
+    "title": "Nice to meet you! I'm Gaël 😎",
+    "description": "15 years making sure projects go well. Between the client who wants, the team that delivers, and deadlines that wait for no one.",
+    "highlights": [
+      "the link between ideas and their execution",
+      "15 years delivering what was promised",
+      "a team leader who grows people, not just manages them",
+      "video, digital, AI: the environment changes — I've always kept up"
+    ],
+    "images": [
+      "/assets/images/hero/instagram-photo-1.jpg",
+      "/assets/images/hero/instagram-photo-2.jpg",
+      "/assets/images/hero/instagram-photo-3.jpg",
+      "/assets/images/hero/instagram-photo-4.jpg"
+    ]
+  },
+
+  "vision": {
+    "intro": "15 years in <mark>audiovisual production</mark> and <mark>project coordination</mark>. Experience in fast-paced digital environments.",
+    "body": [
+      "I've always found myself between two worlds: <mark>technical</mark> enough to understand the teams that create, <mark>operational</mark> enough to make projects actually move forward. That's not common — and that's where I add the most value.",
+      "My natural role: turning a <mark>vague brief</mark> into something concrete, coordinating what needs coordinating, defusing what would block, and <mark>delivering</mark>. No smoke and mirrors, no politics — just results."
+    ]
+  },
+
+  "expertise": {
+    "intro": "Dual technical & operational experience. Filter by what interests you — or see everything at once.",
+    "filters": [
+      "Audiovisual production",
+      "Coordination & management",
+      "Tools & methods",
+      "Personal initiatives"
+    ],
+    "cards": [
+      {
+        "title": "🎬 From brief to final cut",
+        "body": "I take a production project from pitch to delivery: timeline, team, client, post-prod.",
+        "categories": ["Audiovisual production"]
+      },
+      {
+        "title": "🎥 Floor manager & production coordinator",
+        "body": "I make sure shoot day goes smoothly for everyone — including the unexpected.",
+        "categories": ["Audiovisual production"]
+      },
+      {
+        "title": "✂️ Post-production & motion design",
+        "body": "Editing, After Effects, client revisions. I master the full chain down to the last note of music.",
+        "categories": ["Audiovisual production", "Tools & methods"]
+      },
+      {
+        "title": "🤝 Team lead without ego",
+        "body": "I manage creative teams by betting on clarity and trust, not hierarchy.",
+        "categories": ["Coordination & management"]
+      },
+      {
+        "title": "🔧 Blocker solver",
+        "body": "When a project stalls — budget, resources, deadlines — I find the path that unblocks without sacrificing quality.",
+        "categories": ["Coordination & management"]
+      },
+      {
+        "title": "📋 Structure in the chaos",
+        "body": "I turn what's chaotic into a clear backlog, an organized sprint, a held schedule.",
+        "categories": ["Coordination & management", "Tools & methods"]
+      },
+      {
+        "title": "🎨 Adobe Suite",
+        "body": "Premiere, After Effects, Photoshop: I step in during production without waiting for someone to be available.",
+        "categories": ["Tools & methods"]
+      },
+      {
+        "title": "🤖 Integrated generative AI",
+        "body": "Midjourney, ElevenLabs, Kling, Suno: I deployed AI workflows on my team before it was a trend.",
+        "categories": ["Tools & methods", "Personal initiatives"]
+      },
+      {
+        "title": "📊 PM & collaboration",
+        "body": "Jira, Confluence, Google Workspace. Documentation and async coordination in agile environments.",
+        "categories": ["Tools & methods", "Coordination & management"]
+      },
+      {
+        "title": "💻 Real technical autonomy",
+        "body": "I build my own tools: this site in HTML/CSS/JS vanilla, a web game, a mobile app in React. I don't depend on a developer to understand what's going on.",
+        "categories": ["Personal initiatives"]
+      },
+      {
+        "title": "🎓 Trainer & knowledge sharer",
+        "body": "I designed and delivered audiovisual pre-production modules at ISCOM Rouen. Explaining clearly is a skill I still use every day.",
+        "categories": ["Personal initiatives", "Coordination & management"]
+      },
+      {
+        "title": "🎪 Event production",
+        "body": "On-the-ground project management: logistics, teams, vendors. The unexpected is part of the plan.",
+        "categories": ["Audiovisual production", "Coordination & management"]
+      },
+      {
+        "title": "📡 Live directing",
+        "body": "Control room, OBS, multi-camera: I orchestrate live shows end to end — from technical setup to real-time execution.",
+        "categories": ["Audiovisual production"]
+      },
+      {
+        "title": "🧠 LLM orchestration",
+        "body": "I select and combine models based on their strengths. Not just using AI — driving it.",
+        "categories": ["Tools & methods", "Personal initiatives"]
+      }
+    ]
+  },
+
+  "softSkills": {
+    "intro": "What people who've worked with me notice first.",
+    "items": [
+      {
+        "label": "I communicate clearly",
+        "detail": "No jargon, no pointless meetings. People know where things stand.",
+        "extra": "I adapt to whoever I'm talking to: client, technical team, management. The same message doesn't land the same way depending on who's listening. What I've learned over the years is that most blockers come from a misunderstanding — not a real problem."
+      },
+      {
+        "label": "I grow teams",
+        "detail": "Not just delegating: mentoring, providing context, acknowledging what works.",
+        "extra": "A good team lead isn't measured by what they do themselves, but by what their team becomes capable of doing without them. I've seen juniors build confidence, difficult profiles engage, and entire teams gain autonomy. That's what drives me."
+      },
+      {
+        "label": "I deliver",
+        "detail": "No last-minute surprises. If something's going to slip, I say so early.",
+        "extra": "Keeping your commitments is a matter of respect for others. It means anticipating, flagging early when something risks going sideways, and never promising what you can't deliver. In my career, I've shipped hundreds of projects. Even if it meant extra hours — a satisfied client is earned."
+      },
+      {
+        "label": "I'm thorough",
+        "detail": "The details that derail a project — I catch them early.",
+        "extra": "It's not perfectionism — it's respect for the people I work with. Anticipating an error before it's costly, flagging a risk before it explodes: that's useful rigour. Everywhere else, I move fast and adapt."
+      }
+    ]
+  },
+
+  "testimonials": [
+    {
+      "quote": "Gaël stood out to me for his determination and sense of efficiency. He's the kind of leader who anticipates, prepares, and optimizes. Deeply committed to ethical management, built on respect for people.",
+      "author": "Marc-André Daigneault",
+      "title": "Tech Lead, Crakmedia",
+      "photo": "/assets/images/testimonials/testimonials-marc-andre.png"
+    },
+    {
+      "quote": "Creative, meticulous, organized — and he always manages to \"feel\" the project. Clients were always delighted. If Gaël comes back to France, I'd sign immediately to hire him again, or even go into business with him.",
+      "author": "Guillaume Garet",
+      "title": "Managing Director & Producer, Aktua Prod",
+      "photo": "/assets/images/testimonials/testimonials-guillaume.png"
+    },
+    {
+      "quote": "Excellent adaptability, remarkable collaborative spirit. He doesn't just meet expectations: he anticipates needs and proposes relevant, well-thought-out solutions.",
+      "author": "Geneviève Émond, CRHA",
+      "title": "Director of Culture & Employee Experience, Crakmedia",
+      "photo": "/assets/images/testimonials/testimonials-genevieve.png"
+    }
+  ],
+
+  "timeline": [
+    {
+      "period": "2022 – 2026",
+      "title": "Team Lead — Digital Production Operations",
+      "company": "Crakmedia · Montréal",
+      "impact": "Within a <mark>180-person company</mark>, I led a video team of 4. Hundreds of campaigns delivered, <mark>AI workflows deployed</mark>, a team that grew."
+    },
+    {
+      "period": "2018 – 2021",
+      "title": "Video Editor · Motion Designer",
+      "company": "Les Technologies Seedbox · Montréal",
+      "impact": "Long-format content production in a multi-camera environment. First footing in digital environments, quality lead on select projects."
+    },
+    {
+      "period": "2016 – 2017",
+      "title": "Executive Assistant & Project Coordinator",
+      "company": "Aktua Prod · Rouen",
+      "impact": "Strategic support to the director, coordination of institutional projects, business development. The clients I managed stayed — and brought others."
+    },
+    {
+      "period": "2011 – 2016",
+      "title": "Production Manager",
+      "company": "Arcanes Production · Rouen",
+      "impact": "Full end-to-end management of audiovisual projects. That's where I learned the craft from every angle — from client brief to invoicing, including fieldwork: shoots, live captures, events.",
+      "parallel": {
+        "period": "2013 – 2016",
+        "title": "Guest lecturer (trainer)",
+        "company": "ISCOM Rouen",
+        "detail": "Audiovisual pre-production modules. Real student projects for actual clients."
+      }
+    }
+  ],
+
+  "loves": {
+    "intro": "What gets me out of bed in the morning.",
+    "items": [
+      "🎯 When a vague project becomes something concrete — and everyone sees why it works",
+      "⚙️ The moment a team really clicks: everyone knows their role, things move on their own",
+      "💡 Finding the solution no one had seen without blowing the budget or the timeline",
+      "🚀 New tools that change what's possible — and integrating them before everyone else"
+    ]
+  },
+
+  "portfolio": {
+    "intro": "A few projects to put images to what I do.",
+    "projects": [
+      {
+        "id": "cancun",
+        "title": "Film Cancun",
+        "subtitle": "After movie · Crakmedia",
+        "description": "Crakmedia company trip filmed from A to Z: shot with my mirrorless, Insta 360 and GoPro, then full edit of the film. A 100% solo project from shoot to delivery.",
+        "tags": ["Directing", "Shooting", "Editing"],
+        "display": "link",
+        "link": "https://www.youtube.com/watch?v=XPVmIc-0qgc",
+        "thumbnail": "/assets/images/portfolio/portfolio-cancun.png"
+      },
+      {
+        "id": "snaaake",
+        "title": "Snaaake The Game",
+        "subtitle": "Web game · Personal project",
+        "description": "A reimagined Snake, coded with Claude in JavaScript vanilla and deployed on Netlify. With a leaderboard for scores. An excuse to explore what you can build alone with curiosity and a good AI.",
+        "tags": ["JavaScript", "Web", "Netlify", "Claude"],
+        "display": "link",
+        "link": "https://ufeelgreat-snake.netlify.app/",
+        "thumbnail": "/assets/images/portfolio/portfolio-snaaake.png"
+      },
+      {
+        "id": "crakmedia-ai",
+        "title": "AI Prototype",
+        "subtitle": "100% generative AI · Kling · ElevenLabs · Suno",
+        "description": "A parody ad produced entirely with AI tools — from image to voice to music. 35–40 hours of work, internal use only. A real-world test of the pipeline's limits without a team.",
+        "tags": ["Generative AI", "Kling", "ElevenLabs", "Suno", "Prototype"],
+        "display": "carousel",
+        "link": null,
+        "linkOnRequest": true,
+        "thumbnail": "/assets/images/portfolio/portfolio-crakmedia-ai-00.png",
+        "gallery": [
+          "/assets/images/portfolio/portfolio-crakmedia-ai-00.png",
+          "/assets/images/portfolio/portfolio-crakmedia-ai-01.png",
+          "/assets/images/portfolio/portfolio-crakmedia-ai-03.png",
+          "/assets/images/portfolio/portfolio-crakmedia-ai-04.png",
+          "/assets/images/portfolio/portfolio-crakmedia-ai-05.png",
+          "/assets/images/portfolio/portfolio-crakmedia-ai-06.png"
+        ]
+      },
+      {
+        "id": "twitch-motion",
+        "title": "Twitch Show — Motion Design",
+        "subtitle": "Jingles & transitions · Personal project",
+        "description": "My Twitch channel was a real daily mini-show. I created every video jingle, every scene transition in motion design. Live directing included: launches, flow, pacing — everything orchestrated solo.",
+        "tags": ["Motion Design", "After Effects", "Live production"],
+        "display": "carousel",
+        "links": [
+          { "label": "Watch the jingles", "url": "https://youtu.be/9-j3O79uMfc" },
+          { "label": "Live replay", "url": "https://youtu.be/4gLgkxb7Wck?t=4912" }
+        ],
+        "thumbnail": "/assets/images/portfolio/twich-motion-00.png",
+        "gallery": [
+          "/assets/images/portfolio/twich-motion-00.png",
+          "/assets/images/portfolio/twich-motion-01.png",
+          "/assets/images/portfolio/twich-motion-02.png",
+          "/assets/images/portfolio/twich-motion-03.png",
+          "/assets/images/portfolio/twich-motion-05.png"
+        ]
+      },
+      {
+        "id": "mangorx",
+        "title": "MangoRX",
+        "subtitle": "Motion design · Product advertisement",
+        "description": "Fully motion-designed product presentation video for a pharmaceutical client. Sensitive product handled with precision — clean, professional result.",
+        "tags": ["Motion Design", "After Effects", "Advertising"],
+        "display": "link",
+        "link": "https://www.youtube.com/watch?v=bIb-yIhRCXs",
+        "thumbnail": "/assets/images/portfolio/portfolio-mangorx.png"
+      },
+      {
+        "id": "fansrevenue",
+        "title": "FansRevenue — Let's Learn",
+        "subtitle": "Production & motion design",
+        "description": "After the FansRevenue ad produced as a team, an educational format was created to break down the project: pre-prod, shoot, post-prod. I coordinated part of the production, and handled all editing and motion design on this Let's Learn.",
+        "tags": ["Production", "Editing", "Motion Design", "On-camera"],
+        "display": "modal",
+        "link": null,
+        "linkOnRequest": true,
+        "thumbnail": "/assets/images/portfolio/portfolio-fansrevenue.png"
+      },
+      {
+        "id": "pemtl",
+        "title": "Piknic Electronik App",
+        "subtitle": "Mobile web app · In progress",
+        "description": "A mobile-first app to track the Piknic Electronik Montréal lineup with friends this summer. React + Supabase + Netlify. Currently in development.",
+        "tags": ["React", "Supabase", "Mobile-first"],
+        "display": "coming-soon",
+        "link": null,
+        "thumbnail": "/assets/images/portfolio/portfolio-pemtl.png"
+      }
+    ]
+  },
+
+  "contact": {
+    "intro": "You scrolled all the way here 🤩",
+    "cta": "If you think there's something worth exploring together — I'm in.",
+    "availability": "At your office · By video call · By email — your call.",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "handle": "@gaeltrefeu",
+        "url": "https://linkedin.com/in/gaeltrefeu",
+        "icon": "linkedin",
+        "row": 1
+      },
+      {
+        "label": "Instagram",
+        "handle": "@ufeelgreat",
+        "url": "https://instagram.com/ufeelgreat",
+        "icon": "instagram",
+        "row": 1
+      },
+      {
+        "label": "Phone",
+        "handle": "+1 (514) 431-7227",
+        "url": "tel:+15144317227",
+        "icon": "phone",
+        "row": 2
+      },
+      {
+        "label": "Email",
+        "handle": "gael.trefeu@gmail.com",
+        "url": "mailto:gael.trefeu@gmail.com",
+        "icon": "email",
+        "row": 2
+      }
+    ]
+  }
+}

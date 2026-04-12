@@ -18,7 +18,8 @@
   let content;
 
   try {
-    const res = await fetch('./content/content.json');
+    const contentSrc = document.documentElement.dataset.contentSrc || './content/content.json';
+    const res = await fetch(contentSrc);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     content = await res.json();
   } catch (err) {

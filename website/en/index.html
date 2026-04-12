@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" data-content-src="../content/content-en.json">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gaël Tréfeu — Audiovisual production lead & project coordination. Montréal." />
+  <title>Gaël Tréfeu — Production & Coordination</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION PILL (sticky)
+  ============================================================ -->
+  <nav id="nav-pill" aria-label="Main navigation">
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#softskills">Profile</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#timeline">Background</a></li>
+      <li><a href="#loves">What I love</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       SECTION 1 — HERO
+  ============================================================ -->
+  <section id="hero" class="section section--hero">
+    <div class="container hero__container">
+
+      <!-- Text content -->
+      <div class="hero__content">
+        <p class="hero__badge" data-content="hero.badge"></p>
+        <h1 class="hero__title" data-content="hero.title"></h1>
+        <p class="hero__description" data-content="hero.description"></p>
+        <ul class="hero__highlights" data-content="hero.highlights" role="list"></ul>
+      </div>
+
+      <!-- Instagram photo mosaic -->
+      <div class="hero__images" data-content="hero.images" aria-label="Instagram photos of Gaël Tréfeu"></div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 — VISION
+  ============================================================ -->
+  <section id="vision" class="section section--vision reveal">
+    <div class="container">
+      <p class="vision__intro" data-html="vision.intro"></p>
+      <div class="vision__body" data-html-list="vision.body"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TICKER SECTION — Continuous image scroll (between Vision and Expertise)
+  ============================================================ -->
+  <section class="section--ticker" aria-hidden="true">
+    <div class="ticker-wrapper">
+
+      <!-- Row 1: scrolls left (ticker-01 to ticker-07, duplicated) -->
+      <div class="ticker-row">
+        <div class="ticker-track ticker-track--left">
+          <img src="../assets/images/ticker/ticker-01.png" alt="" />
+          <img src="../assets/images/ticker/ticker-02.png" alt="" />
+          <img src="../assets/images/ticker/ticker-03.png" alt="" />
+          <img src="../assets/images/ticker/ticker-04.png" alt="" />
+          <img src="../assets/images/ticker/ticker-05.png" alt="" />
+          <img src="../assets/images/ticker/ticker-06.png" alt="" />
+          <img src="../assets/images/ticker/ticker-07.png" alt="" />
+          <!-- Duplicate for infinite loop -->
+          <img src="../assets/images/ticker/ticker-01.png" alt="" />
+          <img src="../assets/images/ticker/ticker-02.png" alt="" />
+          <img src="../assets/images/ticker/ticker-03.png" alt="" />
+          <img src="../assets/images/ticker/ticker-04.png" alt="" />
+          <img src="../assets/images/ticker/ticker-05.png" alt="" />
+          <img src="../assets/images/ticker/ticker-06.png" alt="" />
+          <img src="../assets/images/ticker/ticker-07.png" alt="" />
+        </div>
+      </div>
+
+      <!-- Row 2: scrolls right (ticker-08 to ticker-14, duplicated) -->
+      <div class="ticker-row">
+        <div class="ticker-track ticker-track--right">
+          <img src="../assets/images/ticker/ticker-08.png" alt="" />
+          <img src="../assets/images/ticker/ticker-09.png" alt="" />
+          <img src="../assets/images/ticker/ticker-10.png" alt="" />
+          <img src="../assets/images/ticker/ticker-11.png" alt="" />
+          <img src="../assets/images/ticker/ticker-12.png" alt="" />
+          <img src="../assets/images/ticker/ticker-13.png" alt="" />
+          <img src="../assets/images/ticker/ticker-14.png" alt="" />
+          <!-- Duplicate for infinite loop -->
+          <img src="../assets/images/ticker/ticker-08.png" alt="" />
+          <img src="../assets/images/ticker/ticker-09.png" alt="" />
+          <img src="../assets/images/ticker/ticker-10.png" alt="" />
+          <img src="../assets/images/ticker/ticker-11.png" alt="" />
+          <img src="../assets/images/ticker/ticker-12.png" alt="" />
+          <img src="../assets/images/ticker/ticker-13.png" alt="" />
+          <img src="../assets/images/ticker/ticker-14.png" alt="" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3 — EXPERTISE & METHODOLOGY
+  ============================================================ -->
+  <section id="expertise" class="section section--expertise reveal">
+    <div class="container">
+      <h2 class="section__title">Hybrid skills 🛠️</h2>
+      <p class="section__intro" data-content="expertise.intro"></p>
+
+      <!-- Filters -->
+      <div class="expertise__filters" role="group" aria-label="Filter by category" data-content="expertise.filters"></div>
+
+      <!-- Card grid -->
+      <div class="expertise__grid" data-content="expertise.cards"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4 — SOFT SKILLS (Accordion)
+  ============================================================ -->
+  <section id="softskills" class="section section--softskills reveal">
+    <div class="container">
+      <h2 class="section__title">The human behind the CV</h2>
+      <p class="section__intro" data-content="softSkills.intro"></p>
+      <div class="accordion" data-content="softSkills.items" role="list"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5 — TESTIMONIALS
+  ============================================================ -->
+  <section id="testimonials" class="section section--testimonials reveal">
+    <div class="container">
+      <h2 class="section__title">They say it better than I do ✍️</h2>
+      <div class="testimonials__list" data-content="testimonials"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6 — PORTFOLIO
+  ============================================================ -->
+  <section id="portfolio" class="section section--portfolio reveal">
+    <div class="container">
+      <h2 class="section__title">A selection of projects 🎬</h2>
+      <p class="section__intro" data-content="portfolio.intro"></p>
+      <div class="portfolio__grid" data-content="portfolio.projects"></div>
+    </div>
+  </section>
+
+  <!-- Portfolio Modal (injected dynamically) -->
+  <div id="portfolio-modal" class="portfolio-modal" role="dialog" aria-modal="true" aria-label="Project details">
+    <div class="portfolio-modal__dialog">
+      <button class="portfolio-modal__close" id="modal-close" aria-label="Close modal">✕</button>
+      <div class="portfolio-modal__body" id="modal-body"></div>
+    </div>
+  </div>
+  <div id="portfolio-modal-backdrop" class="portfolio-modal__backdrop"></div>
+
+  <!-- ============================================================
+       SECTION 7 — TIMELINE
+  ============================================================ -->
+  <section id="timeline" class="section section--timeline reveal">
+    <div class="container">
+      <h2 class="section__title">Where I come from 📍</h2>
+      <ol class="timeline__list" data-content="timeline" role="list"></ol>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 8 — WHAT I LOVE
+  ============================================================ -->
+  <section id="loves" class="section section--loves reveal">
+    <div class="container">
+      <h2 class="section__title">What I 💛 about this work</h2>
+      <p class="section__intro" data-content="loves.intro"></p>
+      <ul class="loves__list" data-content="loves.items" role="list"></ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 9 — CONTACT
+  ============================================================ -->
+  <section id="contact" class="section section--contact">
+    <div class="container">
+
+      <!-- Centered avatar -->
+      <div class="contact__avatar-wrap">
+        <img class="contact__avatar" src="../assets/images/profile/avatar-gael-trefeu.png" alt="Gaël Tréfeu" />
+      </div>
+
+      <p class="contact__intro" data-content="contact.intro"></p>
+      <p class="contact__cta" data-content="contact.cta"></p>
+      <p class="contact__availability" data-content="contact.availability"></p>
+
+      <!-- Social / contact links -->
+      <div class="contact__links-wrapper" data-content="contact.links"></div>
+
+      <!-- Separator -->
+      <div class="contact__divider">
+        <span>Or send me a message directly</span>
+      </div>
+
+      <!-- Contact form (Netlify Forms) -->
+      <form
+        name="contact-en"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="contact-form"
+        id="contact-form"
+      >
+        <!-- Anti-spam honeypot (hidden) -->
+        <input type="hidden" name="form-name" value="contact-en" />
+        <p class="contact-form__honeypot" aria-hidden="true">
+          <label>Do not fill: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
+
+        <div class="contact-form__row">
+          <div class="contact-form__field">
+            <label class="contact-form__label" for="cf-name">Name</label>
+            <input
+              class="contact-form__input"
+              type="text"
+              id="cf-name"
+              name="name"
+              placeholder="Your name"
+              required
+            />
+          </div>
+          <div class="contact-form__field">
+            <label class="contact-form__label" for="cf-email">Email</label>
+            <input
+              class="contact-form__input"
+              type="email"
+              id="cf-email"
+              name="email"
+              placeholder="your@email.com"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="cf-subject">Subject</label>
+          <input
+            class="contact-form__input"
+            type="text"
+            id="cf-subject"
+            name="subject"
+            placeholder="Subject of your message"
+          />
+        </div>
+
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="cf-message">Message</label>
+          <textarea
+            class="contact-form__input contact-form__textarea"
+            id="cf-message"
+            name="message"
+            rows="5"
+            placeholder="Your message..."
+            required
+          ></textarea>
+        </div>
+
+        <button class="contact-form__submit" type="submit">
+          Send message →
+        </button>
+
+        <!-- Confirmation message (shown after JS submit) -->
+        <p class="contact-form__success" id="form-success" aria-live="polite"></p>
+      </form>
+
+    </div>
+  </section>
+
+  <script src="../script.js"></script>
+</body>
+</html>
