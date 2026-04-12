@@ -1,9 +1,10 @@
 {
   "hero": {
     "badge": "Montréal, QC · 45°31′N 73°39′O",
-    "avatar": "/assets/images/profile/avatar-grand-gael-trefeu.png",
+    "avatar": "assets/images/profile/avatar-grand-gael-trefeu.png",
     "title": "Nice to meet you! I'm Gaël 😎",
     "description": "15 years making sure projects go well. Between the client who wants, the team that delivers, and deadlines that wait for no one.",
+    "openToWork": "#opentowork · Open to new opportunities",
     "highlights": [
       "the link between ideas and their execution",
       "15 years delivering what was promised",
@@ -11,10 +12,10 @@
       "video, digital, AI: the environment changes — I've always kept up"
     ],
     "images": [
-      "/assets/images/hero/instagram-photo-1.jpg",
-      "/assets/images/hero/instagram-photo-2.jpg",
-      "/assets/images/hero/instagram-photo-3.jpg",
-      "/assets/images/hero/instagram-photo-4.jpg"
+      "assets/images/hero/instagram-photo-1.jpg",
+      "assets/images/hero/instagram-photo-2.jpg",
+      "assets/images/hero/instagram-photo-3.jpg",
+      "assets/images/hero/instagram-photo-4.jpg"
     ]
   },
 
@@ -139,19 +140,19 @@
       "quote": "Gaël stood out to me for his determination and sense of efficiency. He's the kind of leader who anticipates, prepares, and optimizes. Deeply committed to ethical management, built on respect for people.",
       "author": "Marc-André Daigneault",
       "title": "Tech Lead, Crakmedia",
-      "photo": "/assets/images/testimonials/testimonials-marc-andre.png"
+      "photo": "assets/images/testimonials/testimonials-marc-andre.png"
     },
     {
       "quote": "Creative, meticulous, organized — and he always manages to \"feel\" the project. Clients were always delighted. If Gaël comes back to France, I'd sign immediately to hire him again, or even go into business with him.",
       "author": "Guillaume Garet",
       "title": "Managing Director & Producer, Aktua Prod",
-      "photo": "/assets/images/testimonials/testimonials-guillaume.png"
+      "photo": "assets/images/testimonials/testimonials-guillaume.png"
     },
     {
       "quote": "Excellent adaptability, remarkable collaborative spirit. He doesn't just meet expectations: he anticipates needs and proposes relevant, well-thought-out solutions.",
       "author": "Geneviève Émond, CRHA",
       "title": "Director of Culture & Employee Experience, Crakmedia",
-      "photo": "/assets/images/testimonials/testimonials-genevieve.png"
+      "photo": "assets/images/testimonials/testimonials-genevieve.png"
     }
   ],
 
@@ -209,7 +210,7 @@
         "tags": ["Directing", "Shooting", "Editing"],
         "display": "link",
         "link": "https://www.youtube.com/watch?v=XPVmIc-0qgc",
-        "thumbnail": "/assets/images/portfolio/portfolio-cancun.png"
+        "thumbnail": "assets/images/portfolio/portfolio-cancun.png"
       },
       {
         "id": "snaaake",
@@ -219,7 +220,7 @@
         "tags": ["JavaScript", "Web", "Netlify", "Claude"],
         "display": "link",
         "link": "https://ufeelgreat-snake.netlify.app/",
-        "thumbnail": "/assets/images/portfolio/portfolio-snaaake.png"
+        "thumbnail": "assets/images/portfolio/portfolio-snaaake.png"
       },
       {
         "id": "crakmedia-ai",
@@ -230,14 +231,14 @@
         "display": "carousel",
         "link": null,
         "linkOnRequest": true,
-        "thumbnail": "/assets/images/portfolio/portfolio-crakmedia-ai-00.png",
+        "thumbnail": "assets/images/portfolio/portfolio-crakmedia-ai-00.png",
         "gallery": [
-          "/assets/images/portfolio/portfolio-crakmedia-ai-00.png",
-          "/assets/images/portfolio/portfolio-crakmedia-ai-01.png",
-          "/assets/images/portfolio/portfolio-crakmedia-ai-03.png",
-          "/assets/images/portfolio/portfolio-crakmedia-ai-04.png",
-          "/assets/images/portfolio/portfolio-crakmedia-ai-05.png",
-          "/assets/images/portfolio/portfolio-crakmedia-ai-06.png"
+          "assets/images/portfolio/portfolio-crakmedia-ai-00.png",
+          "assets/images/portfolio/portfolio-crakmedia-ai-01.png",
+          "assets/images/portfolio/portfolio-crakmedia-ai-03.png",
+          "assets/images/portfolio/portfolio-crakmedia-ai-04.png",
+          "assets/images/portfolio/portfolio-crakmedia-ai-05.png",
+          "assets/images/portfolio/portfolio-crakmedia-ai-06.png"
         ]
       },
       {
@@ -251,13 +252,13 @@
           { "label": "Watch the jingles", "url": "https://youtu.be/9-j3O79uMfc" },
           { "label": "Live replay", "url": "https://youtu.be/4gLgkxb7Wck?t=4912" }
         ],
-        "thumbnail": "/assets/images/portfolio/twich-motion-00.png",
+        "thumbnail": "assets/images/portfolio/twich-motion-00.png",
         "gallery": [
-          "/assets/images/portfolio/twich-motion-00.png",
-          "/assets/images/portfolio/twich-motion-01.png",
-          "/assets/images/portfolio/twich-motion-02.png",
-          "/assets/images/portfolio/twich-motion-03.png",
-          "/assets/images/portfolio/twich-motion-05.png"
+          "assets/images/portfolio/twich-motion-00.png",
+          "assets/images/portfolio/twich-motion-01.png",
+          "assets/images/portfolio/twich-motion-02.png",
+          "assets/images/portfolio/twich-motion-03.png",
+          "assets/images/portfolio/twich-motion-05.png"
         ]
       },
       {
@@ -268,7 +269,7 @@
         "tags": ["Motion Design", "After Effects", "Advertising"],
         "display": "link",
         "link": "https://www.youtube.com/watch?v=bIb-yIhRCXs",
-        "thumbnail": "/assets/images/portfolio/portfolio-mangorx.png"
+        "thumbnail": "assets/images/portfolio/portfolio-mangorx.png"
       },
       {
         "id": "fansrevenue",
@@ -279,7 +280,7 @@
         "display": "modal",
         "link": null,
         "linkOnRequest": true,
-        "thumbnail": "/assets/images/portfolio/portfolio-fansrevenue.png"
+        "thumbnail": "assets/images/portfolio/portfolio-fansrevenue.png"
       },
       {
         "id": "pemtl",
@@ -289,7 +290,7 @@
         "tags": ["React", "Supabase", "Mobile-first"],
         "display": "coming-soon",
         "link": null,
-        "thumbnail": "/assets/images/portfolio/portfolio-pemtl.png"
+        "thumbnail": "assets/images/portfolio/portfolio-pemtl.png"
       }
     ]
   },

@@ -230,6 +230,19 @@ mark {
   border-radius: 999px;
 }
 
+.hero__opentowork {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: var(--font-weight-semi);
+  color: var(--color-lime);
+  letter-spacing: 0.04em;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--color-lime);
+  border-radius: 999px;
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+}
+
 .lang-switcher {
   display: flex;
   gap: 0.5rem;
@@ -285,7 +298,7 @@ mark {
   font-size: clamp(1rem, 2.5vw, 1.2rem);
   color: var(--color-text-muted);
   max-width: 55ch;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-sm);
 }
 
 .hero__highlights {

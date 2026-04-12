@@ -135,6 +135,7 @@
   function renderHero(content) {
     setText('[data-content="hero.badge"]', content.hero.badge);
     setText('[data-content="hero.description"]', content.hero.description);
+    setText('[data-content="hero.openToWork"]', content.hero.openToWork);
 
     const titleEl = document.querySelector('[data-content="hero.title"]');
     if (titleEl && content.hero.title) {

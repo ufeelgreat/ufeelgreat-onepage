@@ -193,10 +193,23 @@ ufeelgreat-onepage/
 - `website/en/index.html` → `data-content-src="../content/content-en.json"`
 - Formulaire EN : `name="contact-en"` (séparé du formulaire FR dans Netlify)
 
-### Phase 6 — Sélecteur de langue & corrections (2026-04-12) ✓
-- [x] Sélecteur de langue FR/EN : deux gélules SVG (drapeaux) alignées à droite de la gélule Montréal
+### Phase 6 — Sélecteur de langue & i18n client-side (2026-04-12) ✓
+- [x] Sélecteur de langue FR/EN : deux gélules SVG (drapeaux) accolées à la gélule Montréal
 - [x] Gélule active colorée en coral selon la langue courante ; hover sur gélule inactive
-- [x] FR active sur index.html → lien `/en/` ; EN active sur en/index.html → lien `/`
+- [x] i18n client-side : plus de page `/en/` séparée — tout sur `/`, switch sans rechargement
+- [x] script.js : chargement parallèle des deux JSONs, `applyContent()` réinjecte tout le contenu
+- [x] Langue persistée dans localStorage + URL `?lang=en`
+- [x] content.json + content-en.json : sections `nav`, `sections`, `ui`, `meta` ajoutées
+- [x] Deux formulaires Netlify dans index.html (FR + EN), show/hide selon langue
+- [x] `en/index.html` → redirect vers `/?lang=en`
+
+### Architecture i18n (mise à jour)
+- Un seul `index.html` sur `/` — plus de dossier `en/`
+- `script.js` charge `content.json` (FR) ET `content-en.json` (EN) en parallèle au démarrage
+- Langue détectée : `?lang=en` > `localStorage` > FR par défaut
+- Changement de langue : `history.replaceState` (URL sans reload) + `localStorage`
+- Formulaires Netlify : `contact` (FR) et `contact-en` (EN) tous deux dans `index.html`
+- CVs EN (`/en/cv*.html`) : inchangés, accès direct URL
 
 ### Phase 7 — À venir
 - [ ] Optimisation images (WebP, compression)
