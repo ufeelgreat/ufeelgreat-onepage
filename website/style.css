@@ -272,7 +272,7 @@ mark {
   border-radius: 50%;
   background: var(--gradient-accent);
   flex-shrink: 0;
-  margin-top: 0.3rem;
+  margin-top: 0.6rem;
 }
 
 /* Image unique Hero (avatar) */
