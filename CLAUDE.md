@@ -193,7 +193,12 @@ ufeelgreat-onepage/
 - `website/en/index.html` → `data-content-src="../content/content-en.json"`
 - Formulaire EN : `name="contact-en"` (séparé du formulaire FR dans Netlify)
 
-### Phase 6 — À venir
+### Phase 6 — Sélecteur de langue & corrections (2026-04-12) ✓
+- [x] Sélecteur de langue FR/EN : deux gélules SVG (drapeaux) alignées à droite de la gélule Montréal
+- [x] Gélule active colorée en coral selon la langue courante ; hover sur gélule inactive
+- [x] FR active sur index.html → lien `/en/` ; EN active sur en/index.html → lien `/`
+
+### Phase 7 — À venir
 - [ ] Optimisation images (WebP, compression)
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.png)
 - [ ] Activer notifications email formulaires (FR + EN) dans dashboard Netlify

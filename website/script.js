@@ -1,6 +1,8 @@
 /* ============================================================
-   script.js — Gaël Tréfeu OnePage v3
-   - Chargement du contenu depuis content.json
+   script.js — Gaël Tréfeu OnePage v4
+   - i18n client-side : FR / EN sans rechargement de page
+   - Chargement parallèle des deux JSONs au démarrage
+   - Langue détectée : ?lang=en > localStorage > FR par défaut
    - Hero : avatar + emoji wrapping + mosaïque
    - Filtres expertise (multi-sélection + reflow)
    - Accordion soft skills (un toujours ouvert)
@@ -13,17 +15,17 @@
 (async function () {
 
   /* ----------------------------------------------------------
-     1. CHARGEMENT DU CONTENU
+     1. CHARGEMENT PARALLÈLE DES DEUX CONTENUS
   ---------------------------------------------------------- */
-  let content;
+  let contentFR, contentEN;
 
   try {
-    const contentSrc = document.documentElement.dataset.contentSrc || './content/content.json';
-    const res = await fetch(contentSrc);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    content = await res.json();
+    [contentFR, contentEN] = await Promise.all([
+      fetch('./content/content.json').then(r => { if (!r.ok) throw r; return r.json(); }),
+      fetch('./content/content-en.json').then(r => { if (!r.ok) throw r; return r.json(); }),
+    ]);
   } catch (err) {
-    console.error('[content.json] Erreur de chargement :', err);
+    console.error('[content] Erreur de chargement :', err);
     return;
   }
 
@@ -46,19 +48,12 @@
     return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
   }
 
-  /** Met la première phrase d'une citation en <strong>, le reste en régulier */
   function boldFirstSentence(text) {
     const match = text.match(/^(.*?[.!?])(\s+[\s\S]*)?$/);
-    if (match && match[2]) {
-      return `<strong>${match[1]}</strong>${match[2]}`;
-    }
+    if (match && match[2]) return `<strong>${match[1]}</strong>${match[2]}`;
     return `<strong>${text}</strong>`;
   }
 
-  /**
-   * Wrap emoji characters in a <span class="hero__emoji"> pour contourner
-   * le bug où -webkit-text-fill-color: transparent masque les emojis.
-   */
   function wrapEmojis(str) {
     return str.replace(/(\p{Emoji_Presentation}|\p{Extended_Pictographic})/gu,
       '<span class="hero__emoji">$1</span>'
@@ -67,109 +62,175 @@
 
 
   /* ----------------------------------------------------------
-     2. HERO — Titre (emoji fix) + highlights + image avatar
+     2. DÉTECTION DE LA LANGUE INITIALE
   ---------------------------------------------------------- */
+  const urlLang   = new URLSearchParams(location.search).get('lang');
+  const savedLang = localStorage.getItem('lang');
+  let currentLang = (urlLang === 'en' || (!urlLang && savedLang === 'en')) ? 'en' : 'fr';
 
-  setText('[data-content="hero.badge"]',       content.hero.badge);
-  setText('[data-content="hero.description"]', content.hero.description);
 
-  // Titre : injection HTML pour protéger les emojis du gradient
-  const titleEl = document.querySelector('[data-content="hero.title"]');
-  if (titleEl && content.hero.title) {
-    titleEl.innerHTML = wrapEmojis(content.hero.title);
-  }
+  /* ----------------------------------------------------------
+     3. RENDU INITIAL
+  ---------------------------------------------------------- */
+  applyContent(currentLang === 'en' ? contentEN : contentFR, currentLang);
+  document.documentElement.lang = currentLang;
 
-  // Highlights
-  const highlightsList = document.querySelector('[data-content="hero.highlights"]');
-  if (highlightsList) {
-    highlightsList.innerHTML = content.hero.highlights
-      .map(h => `<li>${h}</li>`)
-      .join('');
-  }
 
-  // Image hero : avatar grand format uniquement
-  const heroImages = document.querySelector('[data-content="hero.images"]');
-  if (heroImages && content.hero.avatar) {
-    heroImages.innerHTML = `<img src="${content.hero.avatar}" alt="Gaël Tréfeu" loading="eager" />`;
+  /* ----------------------------------------------------------
+     4. INITIALISATIONS UNIQUES (DOM statique — sections fixes)
+  ---------------------------------------------------------- */
+  initScrollReveal();
+  initNavPill();
+  initContactForms();
+
+
+  /* ----------------------------------------------------------
+     5. SÉLECTEUR DE LANGUE
+  ---------------------------------------------------------- */
+  document.querySelectorAll('[data-lang]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.lang;
+      if (lang === currentLang) return;
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+
+      // Mettre à jour l'URL sans rechargement
+      const url = new URL(location.href);
+      if (lang === 'en') url.searchParams.set('lang', 'en');
+      else url.searchParams.delete('lang');
+      history.replaceState(null, '', url.toString());
+
+      // Mettre à jour html[lang]
+      document.documentElement.lang = lang;
+
+      // Réinjecter tout le contenu
+      applyContent(lang === 'en' ? contentEN : contentFR, lang);
+    });
+  });
+
+
+  /* ==========================================================
+     APPLYCONTENT — Réinjection complète sans rechargement
+  ========================================================== */
+
+  function applyContent(content, lang) {
+    renderHero(content);
+    renderVision(content);
+    renderExpertise(content);
+    renderSoftSkills(content);
+    renderTestimonials(content);
+    renderTimeline(content);
+    renderLoves(content);
+    renderPortfolio(content, lang);
+    renderContactText(content, lang);
+    renderStaticText(content);
+    updateLangPills(lang);
+    showForm(lang);
   }
 
 
   /* ----------------------------------------------------------
-     3. VISION (innerHTML pour les <mark>)
+     HERO
   ---------------------------------------------------------- */
-  setHTML('[data-html="vision.intro"]', content.vision.intro);
+  function renderHero(content) {
+    setText('[data-content="hero.badge"]', content.hero.badge);
+    setText('[data-content="hero.description"]', content.hero.description);
 
-  const visionBody = document.querySelector('[data-html-list="vision.body"]');
-  if (visionBody) {
-    visionBody.innerHTML = content.vision.body
-      .map(p => `<p>${p}</p>`)
-      .join('');
+    const titleEl = document.querySelector('[data-content="hero.title"]');
+    if (titleEl && content.hero.title) {
+      titleEl.innerHTML = wrapEmojis(content.hero.title);
+    }
+
+    const highlightsList = document.querySelector('[data-content="hero.highlights"]');
+    if (highlightsList) {
+      highlightsList.innerHTML = content.hero.highlights.map(h => `<li>${h}</li>`).join('');
+    }
+
+    const heroImages = document.querySelector('[data-content="hero.images"]');
+    if (heroImages && content.hero.avatar) {
+      heroImages.innerHTML = `<img src="${content.hero.avatar}" alt="Gaël Tréfeu" loading="eager" />`;
+    }
   }
 
 
   /* ----------------------------------------------------------
-     4. EXPERTISE — Filtres + Cartes
+     VISION
   ---------------------------------------------------------- */
-  setText('[data-content="expertise.intro"]', content.expertise.intro);
-
-  const filtersEl = document.querySelector('[data-content="expertise.filters"]');
-  const gridEl    = document.querySelector('[data-content="expertise.cards"]');
-
-  if (filtersEl && gridEl) {
-    filtersEl.innerHTML = content.expertise.filters
-      .map(f => `<button class="filter-btn" data-filter="${f}">${f}</button>`)
-      .join('');
-
-    gridEl.innerHTML = content.expertise.cards
-      .map(card => `
-        <article class="expertise-card" data-categories='${JSON.stringify(card.categories)}'>
-          <h3 class="expertise-card__title">${card.title}</h3>
-          <p class="expertise-card__body">${card.body}</p>
-        </article>
-      `).join('');
-
-    initFilters(filtersEl, gridEl);
+  function renderVision(content) {
+    setHTML('[data-html="vision.intro"]', content.vision.intro);
+    const visionBody = document.querySelector('[data-html-list="vision.body"]');
+    if (visionBody) {
+      visionBody.innerHTML = content.vision.body.map(p => `<p>${p}</p>`).join('');
+    }
   }
 
 
   /* ----------------------------------------------------------
-     5. SOFT SKILLS — Accordion
+     EXPERTISE
   ---------------------------------------------------------- */
-  setText('[data-content="softSkills.intro"]', content.softSkills.intro);
+  function renderExpertise(content) {
+    setText('[data-content="expertise.intro"]', content.expertise.intro);
 
-  const accordionEl = document.querySelector('[data-content="softSkills.items"]');
-  if (accordionEl) {
-    accordionEl.innerHTML = content.softSkills.items
-      .map((item, i) => `
-        <div class="accordion-item${i === 0 ? ' open' : ''}" role="listitem">
-          <button class="accordion-item__trigger" aria-expanded="${i === 0}" aria-controls="acc-body-${i}">
-            <div>
-              <p class="accordion-item__label">${item.label}</p>
-              <p class="accordion-item__detail-preview">${item.detail}</p>
+    const filtersEl = document.querySelector('[data-content="expertise.filters"]');
+    const gridEl    = document.querySelector('[data-content="expertise.cards"]');
+
+    if (filtersEl && gridEl) {
+      filtersEl.innerHTML = content.expertise.filters
+        .map(f => `<button class="filter-btn" data-filter="${f}">${f}</button>`)
+        .join('');
+
+      gridEl.innerHTML = content.expertise.cards
+        .map(card => `
+          <article class="expertise-card" data-categories='${JSON.stringify(card.categories)}'>
+            <h3 class="expertise-card__title">${card.title}</h3>
+            <p class="expertise-card__body">${card.body}</p>
+          </article>
+        `).join('');
+
+      initFilters(filtersEl, gridEl);
+    }
+  }
+
+
+  /* ----------------------------------------------------------
+     SOFT SKILLS
+  ---------------------------------------------------------- */
+  function renderSoftSkills(content) {
+    setText('[data-content="softSkills.intro"]', content.softSkills.intro);
+
+    const accordionEl = document.querySelector('[data-content="softSkills.items"]');
+    if (accordionEl) {
+      accordionEl.innerHTML = content.softSkills.items
+        .map((item, i) => `
+          <div class="accordion-item${i === 0 ? ' open' : ''}" role="listitem">
+            <button class="accordion-item__trigger" aria-expanded="${i === 0}" aria-controls="acc-body-${i}">
+              <div>
+                <p class="accordion-item__label">${item.label}</p>
+                <p class="accordion-item__detail-preview">${item.detail}</p>
+              </div>
+              <span class="accordion-item__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-item__body" id="acc-body-${i}" role="region">
+              <div class="accordion-item__body-inner">${item.extra}</div>
             </div>
-            <span class="accordion-item__icon" aria-hidden="true">+</span>
-          </button>
-          <div class="accordion-item__body" id="acc-body-${i}" role="region">
-            <div class="accordion-item__body-inner">${item.extra}</div>
           </div>
-        </div>
-      `).join('');
+        `).join('');
 
-    initAccordion(accordionEl);
+      initAccordion(accordionEl);
+    }
   }
 
 
   /* ----------------------------------------------------------
-     6. TÉMOIGNAGES — Layout pleine largeur
+     TÉMOIGNAGES
   ---------------------------------------------------------- */
-  const testimonialsContainer = document.querySelector('[data-content="testimonials"]');
-  if (testimonialsContainer) {
-    testimonialsContainer.innerHTML = content.testimonials
-      .map(t => {
+  function renderTestimonials(content) {
+    const container = document.querySelector('[data-content="testimonials"]');
+    if (container) {
+      container.innerHTML = content.testimonials.map(t => {
         const photoEl = t.photo
           ? `<img class="testimonial-card__photo" src="${t.photo}" alt="Photo de ${t.author}" loading="lazy" />`
           : `<div class="testimonial-card__avatar" aria-hidden="true">${initials(t.author)}</div>`;
-
         return `
           <article class="testimonial-card">
             <div class="testimonial-card__header">
@@ -186,16 +247,17 @@
           </article>
         `;
       }).join('');
+    }
   }
 
 
   /* ----------------------------------------------------------
-     7. TIMELINE (innerHTML pour les <mark>)
+     TIMELINE
   ---------------------------------------------------------- */
-  const timelineList = document.querySelector('[data-content="timeline"]');
-  if (timelineList) {
-    timelineList.innerHTML = content.timeline
-      .map(item => {
+  function renderTimeline(content) {
+    const timelineList = document.querySelector('[data-content="timeline"]');
+    if (timelineList) {
+      timelineList.innerHTML = content.timeline.map(item => {
         const parallel = item.parallel ? `
           <div class="timeline-item__parallel">
             <p class="timeline-item__parallel-period">${item.parallel.period}</p>
@@ -204,7 +266,6 @@
             <p class="timeline-item__parallel-detail">${item.parallel.detail}</p>
           </div>
         ` : '';
-
         return `
           <li class="timeline-item">
             <p class="timeline-item__period">${item.period}</p>
@@ -215,69 +276,65 @@
           </li>
         `;
       }).join('');
+    }
   }
 
 
   /* ----------------------------------------------------------
-     8. CE QUE J'AIME
+     CE QUE J'AIME
   ---------------------------------------------------------- */
-  setText('[data-content="loves.intro"]', content.loves.intro);
-
-  const lovesList = document.querySelector('[data-content="loves.items"]');
-  if (lovesList) {
-    lovesList.innerHTML = content.loves.items
-      .map(item => `<li>${item}</li>`)
-      .join('');
+  function renderLoves(content) {
+    setText('[data-content="loves.intro"]', content.loves.intro);
+    const lovesList = document.querySelector('[data-content="loves.items"]');
+    if (lovesList) {
+      lovesList.innerHTML = content.loves.items.map(item => `<li>${item}</li>`).join('');
+    }
   }
 
 
   /* ----------------------------------------------------------
-     9. PORTFOLIO — Cartes visuelles + Modale
+     PORTFOLIO
   ---------------------------------------------------------- */
-  setText('[data-content="portfolio.intro"]', content.portfolio.intro);
+  function renderPortfolio(content, lang) {
+    setText('[data-content="portfolio.intro"]', content.portfolio.intro);
 
-  const portfolioGrid = document.querySelector('[data-content="portfolio.projects"]');
-  if (portfolioGrid) {
-    portfolioGrid.innerHTML = content.portfolio.projects
-      .map(project => {
-        const thumbEl = project.thumbnail
-          ? `<img class="portfolio-card__thumb" src="${project.thumbnail}" alt="${project.title}" loading="lazy" />`
-          : `<div class="portfolio-card__thumb-placeholder">🎞️</div>`;
-
-        return `
-          <article
-            class="portfolio-card"
-            role="button"
-            tabindex="0"
-            data-project-id="${project.id}"
-            aria-label="Voir le projet ${project.title}"
-          >
-            <div class="portfolio-card__thumb-wrap">
-              ${thumbEl}
-              <div class="portfolio-card__overlay">
-                <h3 class="portfolio-card__title">${project.title}</h3>
+    const portfolioGrid = document.querySelector('[data-content="portfolio.projects"]');
+    if (portfolioGrid) {
+      const ariaPrefix = lang === 'en' ? 'View project' : 'Voir le projet';
+      portfolioGrid.innerHTML = content.portfolio.projects
+        .map(project => {
+          const thumbEl = project.thumbnail
+            ? `<img class="portfolio-card__thumb" src="${project.thumbnail}" alt="${project.title}" loading="lazy" />`
+            : `<div class="portfolio-card__thumb-placeholder">🎞️</div>`;
+          return `
+            <article class="portfolio-card" role="button" tabindex="0" data-project-id="${project.id}" aria-label="${ariaPrefix} ${project.title}">
+              <div class="portfolio-card__thumb-wrap">
+                ${thumbEl}
+                <div class="portfolio-card__overlay">
+                  <h3 class="portfolio-card__title">${project.title}</h3>
+                </div>
+                <span class="portfolio-card__hint" aria-hidden="true">↗</span>
               </div>
-              <span class="portfolio-card__hint" aria-hidden="true">↗</span>
-            </div>
-          </article>
-        `;
-      }).join('');
+            </article>
+          `;
+        }).join('');
 
-    initPortfolioModal(portfolioGrid, content.portfolio.projects);
+      initPortfolioModal(portfolioGrid, content.portfolio.projects, content.ui);
+    }
   }
 
 
   /* ----------------------------------------------------------
-     10. CONTACT
+     CONTACT — texte + liens
   ---------------------------------------------------------- */
-  setText('[data-content="contact.intro"]',        content.contact.intro);
-  setText('[data-content="contact.cta"]',          content.contact.cta);
-  setText('[data-content="contact.availability"]', content.contact.availability);
+  function renderContactText(content, lang) {
+    setText('[data-content="contact.intro"]',        content.contact.intro);
+    setText('[data-content="contact.cta"]',          content.contact.cta);
+    setText('[data-content="contact.availability"]', content.contact.availability);
 
-  const linksWrapper = document.querySelector('[data-content="contact.links"]');
-  if (linksWrapper) {
-    linksWrapper.innerHTML = content.contact.links
-      .map(link => {
+    const linksWrapper = document.querySelector('[data-content="contact.links"]');
+    if (linksWrapper) {
+      linksWrapper.innerHTML = content.contact.links.map(link => {
         const iconEl = getContactIcon(link.icon);
         const isExternal = link.icon === 'linkedin' || link.icon === 'instagram';
         return `
@@ -290,25 +347,143 @@
           </a>
         `;
       }).join('');
+    }
+
+    // Divider
+    setText('.contact__divider span', content.ui?.divider);
+
+    // Labels + placeholders du formulaire actif
+    const ui = content.ui?.form;
+    if (ui) {
+      const formId = lang === 'en' ? 'contact-form-en' : 'contact-form-fr';
+      const form   = document.getElementById(formId);
+      if (form) {
+        const setLabel = (forAttr, val) => {
+          const el = form.querySelector(`label[for="${forAttr}"]`);
+          if (el && val) el.textContent = val;
+        };
+        const setAttr = (sel, attr, val) => {
+          const el = form.querySelector(sel);
+          if (el && val) el[attr] = val;
+        };
+        const prefix = lang === 'en' ? 'cf-en' : 'cf-fr';
+        setLabel(`${prefix}-name`,    ui.name);
+        setLabel(`${prefix}-email`,   ui.email);
+        setLabel(`${prefix}-subject`, ui.subject);
+        setLabel(`${prefix}-message`, ui.message);
+        setAttr('input[name="name"]',      'placeholder', ui.namePlaceholder);
+        setAttr('input[name="email"]',     'placeholder', ui.emailPlaceholder);
+        setAttr('input[name="subject"]',   'placeholder', ui.subjectPlaceholder);
+        setAttr('textarea[name="message"]','placeholder', ui.messagePlaceholder);
+        const btn = form.querySelector('.contact-form__submit');
+        if (btn && !btn.disabled) btn.textContent = ui.submit;
+      }
+    }
   }
 
-  initContactForm();
+
+  /* ----------------------------------------------------------
+     TEXTE STATIQUE — nav + titres de section + meta
+  ---------------------------------------------------------- */
+  function renderStaticText(content) {
+    const { nav, sections, meta } = content;
+
+    // Navigation pill
+    if (nav) {
+      const navMap = {
+        '#hero':         nav.home,
+        '#vision':       nav.vision,
+        '#expertise':    nav.expertise,
+        '#softskills':   nav.profile,
+        '#testimonials': nav.testimonials,
+        '#portfolio':    nav.portfolio,
+        '#timeline':     nav.timeline,
+        '#loves':        nav.loves,
+        '#contact':      nav.contact,
+      };
+      Object.entries(navMap).forEach(([href, label]) => {
+        const el = document.querySelector(`#nav-pill a[href="${href}"]`);
+        if (el && label) el.textContent = label;
+      });
+    }
+
+    // Titres de section
+    if (sections) {
+      setText('.section--expertise .section__title',    sections.expertise);
+      setText('.section--softskills .section__title',   sections.softSkills);
+      setText('.section--testimonials .section__title', sections.testimonials);
+      setText('.section--portfolio .section__title',    sections.portfolio);
+      setText('.section--timeline .section__title',     sections.timeline);
+      setText('.section--loves .section__title',        sections.loves);
+    }
+
+    // Balises meta
+    if (meta) {
+      if (meta.title) document.title = meta.title;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc && meta.description) metaDesc.content = meta.description;
+    }
+  }
 
 
   /* ----------------------------------------------------------
-     11. SCROLL REVEAL
+     LANG PILLS — état actif
   ---------------------------------------------------------- */
-  initScrollReveal();
+  function updateLangPills(lang) {
+    document.querySelectorAll('[data-lang]').forEach(btn => {
+      btn.classList.toggle('lang-pill--active', btn.dataset.lang === lang);
+    });
+  }
 
 
   /* ----------------------------------------------------------
-     12. NAVIGATION PILL — Active state
+     FORMULAIRES — affichage selon la langue
   ---------------------------------------------------------- */
-  initNavPill();
+  function showForm(lang) {
+    const formFR = document.getElementById('contact-form-fr');
+    const formEN = document.getElementById('contact-form-en');
+    if (formFR) formFR.style.display = lang === 'fr' ? '' : 'none';
+    if (formEN) formEN.style.display = lang === 'en' ? '' : 'none';
+  }
+
+  function initContactForms() {
+    ['contact-form-fr', 'contact-form-en'].forEach(formId => {
+      const form = document.getElementById(formId);
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        if (!form.dataset.netlify) return;
+        e.preventDefault();
+
+        const lang      = formId.endsWith('-en') ? 'en' : 'fr';
+        const ui        = (lang === 'en' ? contentEN : contentFR).ui?.form || {};
+        const submitBtn = form.querySelector('.contact-form__submit');
+        const successEl = form.querySelector('.contact-form__success');
+
+        submitBtn.disabled    = true;
+        submitBtn.textContent = ui.sending || 'Envoi en cours…';
+
+        try {
+          const formData = new FormData(form);
+          await fetch('/', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body:    new URLSearchParams(formData).toString(),
+          });
+          form.reset();
+          submitBtn.textContent = ui.sent || 'Message envoyé ✓';
+        } catch {
+          if (successEl) successEl.textContent = ui.error || 'Une erreur est survenue.';
+          submitBtn.textContent = ui.submit || 'Envoyer →';
+          submitBtn.disabled    = false;
+        }
+      });
+    });
+  }
 
 
   /* ==========================================================
-     FONCTIONS
+     FONCTIONS INTERACTIVES
   ========================================================== */
 
   /* --- Filtres Expertise --- */
@@ -320,7 +495,6 @@
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         const filter = btn.dataset.filter;
-
         if (active.has(filter)) {
           active.delete(filter);
           btn.classList.remove('active');
@@ -328,7 +502,6 @@
           active.add(filter);
           btn.classList.add('active');
         }
-
         applyFilters();
       });
     });
@@ -336,7 +509,6 @@
     function applyFilters() {
       cards.forEach(card => {
         const categories = JSON.parse(card.dataset.categories || '[]');
-
         if (active.size === 0) {
           card.classList.remove('hidden');
           card.classList.remove('highlighted');
@@ -353,19 +525,15 @@
   /* --- Accordion (un toujours ouvert) --- */
   function initAccordion(container) {
     const items = container.querySelectorAll('.accordion-item');
-
     items.forEach(item => {
       const trigger = item.querySelector('.accordion-item__trigger');
-
       trigger.addEventListener('click', () => {
         const isOpen = item.classList.contains('open');
         if (isOpen) return;
-
         items.forEach(other => {
           other.classList.remove('open');
           other.querySelector('.accordion-item__trigger').setAttribute('aria-expanded', 'false');
         });
-
         item.classList.add('open');
         trigger.setAttribute('aria-expanded', 'true');
       });
@@ -374,7 +542,7 @@
 
 
   /* --- Portfolio — Modale + Carousel --- */
-  function initPortfolioModal(gridEl, projects) {
+  function initPortfolioModal(gridEl, projects, ui) {
     const modal    = document.getElementById('portfolio-modal');
     const backdrop = document.getElementById('portfolio-modal-backdrop');
     const closeBtn = document.getElementById('modal-close');
@@ -382,46 +550,34 @@
 
     if (!modal || !backdrop) return;
 
-    // Map rapide id → projet
     const projectMap = {};
     projects.forEach(p => { projectMap[p.id] = p; });
 
     let lastFocusedCard = null;
 
-    // Ouvrir la modale
     function openModal(projectId) {
       const project = projectMap[projectId];
       if (!project) return;
-
-      modalBody.innerHTML = buildModalContent(project);
+      modalBody.innerHTML = buildModalContent(project, ui);
       modal.classList.add('is-open');
       backdrop.classList.add('is-open');
       document.body.style.overflow = 'hidden';
-
-      // Focus sur le bouton fermer
       closeBtn.focus();
-
-      // Initialiser carousel si nécessaire
       const carouselEl = modalBody.querySelector('.modal-carousel');
-      if (carouselEl) {
-        initCarousel(carouselEl);
-      }
+      if (carouselEl) initCarousel(carouselEl);
     }
 
-    // Fermer la modale
     function closeModal() {
       modal.classList.remove('is-open');
       backdrop.classList.remove('is-open');
       document.body.style.overflow = '';
       modalBody.innerHTML = '';
-
       if (lastFocusedCard) {
         lastFocusedCard.focus();
         lastFocusedCard = null;
       }
     }
 
-    // Clic sur une carte
     gridEl.addEventListener('click', e => {
       const card = e.target.closest('.portfolio-card');
       if (!card) return;
@@ -429,7 +585,6 @@
       openModal(card.dataset.projectId);
     });
 
-    // Clavier sur une carte
     gridEl.addEventListener('keydown', e => {
       if (e.key !== 'Enter' && e.key !== ' ') return;
       const card = e.target.closest('.portfolio-card');
@@ -439,72 +594,41 @@
       openModal(card.dataset.projectId);
     });
 
-    // Fermeture
     closeBtn.addEventListener('click', closeModal);
     backdrop.addEventListener('click', closeModal);
     modal.addEventListener('click', e => {
       if (!e.target.closest('.portfolio-modal__dialog')) closeModal();
     });
-
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
-        closeModal();
-      }
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
     });
   }
 
 
   /* --- Contenu HTML de la modale --- */
-  function buildModalContent(project) {
-    // Image principale ou carousel
+  function buildModalContent(project, ui) {
+    const m = ui?.modal || {};
+    const prevLabel = m.prevImage || 'Image précédente';
+    const nextLabel = m.nextImage || 'Image suivante';
+
     let mediaSection = '';
 
-    if (project.display === 'carousel' && project.gallery?.length) {
+    if ((project.display === 'carousel' || project.display === 'gallery') && project.gallery?.length) {
       const slides = project.gallery
-        .map(src => `
-          <div class="modal-carousel__slide">
-            <img src="${src}" alt="${project.title}" loading="lazy" />
-          </div>
-        `).join('');
-
+        .map(src => `<div class="modal-carousel__slide"><img src="${src}" alt="${project.title}" loading="lazy" /></div>`)
+        .join('');
       const dots = project.gallery
         .map((_, i) => `<button class="modal-carousel__dot${i === 0 ? ' active' : ''}" data-index="${i}" aria-label="Image ${i + 1}"></button>`)
         .join('');
-
       mediaSection = `
         <div class="modal-carousel">
           <div class="modal-carousel__viewport">
             <div class="modal-carousel__track">${slides}</div>
           </div>
           <div class="modal-carousel__controls">
-            <button class="modal-carousel__btn modal-carousel__btn--prev" aria-label="Image précédente">←</button>
+            <button class="modal-carousel__btn modal-carousel__btn--prev" aria-label="${prevLabel}">←</button>
             <div class="modal-carousel__dots">${dots}</div>
-            <button class="modal-carousel__btn modal-carousel__btn--next" aria-label="Image suivante">→</button>
-          </div>
-        </div>
-      `;
-    } else if (project.display === 'gallery' && project.gallery?.length) {
-      // Même layout carousel pour les galeries
-      const slides = project.gallery
-        .map(src => `
-          <div class="modal-carousel__slide">
-            <img src="${src}" alt="${project.title}" loading="lazy" />
-          </div>
-        `).join('');
-
-      const dots = project.gallery
-        .map((_, i) => `<button class="modal-carousel__dot${i === 0 ? ' active' : ''}" data-index="${i}" aria-label="Image ${i + 1}"></button>`)
-        .join('');
-
-      mediaSection = `
-        <div class="modal-carousel">
-          <div class="modal-carousel__viewport">
-            <div class="modal-carousel__track">${slides}</div>
-          </div>
-          <div class="modal-carousel__controls">
-            <button class="modal-carousel__btn modal-carousel__btn--prev" aria-label="Image précédente">←</button>
-            <div class="modal-carousel__dots">${dots}</div>
-            <button class="modal-carousel__btn modal-carousel__btn--next" aria-label="Image suivante">→</button>
+            <button class="modal-carousel__btn modal-carousel__btn--next" aria-label="${nextLabel}">→</button>
           </div>
         </div>
       `;
@@ -512,23 +636,19 @@
       mediaSection = `<img class="modal-project__thumb" src="${project.thumbnail}" alt="${project.title}" />`;
     }
 
-    // Tags
-    const tags = (project.tags || [])
-      .map(t => `<span class="modal-project__tag">${t}</span>`)
-      .join('');
+    const tags = (project.tags || []).map(t => `<span class="modal-project__tag">${t}</span>`).join('');
 
-    // CTA — supporte links[] (tableau) ou link (string unique)
     let cta = '';
     if (project.links?.length) {
       cta = project.links.map(l =>
         `<a class="modal-project__link" href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label} ↗</a>`
       ).join('');
     } else if (project.display === 'link' && project.link) {
-      cta = `<a class="modal-project__link" href="${project.link}" target="_blank" rel="noopener noreferrer">Voir le projet ↗</a>`;
+      cta = `<a class="modal-project__link" href="${project.link}" target="_blank" rel="noopener noreferrer">${m.viewProject || 'Voir le projet ↗'}</a>`;
     } else if (project.display === 'coming-soon') {
-      cta = `<span class="modal-project__badge">⏳ En cours de développement</span>`;
+      cta = `<span class="modal-project__badge">${m.comingSoon || '⏳ En cours de développement'}</span>`;
     } else if (project.linkOnRequest) {
-      cta = `<span class="modal-project__on-request">Lien disponible sur demande</span>`;
+      cta = `<span class="modal-project__on-request">${m.onRequest || 'Lien disponible sur demande'}</span>`;
     }
 
     return `
@@ -544,9 +664,9 @@
 
   /* --- Carousel --- */
   function initCarousel(carouselEl) {
-    const track  = carouselEl.querySelector('.modal-carousel__track');
-    const slides = carouselEl.querySelectorAll('.modal-carousel__slide');
-    const dots   = carouselEl.querySelectorAll('.modal-carousel__dot');
+    const track   = carouselEl.querySelector('.modal-carousel__track');
+    const slides  = carouselEl.querySelectorAll('.modal-carousel__slide');
+    const dots    = carouselEl.querySelectorAll('.modal-carousel__dot');
     const prevBtn = carouselEl.querySelector('.modal-carousel__btn--prev');
     const nextBtn = carouselEl.querySelector('.modal-carousel__btn--next');
 
@@ -571,12 +691,10 @@
 
     prevBtn?.addEventListener('click', () => { stopAutoplay(); goTo(current - 1); });
     nextBtn?.addEventListener('click', () => { stopAutoplay(); goTo(current + 1); });
-
     dots.forEach(dot => {
       dot.addEventListener('click', () => { stopAutoplay(); goTo(Number(dot.dataset.index)); });
     });
 
-    // Swipe tactile
     let startX = 0;
     track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
     track.addEventListener('touchend', e => {
@@ -584,14 +702,13 @@
       if (Math.abs(diff) > 40) { stopAutoplay(); goTo(diff > 0 ? current + 1 : current - 1); }
     });
 
-    // Autoplay — démarre automatiquement, s'arrête dès interaction utilisateur
     autoplayTimer = setInterval(() => {
       if (!userHasInteracted) goTo(current + 1);
     }, 3500);
   }
 
 
-  /* --- Icônes de contact (SVG inline ou emoji) --- */
+  /* --- Icônes de contact (SVG inline) --- */
   function getContactIcon(type) {
     switch (type) {
       case 'linkedin':
@@ -608,46 +725,9 @@
   }
 
 
-  /* --- Formulaire de contact --- */
-  function initContactForm() {
-    const form    = document.getElementById('contact-form');
-    const success = document.getElementById('form-success');
-    if (!form) return;
-
-    form.addEventListener('submit', async (e) => {
-      const submitBtn = form.querySelector('.contact-form__submit');
-
-      if (!form.dataset.netlify) return;
-
-      e.preventDefault();
-
-      submitBtn.disabled    = true;
-      submitBtn.textContent = 'Envoi en cours…';
-
-      try {
-        const formData = new FormData(form);
-        await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(formData).toString(),
-        });
-
-        form.reset();
-        submitBtn.textContent = 'Message envoyé ✓';
-        submitBtn.disabled    = true;
-      } catch {
-        success.textContent   = 'Une erreur est survenue. Réessayez ou écrivez à gael.trefeu@gmail.com';
-        submitBtn.textContent  = 'Envoyer le message →';
-        submitBtn.disabled     = false;
-      }
-    });
-  }
-
-
   /* --- Scroll Reveal --- */
   function initScrollReveal() {
     const elements = document.querySelectorAll('.reveal');
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -656,7 +736,6 @@
         }
       });
     }, { threshold: 0.1 });
-
     elements.forEach(el => observer.observe(el));
   }
 

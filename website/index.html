@@ -43,14 +43,14 @@
         <div class="hero__topbar">
           <p class="hero__badge" data-content="hero.badge"></p>
           <div class="lang-switcher" aria-label="Changer de langue">
-            <span class="lang-pill lang-pill--active" aria-label="Version française (active)">
+            <button type="button" class="lang-pill" data-lang="fr" aria-label="Version française">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="21" height="14" aria-hidden="true">
                 <rect width="10" height="20" fill="#002395"/>
                 <rect x="10" width="10" height="20" fill="#fff"/>
                 <rect x="20" width="10" height="20" fill="#ED2939"/>
               </svg>
-            </span>
-            <a href="/en/" class="lang-pill" aria-label="Switch to English version">
+            </button>
+            <button type="button" class="lang-pill" data-lang="en" aria-label="Switch to English">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="21" height="14" aria-hidden="true">
                 <rect width="60" height="30" fill="#012169"/>
                 <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="8"/>
@@ -58,7 +58,7 @@
                 <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/>
                 <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/>
               </svg>
-            </a>
+            </button>
           </div>
         </div>
         <h1 class="hero__title" data-content="hero.title"></h1>
@@ -234,75 +234,75 @@
         <span>Ou envoyez-moi un message directement</span>
       </div>
 
-      <!-- Formulaire de contact (Netlify Forms) -->
+      <!-- Formulaire FR (Netlify Forms) -->
       <form
         name="contact"
         method="POST"
         data-netlify="true"
         netlify-honeypot="bot-field"
         class="contact-form"
-        id="contact-form"
+        id="contact-form-fr"
       >
-        <!-- Champ honeypot anti-spam (caché) -->
         <input type="hidden" name="form-name" value="contact" />
         <p class="contact-form__honeypot" aria-hidden="true">
           <label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
         </p>
-
         <div class="contact-form__row">
           <div class="contact-form__field">
-            <label class="contact-form__label" for="cf-name">Nom</label>
-            <input
-              class="contact-form__input"
-              type="text"
-              id="cf-name"
-              name="name"
-              placeholder="Votre nom"
-              required
-            />
+            <label class="contact-form__label" for="cf-fr-name">Nom</label>
+            <input class="contact-form__input" type="text" id="cf-fr-name" name="name" placeholder="Votre nom" required />
           </div>
           <div class="contact-form__field">
-            <label class="contact-form__label" for="cf-email">Email</label>
-            <input
-              class="contact-form__input"
-              type="email"
-              id="cf-email"
-              name="email"
-              placeholder="votre@email.com"
-              required
-            />
+            <label class="contact-form__label" for="cf-fr-email">Email</label>
+            <input class="contact-form__input" type="email" id="cf-fr-email" name="email" placeholder="votre@email.com" required />
           </div>
         </div>
-
         <div class="contact-form__field">
-          <label class="contact-form__label" for="cf-subject">Sujet</label>
-          <input
-            class="contact-form__input"
-            type="text"
-            id="cf-subject"
-            name="subject"
-            placeholder="Objet de votre message"
-          />
+          <label class="contact-form__label" for="cf-fr-subject">Sujet</label>
+          <input class="contact-form__input" type="text" id="cf-fr-subject" name="subject" placeholder="Objet de votre message" />
         </div>
-
         <div class="contact-form__field">
-          <label class="contact-form__label" for="cf-message">Message</label>
-          <textarea
-            class="contact-form__input contact-form__textarea"
-            id="cf-message"
-            name="message"
-            rows="5"
-            placeholder="Votre message..."
-            required
-          ></textarea>
+          <label class="contact-form__label" for="cf-fr-message">Message</label>
+          <textarea class="contact-form__input contact-form__textarea" id="cf-fr-message" name="message" rows="5" placeholder="Votre message..." required></textarea>
         </div>
+        <button class="contact-form__submit" type="submit">Envoyer le message →</button>
+        <p class="contact-form__success" aria-live="polite"></p>
+      </form>
 
-        <button class="contact-form__submit" type="submit">
-          Envoyer le message →
-        </button>
-
-        <!-- Message de confirmation (affiché après envoi JS) -->
-        <p class="contact-form__success" id="form-success" aria-live="polite"></p>
+      <!-- Formulaire EN (Netlify Forms — détecté au build, masqué par défaut) -->
+      <form
+        name="contact-en"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="contact-form"
+        id="contact-form-en"
+        style="display:none"
+      >
+        <input type="hidden" name="form-name" value="contact-en" />
+        <p class="contact-form__honeypot" aria-hidden="true">
+          <label>Do not fill: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        <div class="contact-form__row">
+          <div class="contact-form__field">
+            <label class="contact-form__label" for="cf-en-name">Name</label>
+            <input class="contact-form__input" type="text" id="cf-en-name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="contact-form__field">
+            <label class="contact-form__label" for="cf-en-email">Email</label>
+            <input class="contact-form__input" type="email" id="cf-en-email" name="email" placeholder="your@email.com" required />
+          </div>
+        </div>
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="cf-en-subject">Subject</label>
+          <input class="contact-form__input" type="text" id="cf-en-subject" name="subject" placeholder="Subject of your message" />
+        </div>
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="cf-en-message">Message</label>
+          <textarea class="contact-form__input contact-form__textarea" id="cf-en-message" name="message" rows="5" placeholder="Your message..." required></textarea>
+        </div>
+        <button class="contact-form__submit" type="submit">Send message →</button>
+        <p class="contact-form__success" aria-live="polite"></p>
       </form>
 
     </div>

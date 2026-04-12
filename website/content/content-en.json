@@ -328,5 +328,56 @@
         "row": 2
       }
     ]
+  },
+
+  "nav": {
+    "home": "Home",
+    "vision": "Vision",
+    "expertise": "Expertise",
+    "profile": "Profile",
+    "testimonials": "Reviews",
+    "portfolio": "Portfolio",
+    "timeline": "Background",
+    "loves": "What I love",
+    "contact": "Contact"
+  },
+
+  "sections": {
+    "expertise": "Hybrid skills 🛠️",
+    "softSkills": "The human behind the CV",
+    "testimonials": "They say it better than I do ✍️",
+    "portfolio": "A selection of projects 🎬",
+    "timeline": "Where I come from 📍",
+    "loves": "What I 💛 about this work"
+  },
+
+  "meta": {
+    "title": "Gaël Tréfeu — Production & Coordination",
+    "description": "Gaël Tréfeu — Audiovisual production lead & project coordination. Montréal."
+  },
+
+  "ui": {
+    "divider": "Or send me a message directly",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "your@email.com",
+      "subjectPlaceholder": "Subject of your message",
+      "messagePlaceholder": "Your message...",
+      "submit": "Send message →",
+      "sending": "Sending…",
+      "sent": "Message sent ✓",
+      "error": "Something went wrong. Try again or email gael.trefeu@gmail.com"
+    },
+    "modal": {
+      "viewProject": "View project ↗",
+      "comingSoon": "⏳ In development",
+      "onRequest": "Link available on request",
+      "prevImage": "Previous image",
+      "nextImage": "Next image"
+    }
   }
 }

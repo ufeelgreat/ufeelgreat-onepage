@@ -328,5 +328,56 @@
         "row": 2
       }
     ]
+  },
+
+  "nav": {
+    "home": "Accueil",
+    "vision": "Vision",
+    "expertise": "Expertise",
+    "profile": "Profil",
+    "testimonials": "Avis",
+    "portfolio": "Portfolio",
+    "timeline": "Parcours",
+    "loves": "Ce que j'aime",
+    "contact": "Contact"
+  },
+
+  "sections": {
+    "expertise": "Talents hybrides 🛠️",
+    "softSkills": "L'humain derrière le CV",
+    "testimonials": "Ils en parlent mieux que moi ✍️",
+    "portfolio": "Une sélection de projets 🎬",
+    "timeline": "D'où je viens 📍",
+    "loves": "Ce que j'💛 dans ces métiers"
+  },
+
+  "meta": {
+    "title": "Gaël Tréfeu — Production & Coordination",
+    "description": "Gaël Tréfeu — Chef de production audiovisuelle & coordination d'équipes. Montréal."
+  },
+
+  "ui": {
+    "divider": "Ou envoyez-moi un message directement",
+    "form": {
+      "name": "Nom",
+      "email": "Email",
+      "subject": "Sujet",
+      "message": "Message",
+      "namePlaceholder": "Votre nom",
+      "emailPlaceholder": "votre@email.com",
+      "subjectPlaceholder": "Objet de votre message",
+      "messagePlaceholder": "Votre message...",
+      "submit": "Envoyer le message →",
+      "sending": "Envoi en cours…",
+      "sent": "Message envoyé ✓",
+      "error": "Une erreur est survenue. Réessayez ou écrivez à gael.trefeu@gmail.com"
+    },
+    "modal": {
+      "viewProject": "Voir le projet ↗",
+      "comingSoon": "⏳ En cours de développement",
+      "onRequest": "Lien disponible sur demande",
+      "prevImage": "Image précédente",
+      "nextImage": "Image suivante"
+    }
   }
 }
