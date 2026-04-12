@@ -177,9 +177,25 @@ ufeelgreat-onepage/
 - [x] Bullet hero mobile : fix alignement (flex-start sur mobile, center sur desktop)
 - [x] Expertise : 3 nouvelles cartes (Production événementielle, Réalisation en direct, Orchestration de LLMs)
 
-### Phase 5 — À venir
+### Phase 5 — Version anglaise & corrections (2026-04-12) ✓
+- [x] Version anglaise `/en` : site complet + content-en.json + i18n dans script.js
+- [x] CVs anglais : cv1.html (Project Coordinator), cv2.html (Production Coordinator), cv3.html (Digital & AI Project Manager)
+- [x] Architecture fichiers `website/en/` — réutilise style.css et script.js existants
+- [x] Modale portfolio : fermeture au clic en dehors du dialog
+- [x] Bullets hero mobile : alignement corrigé (margin-top 0.6rem sur ::before)
+- [x] Icône accordion : centrage corrigé (padding-bottom: 2px)
+- [x] Avatar hero : path dynamique via content.hero.avatar (fix /en/)
+
+### Architecture i18n
+- `script.js` détecte `data-content-src` sur `<html>` → charge le bon JSON
+- `website/content/content.json` → FR (chemins relatifs)
+- `website/content/content-en.json` → EN (chemins absolus `/assets/...`)
+- `website/en/index.html` → `data-content-src="../content/content-en.json"`
+- Formulaire EN : `name="contact-en"` (séparé du formulaire FR dans Netlify)
+
+### Phase 6 — À venir
 - [ ] Optimisation images (WebP, compression)
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.png)
-- [ ] Activer notifications email formulaire dans dashboard Netlify
+- [ ] Activer notifications email formulaires (FR + EN) dans dashboard Netlify
 - [ ] Deploy domaine custom
 - [ ] Vérification rendu mobile complet (375px + 768px)
