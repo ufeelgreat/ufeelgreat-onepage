@@ -89,8 +89,8 @@
 
   // Image hero : avatar grand format uniquement
   const heroImages = document.querySelector('[data-content="hero.images"]');
-  if (heroImages) {
-    heroImages.innerHTML = `<img src="assets/images/profile/avatar-grand-gael-trefeu.png" alt="Gaël Tréfeu" loading="eager" />`;
+  if (heroImages && content.hero.avatar) {
+    heroImages.innerHTML = `<img src="${content.hero.avatar}" alt="Gaël Tréfeu" loading="eager" />`;
   }
 
 
@@ -442,6 +442,9 @@
     // Fermeture
     closeBtn.addEventListener('click', closeModal);
     backdrop.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => {
+      if (!e.target.closest('.portfolio-modal__dialog')) closeModal();
+    });
 
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && modal.classList.contains('is-open')) {

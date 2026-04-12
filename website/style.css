@@ -272,6 +272,7 @@ mark {
   border-radius: 50%;
   background: var(--gradient-accent);
   flex-shrink: 0;
+  margin-top: 0.3rem;
 }
 
 /* Image unique Hero (avatar) */
@@ -536,6 +537,7 @@ mark {
   color: var(--color-text-muted);
   font-size: 1.1rem;
   line-height: 1;
+  padding-bottom: 2px;
   transition: transform var(--transition-base), border-color var(--transition-base), color var(--transition-base);
 }
 
@@ -1427,6 +1429,10 @@ mark {
 
   .hero__highlights li {
     align-items: center;
+  }
+
+  .hero__highlights li::before {
+    margin-top: 0;
   }
 
   .expertise__grid { grid-template-columns: repeat(2, 1fr); }
