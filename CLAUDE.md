@@ -271,7 +271,12 @@ ufeelgreat-onepage/
 - [x] "Ce que j'aime" items 1 et 3 réécrits (défi/challenge + solutionneur)
 - [x] Ponctuation : retrait systématique des tirets longs (—) dans Snake, timeline, loves
 
-### Phase 12 — À venir
+### Phase 12 — Corrections & UX (2026-04-13) ✓
+- [x] Expertise : filtres réordonnés → Coordination & management en premier
+- [x] Expertise : cartes Production audiovisuelle — inversion Réalisation en direct / Production événementielle
+- [x] Audio témoignages : fix mobile iOS — player `<audio>` partagé (remplace `new Audio()` dynamique)
+
+### Phase 13 — À venir
 - [ ] Optimisation images (WebP, compression)
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.png)
 - [ ] Activer notifications email formulaires (FR + EN) dans dashboard Netlify
