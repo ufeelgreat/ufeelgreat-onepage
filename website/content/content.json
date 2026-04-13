@@ -30,8 +30,8 @@
   "expertise": {
     "intro": "Une double expérience technique & opérationnelle. Cliquez sur les cartes pour explorer chaque thématique.",
     "filters": [
-      "Production audiovisuelle",
       "Coordination & management",
+      "Production audiovisuelle",
       "Outils & méthodes"
     ],
     "cards": [
@@ -91,14 +91,14 @@
         "categories": ["Coordination & management"]
       },
       {
-        "title": "🎪 Production événementielle",
-        "body": "Gestion de projets terrain : coordination logistique, équipes, prestataires. L'imprévu fait partie du plan.",
-        "categories": ["Production audiovisuelle", "Coordination & management"]
-      },
-      {
         "title": "📡 Réalisation en direct",
         "body": "Régie, OBS, multi-caméras : j'orchestre les lives de bout en bout — du setup technique au déroulé en temps réel.",
         "categories": ["Production audiovisuelle"]
+      },
+      {
+        "title": "🎪 Production événementielle",
+        "body": "Gestion de projets terrain : coordination logistique, équipes, prestataires. L'imprévu fait partie du plan.",
+        "categories": ["Production audiovisuelle", "Coordination & management"]
       },
       {
         "title": "🧠 Orchestration de LLMs",

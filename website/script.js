@@ -88,6 +88,9 @@
   let currentLang = (urlLang === 'en' || (!urlLang && savedLang === 'en')) ? 'en' : 'fr';
 
   // Contrôleur audio global — déclaré ici pour être accessible avant applyContent()
+  // Un seul élément <audio> persistant pour compatibilité mobile (iOS bloque new Audio() dynamiques)
+  const sharedPlayer = document.createElement('audio');
+  sharedPlayer.preload = 'auto';
   const audioCtrl = { player: null, btn: null, quoteEl: null, karaokeBlocks: null, timeupdateHandler: null };
 
 
@@ -306,7 +309,8 @@
     audioCtrl.karaokeBlocks = null;
     if (audioCtrl.player) {
       audioCtrl.player.pause();
-      audioCtrl.player.currentTime = 0;
+      audioCtrl.player.removeEventListener('ended', stopTestimonialAudio);
+      audioCtrl.player.removeEventListener('error', stopTestimonialAudio);
       audioCtrl.player = null;
     }
     if (audioCtrl.btn) {
@@ -368,7 +372,10 @@
         const lang = document.documentElement.lang || 'fr';
         const src  = lang === 'en' ? btn.dataset.audioEn : btn.dataset.audioFr;
         if (!src) return;
-        const player = new Audio(src);
+        // Réutiliser le player partagé (compatibilité mobile iOS)
+        sharedPlayer.src = src;
+        sharedPlayer.currentTime = 0;
+        const player = sharedPlayer;
         audioCtrl.player = player;
         audioCtrl.btn    = btn;
         btn.classList.add('playing');
@@ -377,8 +384,8 @@
           .forEach(b => { if (b !== btn) b.disabled = true; });
         player.volume = parseFloat(btn.dataset.volume) || 1;
         player.play();
-        player.addEventListener('ended',  stopTestimonialAudio);
-        player.addEventListener('error',  stopTestimonialAudio);
+        player.addEventListener('ended',  stopTestimonialAudio, { once: true });
+        player.addEventListener('error',  stopTestimonialAudio, { once: true });
 
         // Karaoké — blocs définis dans content.json
         const blocks  = btn._karaokeBlocks;
