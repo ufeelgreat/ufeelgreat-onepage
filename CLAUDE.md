@@ -276,7 +276,18 @@ ufeelgreat-onepage/
 - [x] Expertise : cartes Production audiovisuelle — inversion Réalisation en direct / Production événementielle
 - [x] Audio témoignages : fix mobile iOS — player `<audio>` partagé (remplace `new Audio()` dynamique)
 
-### Phase 13 — À venir
+### Phase 13 — Corrections production (2026-04-13) ✓
+- [x] Audio témoignages : sharedPlayer ajouté au DOM (`display:none`) + `load()` avant `play()` (compat iOS Safari)
+- [x] Audio témoignages : fichiers MP3 et JSON timestamps Whisper ajoutés au dépôt (manquaient sur GitHub)
+- [x] Accordion "L'humain derrière le CV" : retrait des cercles +/× (`accordion-item__icon` supprimé JS + CSS)
+- [x] Ancre URL `#contact` : scroll post-injection via `setTimeout(100ms)` après `applyContent()` (sections vides au chargement initial)
+- [x] Carrousel "Ce que j'aime" : fix alignement mobile
+  - `goTo()` utilise `slide.offsetTop` au lieu de `index × mask.offsetHeight`
+  - `equalizeSlideHeights()` : toutes les slides adoptent la hauteur de la plus grande + masque adapté
+  - Listener `resize` pour recalcul si orientation change
+  - Hauteurs fixes CSS retirées (gérées dynamiquement)
+
+### Phase 14 — À venir
 - [ ] Optimisation images (WebP, compression)
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.png)
 - [ ] Activer notifications email formulaires (FR + EN) dans dashboard Netlify
