@@ -994,10 +994,8 @@ mark {
   border-color: var(--color-text-muted);
 }
 
-/* Mobile : hauteur adaptée pour textes plus longs */
+/* Mobile */
 @media (max-width: 767px) {
-  .loves__mask { height: 180px; }
-  .loves__slide { min-height: 180px; }
   .loves__emoji { font-size: 1.8rem; width: 2.5rem; }
 }
 

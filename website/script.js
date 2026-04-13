@@ -507,14 +507,23 @@
     let current = 0;
     let autoplayTimer = null;
 
+    // Égaliser toutes les slides à la hauteur de la plus grande, puis adapter le masque
+    function equalizeSlideHeights() {
+      slides.forEach(s => { s.style.height = ''; });
+      const maxH = Math.max(...Array.from(slides).map(s => s.offsetHeight));
+      slides.forEach(s => { s.style.height = maxH + 'px'; });
+      mask.style.height = maxH + 'px';
+    }
+    equalizeSlideHeights();
+    window.addEventListener('resize', equalizeSlideHeights, { passive: true });
+
     function goTo(index) {
       slides[current].classList.remove('loves__slide--active');
       dots[current].classList.remove('loves__dot--active');
       current = ((index % total) + total) % total;
       slides[current].classList.add('loves__slide--active');
       dots[current].classList.add('loves__dot--active');
-      const slideH = mask.offsetHeight;
-      track.style.transform = `translateY(-${current * slideH}px)`;
+      track.style.transform = `translateY(-${slides[current].offsetTop}px)`;
     }
 
     function startAutoplay() {
