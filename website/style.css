@@ -662,44 +662,6 @@ mark {
   color: var(--color-text-muted);
 }
 
-.accordion-item__icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 0;
-  position: relative;
-  margin-top: 0.15rem;
-  transition: transform var(--transition-base), border-color var(--transition-base), color var(--transition-base);
-}
-
-.accordion-item__icon::before,
-.accordion-item__icon::after {
-  content: '';
-  position: absolute;
-  background: currentColor;
-  border-radius: 1px;
-}
-
-.accordion-item__icon::before {
-  width: 10px;
-  height: 1.5px;
-}
-
-.accordion-item__icon::after {
-  width: 1.5px;
-  height: 10px;
-}
-
-.accordion-item.open .accordion-item__icon {
-  transform: rotate(45deg);
-  border-color: var(--color-coral);
-  color: var(--color-coral);
-}
 
 
 /* ------------------------------------------------------------

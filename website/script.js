@@ -91,6 +91,8 @@
   // Un seul élément <audio> persistant pour compatibilité mobile (iOS bloque new Audio() dynamiques)
   const sharedPlayer = document.createElement('audio');
   sharedPlayer.preload = 'auto';
+  sharedPlayer.style.display = 'none';
+  document.body.appendChild(sharedPlayer);
   const audioCtrl = { player: null, btn: null, quoteEl: null, karaokeBlocks: null, timeupdateHandler: null };
 
 
@@ -99,6 +101,14 @@
   ---------------------------------------------------------- */
   applyContent(currentLang === 'en' ? contentEN : contentFR, currentLang);
   document.documentElement.lang = currentLang;
+
+  // Scroll vers l'ancre initiale après injection du contenu (les sections sont vides avant ce point)
+  if (location.hash) {
+    setTimeout(() => {
+      const target = document.querySelector(location.hash);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  }
 
 
   /* ----------------------------------------------------------
@@ -283,7 +293,6 @@
                 <p class="accordion-item__label">${item.label}</p>
                 <p class="accordion-item__text">${item.extra}</p>
               </div>
-              <span class="accordion-item__icon" aria-hidden="true">+</span>
             </button>
           </div>
         `).join('');
@@ -374,7 +383,7 @@
         if (!src) return;
         // Réutiliser le player partagé (compatibilité mobile iOS)
         sharedPlayer.src = src;
-        sharedPlayer.currentTime = 0;
+        sharedPlayer.load();
         const player = sharedPlayer;
         audioCtrl.player = player;
         audioCtrl.btn    = btn;
@@ -383,7 +392,7 @@
         container.querySelectorAll('.testimonial-card__audio-btn')
           .forEach(b => { if (b !== btn) b.disabled = true; });
         player.volume = parseFloat(btn.dataset.volume) || 1;
-        player.play();
+        player.play().catch(() => {});
         player.addEventListener('ended',  stopTestimonialAudio, { once: true });
         player.addEventListener('error',  stopTestimonialAudio, { once: true });
 
