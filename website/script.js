@@ -60,6 +60,25 @@
     );
   }
 
+  // Karaoké — découpe la citation en blocs <span> alignés sur les timestamps
+  // Fallback sur boldFirstSentence si aucun bloc n'est défini
+  function wrapQuoteBlocks(quote, blocks) {
+    if (!blocks || !blocks.length) return boldFirstSentence(quote);
+    const firstDotIdx = quote.search(/[.!?]/);
+    let result = '';
+    let pos = 0;
+    for (let i = 0; i < blocks.length; i++) {
+      const idx = quote.indexOf(blocks[i].text, pos);
+      if (idx === -1) continue;
+      if (idx > pos) result += quote.substring(pos, idx);
+      const isBold = firstDotIdx >= 0 && idx <= firstDotIdx;
+      result += `<span class="kb${isBold ? ' kb--bold' : ''}" data-idx="${i}">${blocks[i].text}</span>`;
+      pos = idx + blocks[i].text.length;
+    }
+    if (pos < quote.length) result += quote.substring(pos);
+    return result;
+  }
+
 
   /* ----------------------------------------------------------
      2. DÉTECTION DE LA LANGUE INITIALE
@@ -67,6 +86,9 @@
   const urlLang   = new URLSearchParams(location.search).get('lang');
   const savedLang = localStorage.getItem('lang');
   let currentLang = (urlLang === 'en' || (!urlLang && savedLang === 'en')) ? 'en' : 'fr';
+
+  // Contrôleur audio global — déclaré ici pour être accessible avant applyContent()
+  const audioCtrl = { player: null, btn: null, quoteEl: null, karaokeBlocks: null, timeupdateHandler: null };
 
 
   /* ----------------------------------------------------------
@@ -114,6 +136,7 @@
   ========================================================== */
 
   function applyContent(content, lang) {
+    stopTestimonialAudio();
     renderHero(content, lang);
     renderVision(content);
     renderExpertise(content);
@@ -183,19 +206,60 @@
     const gridEl    = document.querySelector('[data-content="expertise.cards"]');
 
     if (filtersEl && gridEl) {
-      filtersEl.innerHTML = content.expertise.filters
-        .map(f => `<button class="filter-btn" data-filter="${f}">${f}</button>`)
-        .join('');
+      /* Plus de boutons filtre — on cache le conteneur */
+      filtersEl.style.display = 'none';
 
-      gridEl.innerHTML = content.expertise.cards
-        .map(card => `
-          <article class="expertise-card" data-categories='${JSON.stringify(card.categories)}'>
-            <h3 class="expertise-card__title">${card.title}</h3>
-            <p class="expertise-card__body">${card.body}</p>
-          </article>
-        `).join('');
+      /* Construire les 4 piles */
+      const filters = content.expertise.filters;
+      const cards   = content.expertise.cards;
 
-      initFilters(filtersEl, gridEl);
+      /* Assigner chaque carte à sa 1ère catégorie uniquement */
+      const piles = {};
+      filters.forEach(f => { piles[f] = []; });
+      cards.forEach(card => {
+        const primary = card.categories[0];
+        if (piles[primary]) piles[primary].push(card);
+      });
+
+      gridEl.className = 'expertise__piles';
+      gridEl.innerHTML = filters.map(filter => {
+        const pileCards = piles[filter];
+        const total = pileCards.length;
+        const stackHTML = pileCards.map((card, i) => {
+          const rot = (Math.random() * 10 - 5).toFixed(1);
+          const zIndex = total - i;
+          const isTop = i === 0;
+          return `<article class="expertise-pile__card${isTop ? ' expertise-pile__card--top' : ''}"
+                    style="z-index:${zIndex}; --pile-rot:${rot}deg"
+                    data-pile-index="${i}" data-pile-num="${i + 1}" data-pile-total="${total}">
+              <h3 class="expertise-pile__card__title">${card.title}</h3>
+              <p class="expertise-pile__card__body">${card.body}</p>
+              <span class="expertise-pile__card__num">${i + 1}/${total}</span>
+            </article>`;
+        }).join('');
+
+        return `<div class="expertise-pile">
+          <div class="expertise-pile__stack" aria-label="${filter} — swipe pour parcourir">${stackHTML}</div>
+          <span class="expertise-pile__label">${filter}</span>
+        </div>`;
+      }).join('');
+
+      /* Hauteur unique pour toutes les piles : la carte la plus haute toutes piles confondues */
+      const allStacks = gridEl.querySelectorAll('.expertise-pile__stack');
+      let globalMaxH = 0;
+      allStacks.forEach(stack => {
+        stack.querySelectorAll('.expertise-pile__card').forEach(card => {
+          card.style.position = 'static';
+          card.style.transform = 'none';
+          const h = card.offsetHeight;
+          if (h > globalMaxH) globalMaxH = h;
+          card.style.position = '';
+          card.style.transform = '';
+        });
+      });
+      allStacks.forEach(stack => { stack.style.height = globalMaxH + 'px'; });
+
+      initPileSwipe(gridEl);
     }
   }
 
@@ -211,16 +275,13 @@
       accordionEl.innerHTML = content.softSkills.items
         .map((item, i) => `
           <div class="accordion-item${i === 0 ? ' open' : ''}" role="listitem">
-            <button class="accordion-item__trigger" aria-expanded="${i === 0}" aria-controls="acc-body-${i}">
-              <div>
+            <button class="accordion-item__trigger" aria-expanded="${i === 0}" aria-controls="acc-content-${i}">
+              <div class="accordion-item__content" id="acc-content-${i}">
                 <p class="accordion-item__label">${item.label}</p>
-                <p class="accordion-item__detail-preview">${item.detail}</p>
+                <p class="accordion-item__text">${item.extra}</p>
               </div>
               <span class="accordion-item__icon" aria-hidden="true">+</span>
             </button>
-            <div class="accordion-item__body" id="acc-body-${i}" role="region">
-              <div class="accordion-item__body-inner">${item.extra}</div>
-            </div>
           </div>
         `).join('');
 
@@ -232,30 +293,113 @@
   /* ----------------------------------------------------------
      TÉMOIGNAGES
   ---------------------------------------------------------- */
+
+  function stopTestimonialAudio() {
+    if (audioCtrl.timeupdateHandler && audioCtrl.player) {
+      audioCtrl.player.removeEventListener('timeupdate', audioCtrl.timeupdateHandler);
+    }
+    audioCtrl.timeupdateHandler = null;
+    if (audioCtrl.quoteEl) {
+      audioCtrl.quoteEl.querySelectorAll('.kb--active').forEach(s => s.classList.remove('kb--active'));
+      audioCtrl.quoteEl = null;
+    }
+    audioCtrl.karaokeBlocks = null;
+    if (audioCtrl.player) {
+      audioCtrl.player.pause();
+      audioCtrl.player.currentTime = 0;
+      audioCtrl.player = null;
+    }
+    if (audioCtrl.btn) {
+      audioCtrl.btn.classList.remove('playing');
+      audioCtrl.btn = null;
+    }
+    document.querySelectorAll('.testimonial-card__audio-btn')
+      .forEach(b => { b.disabled = false; });
+  }
+
   function renderTestimonials(content) {
     const container = document.querySelector('[data-content="testimonials"]');
-    if (container) {
-      container.innerHTML = content.testimonials.map(t => {
-        const photoEl = t.photo
-          ? `<img class="testimonial-card__photo" src="${t.photo}" alt="Photo de ${t.author}" loading="lazy" />`
-          : `<div class="testimonial-card__avatar" aria-hidden="true">${initials(t.author)}</div>`;
-        return `
-          <article class="testimonial-card">
-            <div class="testimonial-card__header">
-              <span class="testimonial-card__quotemark" aria-hidden="true">"</span>
-              <div class="testimonial-card__author-row">
-                ${photoEl}
-                <div>
-                  <p class="testimonial-card__author">${t.author}</p>
-                  <p class="testimonial-card__title-label">${t.title}</p>
-                </div>
+    if (!container) return;
+
+    // Icône speaker avec 3 ondes — overflow visible pour que les arcs ne soient pas coupés
+    const speakerSVG = `
+      <svg class="audio-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" overflow="visible" aria-hidden="true">
+        <path d="M3 9v6h4l5 5V4L7 9H3z"/>
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M15.5 8.5a5 5 0 0 1 0 7"/>
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M18 6a9 9 0 0 1 0 12"/>
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M20.5 3.5a13 13 0 0 1 0 17"/>
+      </svg>`;
+
+    container.innerHTML = content.testimonials.map(t => {
+      const photoEl = t.photo
+        ? `<img class="testimonial-card__photo" src="${t.photo}" alt="Photo de ${t.author}" loading="lazy" />`
+        : `<div class="testimonial-card__avatar" aria-hidden="true">${initials(t.author)}</div>`;
+      const audioBtn = (t.audioFR || t.audioEN)
+        ? `<button class="testimonial-card__audio-btn" data-audio-fr="${t.audioFR || ''}" data-audio-en="${t.audioEN || ''}" data-volume="${t.volume ?? 1}" aria-label="Écouter le témoignage">${speakerSVG}</button>`
+        : '';
+      return `
+        <article class="testimonial-card">
+          <div class="testimonial-card__header">
+            <span class="testimonial-card__quotemark" aria-hidden="true">"</span>
+            <div class="testimonial-card__author-row">
+              ${photoEl}
+              <div>
+                <p class="testimonial-card__author">${t.author}</p>
+                <p class="testimonial-card__title-label">${t.title}</p>
               </div>
             </div>
-            <blockquote class="testimonial-card__quote">${boldFirstSentence(t.quote)}</blockquote>
-          </article>
-        `;
-      }).join('');
-    }
+            ${audioBtn}
+          </div>
+          <blockquote class="testimonial-card__quote">${wrapQuoteBlocks(t.quote, t.karaoke)}</blockquote>
+        </article>
+      `;
+    }).join('');
+
+    // Attacher les handlers audio
+    // Stocker les blocs karaoké sur chaque bouton pour accès rapide
+    const allBtns = container.querySelectorAll('.testimonial-card__audio-btn');
+    const testimonials = content.testimonials.filter(t => t.audioFR || t.audioEN);
+    allBtns.forEach((btn, i) => {
+      btn._karaokeBlocks = testimonials[i]?.karaoke || null;
+      btn.addEventListener('click', () => {
+        // Toggle : clic sur le bouton actif → stop
+        if (audioCtrl.btn === btn) { stopTestimonialAudio(); return; }
+        stopTestimonialAudio();
+        const lang = document.documentElement.lang || 'fr';
+        const src  = lang === 'en' ? btn.dataset.audioEn : btn.dataset.audioFr;
+        if (!src) return;
+        const player = new Audio(src);
+        audioCtrl.player = player;
+        audioCtrl.btn    = btn;
+        btn.classList.add('playing');
+        // Désactiver les autres boutons pendant la lecture
+        container.querySelectorAll('.testimonial-card__audio-btn')
+          .forEach(b => { if (b !== btn) b.disabled = true; });
+        player.volume = parseFloat(btn.dataset.volume) || 1;
+        player.play();
+        player.addEventListener('ended',  stopTestimonialAudio);
+        player.addEventListener('error',  stopTestimonialAudio);
+
+        // Karaoké — blocs définis dans content.json
+        const blocks  = btn._karaokeBlocks;
+        const card    = btn.closest('.testimonial-card');
+        const quoteEl = card ? card.querySelector('.testimonial-card__quote') : null;
+        if (blocks && quoteEl) {
+          audioCtrl.quoteEl = quoteEl;
+          audioCtrl.karaokeBlocks = blocks;
+          const handler = () => {
+            const t = player.currentTime;
+            quoteEl.querySelectorAll('.kb').forEach(span => {
+              const idx   = parseInt(span.dataset.idx);
+              const block = blocks[idx];
+              span.classList.toggle('kb--active', block && t >= block.start && t < block.end);
+            });
+          };
+          audioCtrl.timeupdateHandler = handler;
+          player.addEventListener('timeupdate', handler);
+        }
+      });
+    });
   }
 
 
@@ -266,6 +410,7 @@
     const timelineList = document.querySelector('[data-content="timeline"]');
     if (timelineList) {
       timelineList.innerHTML = content.timeline.map(item => {
+
         const parallel = item.parallel ? `
           <div class="timeline-item__parallel">
             <p class="timeline-item__parallel-period">${item.parallel.period}</p>
@@ -294,9 +439,94 @@
   function renderLoves(content) {
     setText('[data-content="loves.intro"]', content.loves.intro);
     const lovesList = document.querySelector('[data-content="loves.items"]');
-    if (lovesList) {
-      lovesList.innerHTML = content.loves.items.map(item => `<li>${item}</li>`).join('');
+    if (!lovesList) return;
+
+    const items = content.loves.items;
+    const total = items.length;
+
+    /* Séparer emoji du texte (premier caractère graphème) */
+    function splitEmoji(str) {
+      if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+        const seg = new Intl.Segmenter('fr', { granularity: 'grapheme' });
+        const first = [...seg.segment(str)][0]?.segment || '';
+        return { emoji: first, text: str.slice(first.length).trim() };
+      }
+      const m = str.match(/^(\p{Emoji_Presentation}|\p{Extended_Pictographic})\s*/u);
+      return m ? { emoji: m[1], text: str.slice(m[0].length) } : { emoji: '', text: str };
     }
+
+    /* Structure : carte masque + dots */
+    lovesList.className = 'loves__carousel';
+    lovesList.setAttribute('role', 'region');
+    lovesList.setAttribute('aria-label', 'Carrousel');
+
+    const slidesHTML = items.map((item, i) => {
+      const { emoji, text } = splitEmoji(item);
+      return `<div class="loves__slide${i === 0 ? ' loves__slide--active' : ''}" data-index="${i}">
+        <span class="loves__emoji">${emoji}</span>
+        <div class="loves__separator"></div>
+        <p class="loves__text">${text}</p>
+      </div>`;
+    }).join('');
+
+    const dotsHTML = items.map((_, i) =>
+      `<button class="loves__dot${i === 0 ? ' loves__dot--active' : ''}" data-index="${i}" aria-label="Élément ${i + 1}"></button>`
+    ).join('');
+
+    lovesList.innerHTML = `
+      <div class="loves__mask">
+        <div class="loves__track">${slidesHTML}</div>
+      </div>
+      <div class="loves__dots">${dotsHTML}</div>
+    `;
+
+    initLovesCarousel(lovesList, total);
+  }
+
+  function initLovesCarousel(container, total) {
+    const mask  = container.querySelector('.loves__mask');
+    const track = container.querySelector('.loves__track');
+    const dots  = container.querySelectorAll('.loves__dot');
+    const slides = container.querySelectorAll('.loves__slide');
+    let current = 0;
+    let autoplayTimer = null;
+
+    function goTo(index) {
+      slides[current].classList.remove('loves__slide--active');
+      dots[current].classList.remove('loves__dot--active');
+      current = ((index % total) + total) % total;
+      slides[current].classList.add('loves__slide--active');
+      dots[current].classList.add('loves__dot--active');
+      const slideH = mask.offsetHeight;
+      track.style.transform = `translateY(-${current * slideH}px)`;
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayTimer = setInterval(() => goTo(current + 1), 4000);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) clearInterval(autoplayTimer);
+    }
+
+    /* Clic sur les dots */
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        goTo(parseInt(dot.dataset.index));
+        stopAutoplay();
+        setTimeout(startAutoplay, 6000);
+      });
+    });
+
+    /* Clic sur la carte pour passer au suivant */
+    track.parentElement.addEventListener('click', () => {
+      goTo(current + 1);
+      stopAutoplay();
+      setTimeout(startAutoplay, 6000);
+    });
+
+    startAutoplay();
   }
 
 
@@ -494,45 +724,65 @@
      FONCTIONS INTERACTIVES
   ========================================================== */
 
-  /* --- Filtres Expertise --- */
-  function initFilters(filtersEl, gridEl) {
-    const buttons = filtersEl.querySelectorAll('.filter-btn');
-    const cards   = gridEl.querySelectorAll('.expertise-card');
-    const active  = new Set();
+  /* --- Piles de cartes Expertise (clic pour défiler) --- */
+  function initPileSwipe(container) {
+    const stacks = container.querySelectorAll('.expertise-pile__stack');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filter = btn.dataset.filter;
-        if (active.has(filter)) {
-          active.delete(filter);
-          btn.classList.remove('active');
-        } else {
-          active.add(filter);
-          btn.classList.add('active');
+    stacks.forEach(stack => {
+      const cardEls = () => Array.from(stack.querySelectorAll('.expertise-pile__card'));
+      let animating = false;
+
+      function refreshZIndexes() {
+        const cards = cardEls();
+        const total = cards.length;
+        cards.forEach((card, i) => {
+          card.style.zIndex = total - i;
+          card.classList.toggle('expertise-pile__card--top', i === 0);
+          if (i !== 0) {
+            const rot = (Math.random() * 10 - 5).toFixed(1);
+            card.style.setProperty('--pile-rot', rot + 'deg');
+          }
+        });
+      }
+
+      stack.addEventListener('click', () => {
+        if (animating) return;
+        const top = cardEls().find(c => c.classList.contains('expertise-pile__card--top'));
+        if (!top) return;
+
+        if (reducedMotion) {
+          top.classList.remove('expertise-pile__card--top');
+          stack.appendChild(top);
+          refreshZIndexes();
+          return;
         }
-        applyFilters();
+
+        animating = true;
+        top.style.transition = 'opacity 0.25s ease';
+        top.style.opacity = '0';
+
+        setTimeout(() => {
+          top.style.transition = 'none';
+          top.style.opacity = '1';
+          top.classList.remove('expertise-pile__card--top');
+          stack.appendChild(top);
+          refreshZIndexes();
+          animating = false;
+        }, 260);
       });
     });
-
-    function applyFilters() {
-      cards.forEach(card => {
-        const categories = JSON.parse(card.dataset.categories || '[]');
-        if (active.size === 0) {
-          card.classList.remove('hidden');
-          card.classList.remove('highlighted');
-        } else {
-          const matches = categories.some(c => active.has(c));
-          card.classList.toggle('hidden',      !matches);
-          card.classList.toggle('highlighted',  matches);
-        }
-      });
-    }
   }
 
 
   /* --- Accordion (un toujours ouvert) --- */
   function initAccordion(container) {
     const items = container.querySelectorAll('.accordion-item');
+    /* aria-hidden initial sur les blocs fermés */
+    items.forEach(item => {
+      const content = item.querySelector('.accordion-item__content');
+      if (content) content.setAttribute('aria-hidden', item.classList.contains('open') ? 'false' : 'true');
+    });
     items.forEach(item => {
       const trigger = item.querySelector('.accordion-item__trigger');
       trigger.addEventListener('click', () => {
@@ -541,9 +791,13 @@
         items.forEach(other => {
           other.classList.remove('open');
           other.querySelector('.accordion-item__trigger').setAttribute('aria-expanded', 'false');
+          const otherContent = other.querySelector('.accordion-item__content');
+          if (otherContent) otherContent.setAttribute('aria-hidden', 'true');
         });
         item.classList.add('open');
         trigger.setAttribute('aria-expanded', 'true');
+        const content = item.querySelector('.accordion-item__content');
+        if (content) content.setAttribute('aria-hidden', 'false');
       });
     });
   }
@@ -683,7 +937,6 @@
     let current = 0;
     const total = slides.length;
     let autoplayTimer = null;
-    let userHasInteracted = false;
 
     function goTo(index) {
       current = (index + total) % total;
@@ -692,10 +945,19 @@
     }
 
     function stopAutoplay() {
-      userHasInteracted = true;
-      clearInterval(autoplayTimer);
+      clearTimeout(autoplayTimer);
       autoplayTimer = null;
     }
+
+    // Défilement automatique : 0,75 s avant la 1re transition, puis 1,5 s entre chaque image.
+    // S'arrête définitivement dès qu'un utilisateur interagit avec les flèches ou les dots.
+    function scheduleNext(delay) {
+      autoplayTimer = setTimeout(() => {
+        goTo(current + 1);
+        scheduleNext(1500);
+      }, delay);
+    }
+    scheduleNext(750);
 
     prevBtn?.addEventListener('click', () => { stopAutoplay(); goTo(current - 1); });
     nextBtn?.addEventListener('click', () => { stopAutoplay(); goTo(current + 1); });
@@ -709,10 +971,6 @@
       const diff = startX - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 40) { stopAutoplay(); goTo(diff > 0 ? current + 1 : current - 1); }
     });
-
-    autoplayTimer = setInterval(() => {
-      if (!userHasInteracted) goTo(current + 1);
-    }, 3500);
   }
 
 

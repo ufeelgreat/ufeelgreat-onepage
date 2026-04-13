@@ -4,7 +4,7 @@
     "avatar": "assets/images/profile/avatar-grand-gael-trefeu.png",
     "title": "Enchanté ! Moi c'est Gaël 😎",
     "description": "15 ans à faire que les projets se passent bien. Entre le client qui veut, l'équipe qui produit, et les délais qui n'attendent personne.",
-    "openToWork": "#opentowork · Ouvert aux nouvelles opportunités",
+    "openToWork": "#opentowork · Ouvert aux opportunités",
     "highlights": [
       "le lien entre les idées et leur réalisation",
       "15 ans à livrer ce qui est promis",
@@ -28,12 +28,11 @@
   },
 
   "expertise": {
-    "intro": "Une double expérience technique & opérationnelle. Filtrez par ce qui vous intéresse — ou tout voir d'un coup.",
+    "intro": "Une double expérience technique & opérationnelle. Cliquez sur les cartes pour explorer chaque thématique.",
     "filters": [
       "Production audiovisuelle",
       "Coordination & management",
-      "Outils & méthodes",
-      "Initiatives & projets perso"
+      "Outils & méthodes"
     ],
     "cards": [
       {
@@ -74,7 +73,7 @@
       {
         "title": "🤖 IA générative intégrée",
         "body": "Midjourney, ElevenLabs, Kling, Suno : j'ai déployé des workflows IA dans mon équipe avant que ce soit tendance.",
-        "categories": ["Outils & méthodes", "Initiatives & projets perso"]
+        "categories": ["Outils & méthodes"]
       },
       {
         "title": "📊 PM & collaboration",
@@ -84,12 +83,12 @@
       {
         "title": "💻 Autonomie technique réelle",
         "body": "Je construis mes propres outils : ce site en HTML/CSS/JS vanilla, un jeu web, une app mobile en React. Je ne dépends pas d'un développeur pour comprendre ce qui se passe.",
-        "categories": ["Initiatives & projets perso"]
+        "categories": ["Outils & méthodes"]
       },
       {
         "title": "🎓 Formateur & transmetteur",
         "body": "J'ai conçu et animé des modules pédagogiques en audiovisuel à l'ISCOM Rouen. Expliquer clairement, c'est une compétence que j'utilise encore chaque jour.",
-        "categories": ["Initiatives & projets perso", "Coordination & management"]
+        "categories": ["Coordination & management"]
       },
       {
         "title": "🎪 Production événementielle",
@@ -104,7 +103,7 @@
       {
         "title": "🧠 Orchestration de LLMs",
         "body": "Je sélectionne et combine les modèles selon leurs forces. Pas juste utiliser l'IA — la piloter.",
-        "categories": ["Outils & méthodes", "Initiatives & projets perso"]
+        "categories": ["Outils & méthodes"]
       }
     ]
   },
@@ -140,19 +139,49 @@
       "quote": "Gaël m'a marqué par sa détermination et son sens de l'efficacité. C'est le genre de leader qui anticipe, prépare et optimise. Profondément engagé dans un management éthique, fondé sur le respect des personnes.",
       "author": "Marc-André Daigneault",
       "title": "Tech Lead, Crakmedia",
-      "photo": "assets/images/testimonials/testimonials-marc-andre.png"
+      "photo": "assets/images/testimonials/testimonials-marc-andre.png",
+      "audioFR": "content/marc-andre-FR.mp3",
+      "audioEN": "content/marc-andre-ENG.mp3",
+      "volume": 0.7,
+      "karaoke": [
+        { "text": "Gaël m'a marqué par sa détermination", "start": 0.0, "end": 2.04 },
+        { "text": "et son sens de l'efficacité.", "start": 2.04, "end": 3.70 },
+        { "text": "C'est le genre de leader qui anticipe, prépare et optimise.", "start": 3.94, "end": 7.56 },
+        { "text": "Profondément engagé dans un management éthique,", "start": 7.92, "end": 10.74 },
+        { "text": "fondé sur le respect des personnes.", "start": 10.74, "end": 12.48 }
+      ]
     },
     {
       "quote": "Créatif, méticuleux, ordonné — et il arrive toujours à \"sentir\" le projet. Les clients étaient toujours ravis. Si Gaël revient en France, je signe des deux mains pour l'embaucher à nouveau, voire m'associer avec lui.",
       "author": "Guillaume Garet",
       "title": "Gérant & Producteur, Aktua Prod",
-      "photo": "assets/images/testimonials/testimonials-guillaume.png"
+      "photo": "assets/images/testimonials/testimonials-guillaume.png",
+      "audioFR": "content/guillaume-FR.mp3",
+      "audioEN": "content/guillaume-ENG.mp3",
+      "volume": 0.8,
+      "karaoke": [
+        { "text": "Créatif, méticuleux, ordonné —", "start": 0.0, "end": 2.56 },
+        { "text": "et il arrive toujours à \"sentir\" le projet.", "start": 2.56, "end": 4.84 },
+        { "text": "Les clients étaient toujours ravis.", "start": 5.58, "end": 7.44 },
+        { "text": "Si Gaël revient en France,", "start": 7.90, "end": 9.12 },
+        { "text": "je signe des deux mains pour l'embaucher à nouveau,", "start": 9.56, "end": 11.36 },
+        { "text": "voire m'associer avec lui.", "start": 11.94, "end": 13.06 }
+      ]
     },
     {
       "quote": "Excellente capacité d'adaptation, esprit collaboratif remarquable. Il ne se contente pas de répondre aux attentes : il anticipe les besoins et propose des solutions pertinentes et réfléchies.",
       "author": "Geneviève Émond, CRHA",
       "title": "Directrice Culture & Expérience employé, Crakmedia",
-      "photo": "assets/images/testimonials/testimonials-genevieve.png"
+      "photo": "assets/images/testimonials/testimonials-genevieve.png",
+      "audioFR": "content/genevieve-FR.mp3",
+      "audioEN": "content/genevieve-ENG.mp3",
+      "karaoke": [
+        { "text": "Excellente capacité d'adaptation,", "start": 0.0, "end": 1.76 },
+        { "text": "esprit collaboratif remarquable.", "start": 2.28, "end": 4.06 },
+        { "text": "Il ne se contente pas de répondre aux attentes :", "start": 4.54, "end": 6.56 },
+        { "text": "il anticipe les besoins", "start": 7.04, "end": 8.10 },
+        { "text": "et propose des solutions pertinentes et réfléchies.", "start": 8.10, "end": 11.12 }
+      ]
     }
   ],
 
@@ -167,24 +196,24 @@
       "period": "2018 – 2021",
       "title": "Monteur vidéo · Motion Designer",
       "company": "Les Technologies Seedbox · Montréal",
-      "impact": "Production de contenus longs formats en environnement multicaméra. Premier ancrage dans les environnements digitaux, référent qualité sur certains projets."
+      "impact": "J'ai produit des contenus longs formats en environnement multicaméra. Premier ancrage dans les environnements digitaux, référent qualité sur certains projets."
     },
     {
       "period": "2016 – 2017",
       "title": "Assistant de direction & coordination projets",
       "company": "Aktua Prod · Rouen",
-      "impact": "Appui stratégique au dirigeant, coordination de projets institutionnels, développement commercial. Les clients que j'ai suivis sont restés — et en ont amené d'autres."
+      "impact": "Appui stratégique au dirigeant, coordination de projets institutionnels, développement commercial. Les clients que j'ai suivis sont restés, et en ont amené d'autres."
     },
     {
       "period": "2011 – 2016",
       "title": "Chargé de production",
       "company": "Arcanes Production · Rouen",
-      "impact": "Gestion complète de projets audiovisuels de bout en bout. C'est là que j'ai appris le métier sous toutes ses coutures — du brief client à la facturation, en passant bien entendu par le terrain : tournages, captations lives, événementiels.",
+      "impact": "Gestion complète de projets audiovisuels de bout en bout. C'est là que j'ai appris le métier sous toutes ses coutures, du brief client à la facturation, en passant bien entendu par le terrain : tournages, captations lives, événementiels.",
       "parallel": {
         "period": "2013 – 2016",
         "title": "Intervenant professionnel (formateur)",
         "company": "ISCOM Rouen",
-        "detail": "Modules ponctuels de pré-production audiovisuelle. Projets étudiants réels pour des annonceurs."
+        "detail": "J'ai conçu et animé des modules ponctuels de pré-production audiovisuelle. Projets étudiants réels pour des annonceurs."
       }
     }
   ],
@@ -192,10 +221,10 @@
   "loves": {
     "intro": "Ce qui me donne envie de me lever le matin.",
     "items": [
-      "🎯 Quand un projet flou devient quelque chose de concret — et que tout le monde voit pourquoi ça marche",
+      "🎯 J'ai besoin de défi. Je donne le meilleur quand l'environnement me pousse à apprendre, à résoudre, à sortir du connu. Les zones de confort ne produisent rien de bon, et je n'y suis jamais resté longtemps",
       "⚙️ Le moment où une équipe tourne vraiment : chacun sait ce qu'il fait, ça avance tout seul",
-      "💡 Trouver la solution que personne n'avait vue sans exploser le budget ni le calendrier",
-      "🚀 Les nouveaux outils qui changent ce qu'on peut faire — et les intégrer avant tout le monde"
+      "💡 Me positionner en tant que solutionneur, celui qui arrive avec des idées créatives quand tout le monde est bloqué sur le problème",
+      "🚀 Les nouveaux outils qui changent ce qu'on peut faire, et les intégrer avant tout le monde"
     ]
   },
 
@@ -216,7 +245,7 @@
         "id": "snaaake",
         "title": "Snaaake The Game",
         "subtitle": "Jeu web · Projet perso",
-        "description": "Snake revisité, codé avec Claude en JavaScript vanilla et déployé sur Netlify. Avec leaderboard pour les scores. Un prétexte pour explorer ce qu'on peut construire seul avec de la curiosité et une bonne IA.",
+        "description": "Snake revisité en JavaScript vanilla, codé avec Claude et déployé sur Netlify. Version 4.1 : tutoriel interactif, leaderboard, polish visuel complet. Un vrai projet né d'un simple test, preuve qu'avec de la curiosité et une bonne IA, on peut aller loin.",
         "tags": ["JavaScript", "Web", "Netlify", "Claude"],
         "display": "link",
         "link": "https://ufeelgreat-snake.netlify.app/",
@@ -376,7 +405,7 @@
     "modal": {
       "viewProject": "Voir le projet ↗",
       "comingSoon": "⏳ En cours de développement",
-      "onRequest": "Lien disponible sur demande",
+      "onRequest": "Lien vidéo disponible sur demande",
       "prevImage": "Image précédente",
       "nextImage": "Image suivante"
     }

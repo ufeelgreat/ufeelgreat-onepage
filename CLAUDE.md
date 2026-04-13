@@ -226,7 +226,52 @@ ufeelgreat-onepage/
 - [x] Vitesse et délai de départ décalés par cœur (500–1000 ms)
 - [x] Pill hint "double clic / double tape / double click / double tap" dans l'avatar (FR/EN + desktop/mobile)
 
-### Phase 9 — À venir
+### Phase 9 — Corrections & nouvelles fonctionnalités (2026-04-13) ✓
+- [x] Icône accordion : refonte CSS pur (+ en pseudo-éléments, plus de caractère texte)
+- [x] Padding titre → liste : margin-top var(--space-lg) sur .testimonials__list et .timeline__list
+- [x] Témoignages : bouton haut-parleur (speaker SVG 3 ondes, orienté gauche, 20px)
+  - Mutex audio : un seul son à la fois, autres boutons désactivés pendant lecture
+  - Volumes individuels : Marc-André 70 %, Guillaume 80 %, Geneviève 100 %
+  - Hover → coral ; playing → coral + border coral ; disabled → opacité 25 %
+  - Langue switch → arrêt audio automatique
+  - audioFR / audioEN / volume dans content.json et content-en.json
+- [x] Portfolio : "Lien vidéo disponible sur demande" (FR) / "Video link available on request" (EN)
+- [x] Carousel Prototype IA & Twitch : délai 0,75 s avant 1re transition, puis 1,5 s ; stop définitif sur interaction flèche
+
+### Phase 10 — Karaoké témoignages & finitions (2026-04-13) ✓
+- [x] Effet karaoké sur les citations témoignages
+  - Timestamps générés via Whisper (openai-whisper, modèle base, script local Python)
+  - Découpage en blocs de sens (5 blocs Marc-André, 6 Guillaume, 5 Geneviève) — FR + EN
+  - Blocs définis dans content.json / content-en.json (clé `karaoke` par témoignage)
+  - Highlight coral avec fondu CSS 0.4s (`transition: color 0.4s ease`)
+  - Fallback silencieux si aucun bloc défini
+  - Script Whisper : `tools/whisper_timestamps.py`
+
+### Phase 11 — Refonte UI & contenu (2026-04-13) ✓
+- [x] Gélule OpenToWork : retrait "nouvelles"/"new" (FR + EN) pour mobile
+- [x] Expertise : refonte en 3 piles de cartes cliquables (retrait filtre "Initiatives & projets perso")
+  - Cartes empilées avec rotations légères, clic pour défiler
+  - Gélule lime sous chaque pile avec le nom du thème
+  - Numérotation discrète en bas de chaque carte (ex: 2/5)
+  - Hauteur uniforme calculée sur la carte la plus haute toutes piles confondues
+  - 1 colonne mobile, 3 colonnes desktop (768px+)
+- [x] Accordion "L'humain derrière le CV" : refonte blur
+  - Blocs fermés : gradient coral + blur(4px) sur tout le bloc (titre + texte)
+  - Sous-titres retirés (redondants)
+  - Bloc ouvert : pas de gradient, pas de blur, texte lisible
+- [x] "Ce que j'aime" : carrousel vertical autoplay
+  - 1 carte visible à la fois, défilement vertical (translateY)
+  - Layout par slide : gros emoji à gauche | séparateur vertical | texte à droite
+  - Autoplay 4s, relance 6s après interaction manuelle
+  - 4 dots verticaux coral à droite de la carte
+  - Clic sur carte ou dot pour naviguer
+- [x] Description Snake mise à jour (v4.1, tutoriel, polish visuel)
+- [x] Timeline Seedbox : ajout pronom "je"
+- [x] Timeline AktuaProd : ponctuation corrigée (retrait —)
+- [x] "Ce que j'aime" items 1 et 3 réécrits (défi/challenge + solutionneur)
+- [x] Ponctuation : retrait systématique des tirets longs (—) dans Snake, timeline, loves
+
+### Phase 12 — À venir
 - [ ] Optimisation images (WebP, compression)
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.png)
 - [ ] Activer notifications email formulaires (FR + EN) dans dashboard Netlify
