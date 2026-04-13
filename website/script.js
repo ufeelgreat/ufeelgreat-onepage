@@ -114,7 +114,7 @@
   ========================================================== */
 
   function applyContent(content, lang) {
-    renderHero(content);
+    renderHero(content, lang);
     renderVision(content);
     renderExpertise(content);
     renderSoftSkills(content);
@@ -132,7 +132,7 @@
   /* ----------------------------------------------------------
      HERO
   ---------------------------------------------------------- */
-  function renderHero(content) {
+  function renderHero(content, lang) {
     setText('[data-content="hero.badge"]', content.hero.badge);
     setText('[data-content="hero.description"]', content.hero.description);
     setText('[data-content="hero.openToWork"]', content.hero.openToWork);
@@ -149,7 +149,14 @@
 
     const heroImages = document.querySelector('[data-content="hero.images"]');
     if (heroImages && content.hero.avatar) {
-      heroImages.innerHTML = `<img src="${content.hero.avatar}" alt="Gaël Tréfeu" loading="eager" />`;
+      const isTouch = navigator.maxTouchPoints > 0;
+      const hintText = lang === 'en'
+        ? (isTouch ? 'double tap' : 'double click')
+        : (isTouch ? 'double tape' : 'double clic');
+      heroImages.innerHTML = `
+        <img src="${content.hero.avatar}" alt="Gaël Tréfeu" loading="eager" />
+        <span class="hero__heart-hint">${hintText}</span>
+      `;
     }
   }
 
@@ -759,5 +766,96 @@
 
     sections.forEach(s => observer.observe(s));
   }
+
+
+  /* ----------------------------------------------------------
+     EASTER EGG — Double-clic / Double-tap : explosion de cœurs
+  ---------------------------------------------------------- */
+  function spawnHearts(x, y) {
+    const COUNT = Math.floor(Math.random() * 3) + 3; // 3, 4 ou 5
+    const STEPS = 10;
+
+    for (let i = 0; i < COUNT; i++) {
+      const heart = document.createElement('span');
+      heart.className = 'heart-burst';
+      heart.textContent = '♥';
+      heart.style.left = x + 'px';
+      heart.style.top  = y + 'px';
+
+      // Taille variable : 85–115 % de la taille de base
+      const sizeFactor = 0.85 + Math.random() * 0.30;
+      heart.style.fontSize = (2.4 * sizeFactor).toFixed(2) + 'rem';
+
+      // Couleur : gradient, coral foncé, ou orange clair
+      const colorVariant = Math.floor(Math.random() * 3);
+      if (colorVariant === 0) {
+        heart.style.background = 'linear-gradient(135deg, #FF7163, #FFB347)';
+        heart.style.webkitBackgroundClip = 'text';
+        heart.style.webkitTextFillColor  = 'transparent';
+        heart.style.backgroundClip       = 'text';
+      } else if (colorVariant === 1) {
+        heart.style.color = '#FF7163'; // coral foncé
+      } else {
+        heart.style.color = '#FFB347'; // orange clair
+      }
+
+      const angle    = (i / COUNT) * 360 + Math.random() * 40;
+      const distance = 50 + Math.random() * 60;
+      const rad      = angle * (Math.PI / 180);
+      const tx       = Math.cos(rad) * distance;
+      const ty       = Math.sin(rad) * distance;
+
+      // Point de contrôle Bézier quadratique : perpendiculaire à mi-chemin
+      const curve = (Math.random() - 0.5) * 80;
+      const cpx   = tx / 2 + (-Math.sin(rad)) * curve;
+      const cpy   = ty / 2 + ( Math.cos(rad)) * curve;
+
+      const rotEnd  = (Math.random() - 0.5) * 50; // ±25°
+      const duration = 500 + Math.random() * 500;
+      const delay    = Math.random() * 100;
+
+      // Précalcul de la courbe de Bézier quadratique
+      const keyframes = [];
+      for (let s = 0; s <= STEPS; s++) {
+        const t  = s / STEPS;
+        const mt = 1 - t;
+        const bx = 2 * mt * t * cpx + t * t * tx;
+        const by = 2 * mt * t * cpy + t * t * ty;
+        const scale   = 1 - t * 0.7;
+        const opacity = t < 0.7 ? 1 : 1 - (t - 0.7) / 0.3;
+        const rot     = rotEnd * t;
+        keyframes.push({
+          transform: `translate(${bx}px, ${by}px) scale(${scale}) rotate(${rot}deg)`,
+          opacity
+        });
+      }
+
+      document.body.appendChild(heart);
+      const anim = heart.animate(keyframes, { duration, delay, easing: 'linear', fill: 'forwards' });
+      anim.finished.then(() => heart.remove());
+    }
+  }
+
+  /* Desktop */
+  document.addEventListener('dblclick', e => {
+    spawnHearts(e.clientX, e.clientY);
+  });
+
+  /* Mobile : double-tap manuel (dblclick peu fiable sur touch) */
+  let lastTap = 0, lastTapX = 0, lastTapY = 0;
+  document.addEventListener('touchstart', e => {
+    const now = Date.now();
+    const t   = e.changedTouches[0];
+    const dx  = Math.abs(t.clientX - lastTapX);
+    const dy  = Math.abs(t.clientY - lastTapY);
+    if (now - lastTap < 300 && dx < 30 && dy < 30) {
+      spawnHearts(t.clientX, t.clientY);
+      lastTap = 0;
+    } else {
+      lastTap   = now;
+      lastTapX  = t.clientX;
+      lastTapY  = t.clientY;
+    }
+  }, { passive: true });
 
 })();

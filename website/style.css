@@ -328,6 +328,7 @@ mark {
 /* Image unique Hero (avatar) */
 .hero__images {
   flex-shrink: 0;
+  position: relative;
 }
 
 .hero__images img {
@@ -343,6 +344,25 @@ mark {
 .hero__images img:hover {
   transform: scale(1.02);
   border-color: rgba(255, 113, 99, 0.4);
+}
+
+.hero__heart-hint {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.9rem;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
 }
 
 
@@ -1524,4 +1544,17 @@ a, button, [role="button"], input, textarea, select,
     transform: none;
   }
   .ticker-track { animation: none; }
+}
+
+
+/* ============================================================
+   EASTER EGG — Explosion de cœurs (double-clic / double-tap)
+   ============================================================ */
+.heart-burst {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  line-height: 1;
+  transform-origin: center;
+  user-select: none;
 }

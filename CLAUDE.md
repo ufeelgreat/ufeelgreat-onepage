@@ -211,7 +211,22 @@ ufeelgreat-onepage/
 - Formulaires Netlify : `contact` (FR) et `contact-en` (EN) tous deux dans `index.html`
 - CVs EN (`/en/cv*.html`) : inchangés, accès direct URL
 
-### Phase 7 — À venir
+### Phase 7 — Corrections & finitions (2026-04-12) ✓
+- [x] Badge #opentowork : gélule lime outline sous la description du Hero (FR + EN)
+- [x] Fix injection JS hero.openToWork dans renderHero()
+- [x] Fix chemins images content-en.json : /assets/ → assets/ (relatifs, cohérent avec FR)
+- [x] Favicon : emoji 🙋‍♂️ via SVG data URI (sans fichier image)
+- [x] Titre onglet : "Gaël Tréfeu | Production & Coordination"
+
+### Phase 8 — Easter egg & finitions (2026-04-13) ✓
+- [x] Easter egg double-clic / double-tap : explosion de cœurs depuis le point de clic
+- [x] Trajectoires courbes (Bézier quadratique via Web Animations API)
+- [x] Cœurs : 3–5 aléatoires, taille variable (85–115 %), rotation individuelle
+- [x] Couleurs : gradient accent / coral uni / orange uni (tirage aléatoire)
+- [x] Vitesse et délai de départ décalés par cœur (500–1000 ms)
+- [x] Pill hint "double clic / double tape / double click / double tap" dans l'avatar (FR/EN + desktop/mobile)
+
+### Phase 9 — À venir
 - [ ] Optimisation images (WebP, compression)
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.png)
 - [ ] Activer notifications email formulaires (FR + EN) dans dashboard Netlify
