@@ -188,7 +188,7 @@
       const isTouch = navigator.maxTouchPoints > 0;
       const hintText = lang === 'en'
         ? (isTouch ? 'double tap' : 'double click')
-        : (isTouch ? 'double tape' : 'double clic');
+        : (isTouch ? 'taper deux fois' : 'double clic');
       heroImages.innerHTML = `
         <img src="${content.hero.avatar}" alt="Gaël Tréfeu" loading="eager" />
         <span class="hero__heart-hint">${hintText}</span>
