@@ -314,11 +314,11 @@
       {
         "id": "pemtl",
         "title": "Piknic Electronik App",
-        "subtitle": "Mobile web app · In progress",
-        "description": "A mobile-first app to track the Piknic Electronik Montréal lineup with friends this summer. React + Supabase + Netlify. Currently in development.",
+        "subtitle": "Mobile web app · Personal unofficial project",
+        "description": "Unofficial mobile-first app to track the Piknic Electronik Montréal lineup, share picks with friends, and rate DJs after each show. Friend system, weather forecast, calendar export, trophies. React + Supabase + Netlify. Personal project, not affiliated with Piknic Electronik.",
         "tags": ["React", "Supabase", "Mobile-first"],
-        "display": "coming-soon",
-        "link": null,
+        "display": "link",
+        "link": "https://pemtl.netlify.app",
         "thumbnail": "assets/images/portfolio/portfolio-pemtl.png"
       }
     ]
