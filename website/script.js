@@ -1131,7 +1131,7 @@
     if (!list || !cv) return;
     list.innerHTML = cv.items.map(item => `
       <li class="cv-modal__item">
-        <a class="cv-modal__link" href="${item.href}">
+        <a class="cv-modal__link" href="${item.href}" target="_blank" rel="noopener noreferrer">
           <span class="cv-modal__icon" aria-hidden="true">📄</span>
           <span class="cv-modal__text">
             <span class="cv-modal__label">${item.label}</span>
@@ -1205,11 +1205,5 @@
     }
   }, { passive: true });
 
-  /* Bloque le bounce iOS en bas de page uniquement (laisse le retour haptique en haut) */
-  document.addEventListener('touchmove', e => {
-    const el = document.scrollingElement || document.documentElement;
-    const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
-    if (atBottom) e.preventDefault();
-  }, { passive: false });
 
 })();

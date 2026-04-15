@@ -1779,6 +1779,9 @@ a, button, [role="button"], input, textarea, select,
   background: rgba(255, 255, 255, 0.03);
   color: var(--color-text);
   text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
   transition: background var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
 }
 .cv-modal__link:hover,
