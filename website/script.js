@@ -771,7 +771,7 @@
         });
       }
 
-      stack.addEventListener('click', () => {
+      function advance() {
         if (animating) return;
         const top = cardEls().find(c => c.classList.contains('expertise-pile__card--top'));
         if (!top) return;
@@ -795,7 +795,24 @@
           refreshZIndexes();
           animating = false;
         }, 260);
-      });
+      }
+
+      stack.addEventListener('click', advance);
+
+      /* Auto-démo au premier scroll-in : un avance automatique pour montrer l'interaction */
+      if (!reducedMotion && 'IntersectionObserver' in window) {
+        let demoed = false;
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !demoed) {
+              demoed = true;
+              io.disconnect();
+              setTimeout(advance, 800);
+            }
+          });
+        }, { threshold: 0.6 });
+        io.observe(stack);
+      }
     });
   }
 

@@ -542,30 +542,21 @@ mark {
   will-change: transform, opacity;
 }
 
-@property --pile-angle {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
-
 .expertise-pile__card--top {
   transform: rotate(0deg) !important;
   box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-  border: 2px solid transparent;
-  background:
-    var(--color-surface) padding-box,
-    conic-gradient(
-      from var(--pile-angle),
-      var(--color-coral),
-      var(--color-lime),
-      #FF8C42,
-      var(--color-coral)
-    ) border-box;
-  animation: pile-border-rotate 4s linear infinite;
+  animation: pile-top-pulse 2.6s ease-in-out infinite;
 }
 
-@keyframes pile-border-rotate {
-  to { --pile-angle: 360deg; }
+@keyframes pile-top-pulse {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  50% {
+    transform: rotate(0deg) scale(1.015);
+    box-shadow: 0 6px 28px rgba(255, 113, 99, 0.25);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
