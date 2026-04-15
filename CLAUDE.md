@@ -293,7 +293,7 @@ ufeelgreat-onepage/
 - [x] Preload avatar dans `<head>` avec `fetchpriority="high"` et référence WebP
 - [x] Conversion WebP de 39 images (ticker, profile, hero, portfolio, testimonials) : 17,5 MB → 4,33 MB (-75 %)
 - [x] Scripts Python idempotents : `tools/convert_webp.py` (conversion) + `tools/update_image_refs.py` (maj refs HTML/JSON)
-- [x] Fix overscroll mobile : `overscroll-behavior-y: none` sur html + body (bloque bounce iOS/Android en haut et bas)
+- [x] Fix overscroll mobile : `touchmove` JS bloque le bounce en bas uniquement — le retour haptique iOS en haut est préservé
 - [x] Piles expertise — affordance cliquable : pulse subtil sur carte top (scale 1→1.015 + shadow coral, 2.6s)
   - Tentative abandonnée : liseré conic-gradient animé via `@property --angle` — cassé sur iOS Safari < 16.4 (fond carte invisible)
   - Tentative abandonnée : auto-démo IntersectionObserver au scroll-in — effet perçu comme étrange
