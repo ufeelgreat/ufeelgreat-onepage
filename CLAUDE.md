@@ -307,7 +307,15 @@ ufeelgreat-onepage/
 - [x] QR code `qr-code_onepage.svg` déplacé dans `website/` (dossier Netlify) ; chemin corrigé dans les 6 CVs (../ressources/ → racine)
 - [x] guide.md mis à jour (URLs CVs + mention accès caché)
 
-### Phase 16 — À venir
+### Phase 16 — Fix status bar iOS web app (2026-04-15) ✓
+- [x] `viewport-fit=cover` dans le meta viewport
+- [x] `apple-mobile-web-app-capable: yes` + `apple-mobile-web-app-status-bar-style: black-translucent`
+  → status bar transparente en mode web app iOS (contenu visible dessous)
+- [x] `overscroll-behavior-y: none` sur `html` (supprime le bloc noir au rebond haut)
+- [x] `background-color: var(--color-bg)` sur `html` (cohérence couleur zone overscroll)
+- [x] `padding-top: env(safe-area-inset-top)` sur `body` (contenu non masqué sous la status bar)
+
+### Phase 17 — À venir
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.webp)
 - [ ] Suppression des PNG/JPG originaux (doublons après conversion WebP)
 - [ ] Activer notifications email formulaires (FR + EN) dans dashboard Netlify
