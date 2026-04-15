@@ -79,6 +79,7 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   background-color: var(--color-bg);
+  overscroll-behavior-y: none;
 }
 
 body {
@@ -88,6 +89,7 @@ body {
   color: var(--color-text);
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
+  padding-top: env(safe-area-inset-top);
 }
 
 ul, ol { list-style: none; }
