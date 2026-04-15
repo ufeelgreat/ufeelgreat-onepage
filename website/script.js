@@ -160,6 +160,7 @@
     renderPortfolio(content, lang);
     renderContactText(content, lang);
     renderStaticText(content);
+    renderCvModal(content);
     updateLangPills(lang);
     showForm(lang);
   }
@@ -1120,6 +1121,67 @@
       anim.finished.then(() => heart.remove());
     }
   }
+
+  /* ==========================================================
+     MODALE CACHÉE — CVs (7 clics sur la photo Contact)
+  ========================================================== */
+  function renderCvModal(content) {
+    const list = document.getElementById('cv-modal-list');
+    const cv = content?.ui?.cvModal;
+    if (!list || !cv) return;
+    list.innerHTML = cv.items.map(item => `
+      <li class="cv-modal__item">
+        <a class="cv-modal__link" href="${item.href}" target="_blank" rel="noopener">
+          <span class="cv-modal__icon" aria-hidden="true">📄</span>
+          <span class="cv-modal__text">
+            <span class="cv-modal__label">${item.label}</span>
+            <span class="cv-modal__desc">${item.desc}</span>
+          </span>
+        </a>
+      </li>
+    `).join('');
+  }
+
+  (function initCvModalTrigger() {
+    const modal = document.getElementById('cv-modal');
+    const backdrop = document.getElementById('cv-modal-backdrop');
+    if (!modal || !backdrop) return;
+
+    function openModal() {
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    let clickCount = 0;
+    let resetTimer = null;
+    const REQUIRED_CLICKS = 7;
+    const RESET_DELAY_MS = 1500;
+
+    document.addEventListener('click', e => {
+      const avatar = e.target.closest('.contact__avatar');
+      if (!avatar) return;
+      clickCount += 1;
+      clearTimeout(resetTimer);
+      if (clickCount >= REQUIRED_CLICKS) {
+        clickCount = 0;
+        openModal();
+        return;
+      }
+      resetTimer = setTimeout(() => { clickCount = 0; }, RESET_DELAY_MS);
+    });
+
+    backdrop.addEventListener('click', closeModal);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+  })();
+
 
   /* Desktop */
   document.addEventListener('dblclick', e => {

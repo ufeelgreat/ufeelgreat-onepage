@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>CV3 — Gaël Tréfeu · Chargé de projets digital — coordination &amp; IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+
+    /* ============================================================
+       CV Gaël Tréfeu — Design System v3
+       Fond blanc · Accents coral/orange · Print letter
+       ============================================================ */
+
+    :root {
+      --coral:        #FF7163;
+      --orange:       #FFB347;
+      --ink:          #111111;
+      --ink-mid:      #3a3a3a;
+      --ink-light:    #777777;
+      --border:       #e8e8e8;
+      --coral-bg:     rgba(255, 113, 99, 0.05);
+      --coral-border: rgba(255, 113, 99, 0.38);
+      --font: 'Plus Jakarta Sans', 'Calibri', Arial, sans-serif;
+    }
+
+    @page {
+      size: letter portrait;
+      margin: 1.4cm 1.6cm;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      font-size: 9.5pt;
+      color: var(--ink);
+      background: #ffffff;
+      line-height: 1.55;
+      max-width: 780px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    ul { list-style: disc; padding-left: 1.15rem; }
+    li { margin-bottom: 2px; font-size: 9.5pt; }
+    p  { line-height: 1.6; }
+
+    /* ============================
+       HEADER
+       QR gauche · Info droite
+       ============================ */
+    .cv-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding-bottom: 1.1rem;
+      margin-bottom: 0.1rem;
+      border-bottom: 1.5px solid var(--border);
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .cv-header__qr {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .qr-wrapper {
+      border: 2.5px solid var(--coral);
+      border-radius: 12px;
+      padding: 5px;
+      background: #fff;
+      display: inline-flex;
+    }
+
+    .qr-wrapper img {
+      display: block;
+      width: 90px;
+      height: auto;
+    }
+
+    .qr-url {
+      font-size: 6.5pt;
+      font-weight: 700;
+      color: var(--coral);
+      text-align: center;
+      letter-spacing: 0.2px;
+    }
+
+    .cv-header__info {
+      flex: 1;
+      padding-top: 3px;
+    }
+
+    h1 {
+      font-size: 29pt;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+      line-height: 1.05;
+      margin-bottom: 0.3rem;
+    }
+
+    .name-accent {
+      height: 3px;
+      width: 50px;
+      background: linear-gradient(90deg, var(--coral), var(--orange));
+      border-radius: 2px;
+      margin-bottom: 0.45rem;
+    }
+
+    .cv-subtitle {
+      font-size: 11pt;
+      font-weight: 600;
+      color: var(--ink-mid);
+      margin-bottom: 0.45rem;
+    }
+
+    .cv-contact {
+      font-size: 8pt;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+
+    /* ============================
+       TITRES DE SECTION
+       ============================ */
+    h2 {
+      font-size: 7.5pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: var(--ink);
+      margin: 1.3rem 0 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 3px;
+      background: linear-gradient(135deg, var(--coral), var(--orange));
+      flex-shrink: 0;
+    }
+
+    h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ============================
+       PROFIL
+       ============================ */
+    .profil-text {
+      font-size: 9.5pt;
+      color: var(--ink-mid);
+      line-height: 1.65;
+    }
+
+    /* ============================
+       COMPÉTENCES CLÉS
+       Bloc encadré coral
+       ============================ */
+    .skills-block {
+      border: 1.5px solid var(--coral-border);
+      border-left: 3.5px solid var(--coral);
+      border-radius: 8px;
+      background: var(--coral-bg);
+      padding: 0.7rem 1rem;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .skills-block li {
+      margin-bottom: 4px;
+    }
+
+    /* ============================
+       OUTILS — GRILLE DE CARTES
+       ============================ */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    .tool-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.55rem 0.75rem;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .tool-card__title {
+      font-size: 7pt;
+      font-weight: 800;
+      color: var(--coral);
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      padding-bottom: 4px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tool-card__items {
+      font-size: 8.5pt;
+      color: var(--ink-mid);
+      line-height: 1.55;
+    }
+
+    /* ============================
+       EXPÉRIENCES — TIMELINE
+       ============================ */
+    .timeline {
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 8px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--coral), var(--orange));
+      border-radius: 2px;
+    }
+
+    .exp-block {
+      position: relative;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: 0.75rem;
+    }
+
+    .exp-block:last-child { margin-bottom: 0; }
+
+    .exp-block::before {
+      content: '';
+      position: absolute;
+      left: -19px;
+      top: 5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2.5px solid var(--coral);
+    }
+
+    h3 {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+
+    .exp-meta {
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: var(--coral);
+      margin-bottom: 5px;
+    }
+
+    .exp-meta span {
+      color: var(--ink-light);
+      font-weight: 400;
+    }
+
+    li strong { font-weight: 700; }
+
+    .note {
+      font-style: italic;
+      color: var(--ink-light);
+      font-size: 8.5pt;
+      margin-top: 4px;
+      padding-left: 0.6rem;
+    }
+
+    /* ============================
+       SECTIONS SIMPLES
+       (Projets personnels)
+       ============================ */
+    .simple-block {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: 0.5rem;
+      border: 1px solid var(--border);
+      border-right: 2px solid var(--coral);
+      border-radius: 8px;
+      padding: 0.55rem 0.75rem;
+    }
+
+    .simple-block:last-child { margin-bottom: 0; }
+
+    .simple-block h3 { margin-bottom: 2px; }
+
+    .eng-detail {
+      font-size: 8.5pt;
+      color: var(--ink-light);
+    }
+
+    /* ============================
+       PRINT
+       ============================ */
+    @media print {
+      body {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
+      }
+
+      .timeline::before { background: linear-gradient(180deg, var(--coral), var(--orange)); }
+      .name-accent      { background: linear-gradient(90deg, var(--coral), var(--orange)); }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="cv-header">
+
+  <div class="cv-header__qr">
+    <div class="qr-wrapper">
+      <img src="qr-code_onepage.svg" alt="Site personnel Gaël Tréfeu">
+    </div>
+    <div class="qr-url">gael-trefeu.netlify.app</div>
+  </div>
+
+  <div class="cv-header__info">
+    <h1>Gaël Tréfeu</h1>
+    <div class="name-accent"></div>
+    <div class="cv-subtitle">Chargé de projets digital — coordination &amp; IA</div>
+    <div class="cv-contact">
+      Montréal, QC · Citoyenneté canadienne · gael.trefeu@gmail.com · +1 (514) 431-7227<br>
+      linkedin.com/in/gaeltrefeu
+    </div>
+  </div>
+
+</header>
+
+
+<!-- ===================== PROFIL ===================== -->
+<h2>En quelques mots</h2>
+<p class="profil-text">15 ans d'expérience à l'intersection du digital, de la création et de la gestion de projets. J'ai piloté des productions numériques complexes, managé des équipes créatives en environnement agile et intégré des outils d'IA générative en production réelle depuis début 2023 — pas en veille, en usage hebdomadaire. À l'aise avec les méthodes agiles, les environnements produit et les outils de collaboration moderne. Je cherche des contextes où la curiosité technologique est un atout opérationnel, pas un bonus.</p>
+
+
+<!-- ===================== COMPÉTENCES ===================== -->
+<h2>Compétences clés</h2>
+<div class="skills-block">
+  <ul>
+    <li><strong>Coordination de projets digitaux</strong> — de la conception à la livraison, en environnement agile</li>
+    <li><strong>Management d'équipe</strong> en environnement itératif (rituels agiles, suivi, accompagnement)</li>
+    <li><strong>Intégration et adoption d'outils d'IA générative</strong> en production — déploiement et formation</li>
+    <li><strong>Optimisation de workflows digitaux</strong> et automatisation de processus</li>
+    <li><strong>Coordination multi-intervenants</strong> (créatifs, développeurs, product, marketing)</li>
+    <li><strong>Veille active</strong> sur les LLMs, outils génératifs et évolutions de l'écosystème IA</li>
+  </ul>
+</div>
+
+
+<!-- ===================== OUTILS ===================== -->
+<h2>Outils &amp; technologies</h2>
+<div class="tools-grid">
+
+  <div class="tool-card">
+    <div class="tool-card__title">Gestion de projets / produit</div>
+    <div class="tool-card__items">Jira · Confluence · Méthodes agiles</div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-card__title">IA générative (usage production)</div>
+    <div class="tool-card__items">Kling · Midjourney · ElevenLabs · Suno · LTX Studio · Weavy</div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-card__title">LLMs &amp; automatisation</div>
+    <div class="tool-card__items">ChatGPT · Claude — usage quotidien : automatisation de processus, rédaction de prompts, assistance à la coordination</div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-card__title">Collaboration &amp; web</div>
+    <div class="tool-card__items">Google Workspace · MS Office · Slack · Teams · WordPress · HTML/CSS · Suite Adobe</div>
+  </div>
+
+</div>
+
+
+<!-- ===================== FORMATION ===================== -->
+<h2>Formation &amp; langues</h2>
+<p><strong>PSM I — Professional Scrum Master (Scrum.org)</strong> · En cours d'obtention · Préparation via Udemy<br>
+<strong>Diplôme universitaire — Services et Réseaux de Communication</strong> · Université de Rouen, France · 2008<br>
+<strong>Langues :</strong> Français — langue maternelle · Anglais — professionnel fonctionnel (B2/C1)</p>
+
+
+<!-- ===================== ENGAGEMENTS ===================== -->
+<h2>Engagements</h2>
+<p>Président — Fédération étudiante (15 associations) · Université de Rouen<br>
+<span class="eng-detail">Élu au Conseil de la Vie Étudiante · Représentant au ministère de l'Enseignement Supérieur · 2008–2011</span></p>
+
+
+<!-- ===================== EXPÉRIENCES ===================== -->
+<h2>Expériences professionnelles</h2>
+<div class="timeline">
+
+  <div class="exp-block">
+    <h3>Chef d'équipe — Production digitale &amp; intégration IA</h3>
+    <div class="exp-meta">Crakmedia · 2022 – 2026 <span>· Montréal, QC · Production de contenus marketing numériques à grande échelle</span></div>
+    <ul>
+      <li><strong>Pilotage du pipeline de production digitale</strong> en environnement agile — priorisation, coordination inter-équipes, livraison</li>
+      <li><strong>Management d'une équipe de 4 créatifs</strong> : rituels agiles, suivi de performance, accompagnement individuel</li>
+      <li><strong>Premier à intégrer les outils d'IA générative</strong> dans les workflows de production (janvier 2023) : déploiement de Midjourney, Kling, ElevenLabs et Suno</li>
+      <li>Configuration et test de workflows IA · évaluation de LTX Studio et Weavy · <strong>accompagnement de l'équipe dans l'adoption</strong></li>
+      <li><strong>Optimisation continue des processus</strong> et documentation — amélioration de la vélocité et de la fiabilité des livrables</li>
+      <li>Promu chef d'équipe après un an, à l'initiative du directeur</li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <h3>Monteur vidéo / Motion designer</h3>
+    <div class="exp-meta">Les Technologies Seedbox · 2018 – 2021 <span>· Montréal, QC · Entreprise technologique, création et distribution de contenus numériques</span></div>
+    <ul>
+      <li>Production de contenus numériques dans un <strong>environnement tech</strong> — longs formats multi-caméra 4K</li>
+      <li>Post-production complète : colorimétrie, sound design, motion design · garantie qualité des livrables</li>
+      <li>Participation au recrutement et à l'intégration de nouveaux monteurs</li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <h3>Assistant de direction &amp; coordination de projets</h3>
+    <div class="exp-meta">Aktua Prod · 2016 – 2017 <span>· Rouen, France · Contenus institutionnels et corporate</span></div>
+    <ul>
+      <li>Coordination de projets audiovisuels — relation client, suivi budgétaire, gestion des intervenants</li>
+      <li>Coordination de tournages lors d'événements majeurs (festivals, événements publics)</li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <h3>Chargé de production</h3>
+    <div class="exp-meta">Arcanes Production · 2011 – 2016 <span>· Rouen, France · Films institutionnels, corporate et événementiels</span></div>
+    <ul>
+      <li><strong>Gestion complète de projets</strong> : devis, planification, coordination des équipes, suivi budgétaire, livraison</li>
+      <li>Réponse à appels d'offres publics — relation client et suivi institutionnel</li>
+      <li>Captations multi-caméra, régie live (concerts, conventions, événements)</li>
+    </ul>
+    <p class="note">↳ En parallèle — Intervenant professionnel (formateur) · ISCOM Rouen · Formation des étudiants à la pré-production audiovisuelle, missions ponctuelles 2013–2016</p>
+  </div>
+
+</div>
+
+
+<!-- ===================== PROJETS PERSONNELS ===================== -->
+<h2>Projets personnels</h2>
+
+<div class="simple-block">
+  <h3>Développement web &amp; applications · 2026</h3>
+  <ul>
+    <li><strong>3 projets déployés de A à Z</strong> : site bilingue FR/EN (gael-trefeu.netlify.app), app Piknic Électronique Montréal, jeu interactif JavaScript canvas — HTML/CSS/JS vanilla sur Netlify</li>
+    <li><strong>Développement assisté par IA</strong> (Claude) comme partenaire de production — capacité à livrer un produit digital complet sans équipe technique</li>
+  </ul>
+</div>
+
+<div class="simple-block">
+  <h3>Chaîne Twitch · 2020 – 2022</h3>
+  <ul>
+    <li><strong>Identité visuelle complète d'une chaîne Twitch</strong> — overlays animés, habillages graphiques (After Effects, Premiere Pro) · production et diffusion gérées en autonomie</li>
+  </ul>
+</div>
+
+</body>
+</html>

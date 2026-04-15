@@ -1716,3 +1716,102 @@ a, button, [role="button"], input, textarea, select,
   transform-origin: center;
   user-select: none;
 }
+
+/* ============================================================
+   MODALE CACHÉE — CVs
+   ============================================================ */
+.cv-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.cv-modal.is-open {
+  pointer-events: all;
+  opacity: 1;
+}
+.cv-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 599;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+.cv-modal__dialog {
+  position: relative;
+  z-index: 601;
+  background: #141414;
+  border: 1px solid rgba(255, 113, 99, 0.25);
+  border-radius: var(--card-radius);
+  width: 100%;
+  max-width: 460px;
+  padding: var(--card-padding);
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cv-modal.is-open .cv-modal__dialog {
+  transform: translateY(0) scale(1);
+}
+.cv-modal__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.cv-modal__item {
+  margin: 0;
+}
+.cv-modal__link {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: background var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
+}
+.cv-modal__link:hover,
+.cv-modal__link:focus-visible {
+  background: rgba(255, 113, 99, 0.08);
+  border-color: var(--color-coral);
+  transform: translateY(-2px);
+  outline: none;
+}
+.cv-modal__icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 2.25rem;
+  text-align: center;
+}
+.cv-modal__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.cv-modal__label {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-coral);
+  font-weight: var(--font-weight-bold);
+}
+.cv-modal__desc {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}

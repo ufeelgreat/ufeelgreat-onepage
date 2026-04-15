@@ -298,7 +298,16 @@ ufeelgreat-onepage/
   - Tentative abandonnée : liseré conic-gradient animé via `@property --angle` — cassé sur iOS Safari < 16.4 (fond carte invisible)
   - Tentative abandonnée : auto-démo IntersectionObserver au scroll-in — effet perçu comme étrange
 
-### Phase 15 — À venir
+### Phase 15 — Easter egg CVs & QR code (2026-04-15) ✓
+- [x] Modale cachée "Mes CVs" déclenchée par 7 clics sur la photo Contact (fenêtre 1,5 s entre clics, reset sinon)
+- [x] Photo Contact sans hover/cursor pour préserver le caractère caché ; bursts de cœurs (easter egg existant) laissés en place
+- [x] Modale : 3 rangées verticales 📄 + label coral uppercase + sous-titre muted, fermeture via clic backdrop / Escape
+- [x] Renommage CVs : cv1/2/3.html → cv1/2/3-fr.html + création cv1/2/3-en.html (accès direct URL toujours possible)
+- [x] Liens modale injectés depuis `ui.cvModal.items` dans content.json / content-en.json (langue courante)
+- [x] QR code `qr-code_onepage.svg` déplacé dans `website/` (dossier Netlify) ; chemin corrigé dans les 6 CVs (../ressources/ → racine)
+- [x] guide.md mis à jour (URLs CVs + mention accès caché)
+
+### Phase 16 — À venir
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.webp)
 - [ ] Suppression des PNG/JPG originaux (doublons après conversion WebP)
 - [ ] Activer notifications email formulaires (FR + EN) dans dashboard Netlify

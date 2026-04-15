@@ -408,6 +408,14 @@
       "onRequest": "Lien vidéo disponible sur demande",
       "prevImage": "Image précédente",
       "nextImage": "Image suivante"
+    },
+    "cvModal": {
+      "closeLabel": "Fermer",
+      "items": [
+        { "label": "CV1", "desc": "Grandes institutions", "href": "cv1-fr.html" },
+        { "label": "CV2", "desc": "Coordination & production", "href": "cv2-fr.html" },
+        { "label": "CV3", "desc": "Digital & tech", "href": "cv3-fr.html" }
+      ]
     }
   }
 }

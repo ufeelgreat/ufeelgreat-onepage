@@ -159,9 +159,11 @@ Les CV ne sont pas accessibles depuis le menu du site, mais accessibles directem
 
 | URL | Fichier |
 |---|---|
-| `https://gael-trefeu.netlify.app/cv1.html` | CV Grandes institutions |
-| `https://gael-trefeu.netlify.app/cv2.html` | CV Coordination & production |
-| `https://gael-trefeu.netlify.app/cv3.html` | CV Digital & tech |
+| `https://gael-trefeu.netlify.app/cv1-fr.html` / `cv1-en.html` | CV Grandes institutions / Major institutions |
+| `https://gael-trefeu.netlify.app/cv2-fr.html` / `cv2-en.html` | CV Coordination & production |
+| `https://gael-trefeu.netlify.app/cv3-fr.html` / `cv3-en.html` | CV Digital & tech |
+
+Accès caché : 7 clics successifs sur la photo de la section Contact ouvrent une pop-up listant les 3 CVs (liens dans la langue courante).
 
 Pour mettre à jour un CV : modifier le fichier `.html` correspondant dans `website/`, puis déployer (étape 6).
 
@@ -174,7 +176,7 @@ website/
 ├── index.html          ← structure HTML (ne pas toucher sauf si on change la structure)
 ├── style.css           ← tout le design
 ├── script.js           ← toute la logique
-├── cv1.html / cv2.html / cv3.html
+├── cv{1,2,3}-{fr,en}.html
 ├── content/
 │   └── content.json    ← SEUL fichier à modifier pour changer le contenu
 └── assets/
