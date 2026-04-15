@@ -287,10 +287,20 @@ ufeelgreat-onepage/
   - Listener `resize` pour recalcul si orientation change
   - Hauteurs fixes CSS retirées (gérées dynamiquement)
 
-### Phase 14 — Contenu & finitions (en cours)
+### Phase 14 — Performance & UX mobile (2026-04-15) ✓
 - [x] Portfolio PEMTL : suppression "En cours", description enrichie (fonctionnalités + mention non-officiel), lien live https://pemtl.netlify.app (2026-04-14)
-- [ ] Image portfolio Piknic Electronik (portfolio-pemtl.png)
-- [ ] Optimisation images (WebP, compression)
+- [x] Hero : titre, description, highlights, avatar injectés en HTML statique (le JS hydrate par-dessus sans flash) — fix LCP perçu
+- [x] Preload avatar dans `<head>` avec `fetchpriority="high"` et référence WebP
+- [x] Conversion WebP de 39 images (ticker, profile, hero, portfolio, testimonials) : 17,5 MB → 4,33 MB (-75 %)
+- [x] Scripts Python idempotents : `tools/convert_webp.py` (conversion) + `tools/update_image_refs.py` (maj refs HTML/JSON)
+- [x] Fix overscroll mobile : `overscroll-behavior-y: none` sur html + body (bloque bounce iOS/Android en haut et bas)
+- [x] Piles expertise — affordance cliquable : pulse subtil sur carte top (scale 1→1.015 + shadow coral, 2.6s)
+  - Tentative abandonnée : liseré conic-gradient animé via `@property --angle` — cassé sur iOS Safari < 16.4 (fond carte invisible)
+  - Tentative abandonnée : auto-démo IntersectionObserver au scroll-in — effet perçu comme étrange
+
+### Phase 15 — À venir
+- [ ] Image portfolio Piknic Electronik (portfolio-pemtl.webp)
+- [ ] Suppression des PNG/JPG originaux (doublons après conversion WebP)
 - [ ] Activer notifications email formulaires (FR + EN) dans dashboard Netlify
 - [ ] Deploy domaine custom
 - [ ] Vérification rendu mobile complet (375px + 768px)
