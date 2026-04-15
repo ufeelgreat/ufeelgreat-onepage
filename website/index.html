@@ -8,6 +8,9 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🙋‍♂️</text></svg>" />
   <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
 
+  <!-- Preload avatar hero (affichage prioritaire) -->
+  <link rel="preload" as="image" href="assets/images/profile/avatar-grand-gael-trefeu.webp" type="image/webp" fetchpriority="high" />
+
   <!-- Typographie -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -63,14 +66,22 @@
             </button>
           </div>
         </div>
-        <h1 class="hero__title" data-content="hero.title"></h1>
-        <p class="hero__description" data-content="hero.description"></p>
-        <p class="hero__opentowork" data-content="hero.openToWork"></p>
-        <ul class="hero__highlights" data-content="hero.highlights" role="list"></ul>
+        <h1 class="hero__title" data-content="hero.title">Enchanté ! Moi c'est Gaël <span class="hero__emoji">😎</span></h1>
+        <p class="hero__description" data-content="hero.description">15 ans à faire que les projets se passent bien. Entre le client qui veut, l'équipe qui produit, et les délais qui n'attendent personne.</p>
+        <p class="hero__opentowork" data-content="hero.openToWork">#opentowork · Ouvert aux opportunités</p>
+        <ul class="hero__highlights" data-content="hero.highlights" role="list">
+          <li>le lien entre les idées et leur réalisation</li>
+          <li>15 ans à livrer ce qui est promis</li>
+          <li>chef d'équipe qui fait grandir, pas juste gérer</li>
+          <li>vidéo, digital, IA : l'environnement change — j'ai toujours suivi</li>
+        </ul>
       </div>
 
       <!-- Mosaïque photos Instagram -->
-      <div class="hero__images" data-content="hero.images" aria-label="Photos Instagram de Gaël Tréfeu"></div>
+      <div class="hero__images" data-content="hero.images" aria-label="Photos Instagram de Gaël Tréfeu">
+        <img src="assets/images/profile/avatar-grand-gael-trefeu.webp" alt="Gaël Tréfeu" loading="eager" fetchpriority="high" />
+        <span class="hero__heart-hint">double clic</span>
+      </div>
 
     </div>
   </section>
@@ -94,42 +105,42 @@
       <!-- Ligne 1 : défile vers la gauche (ticker-01 à ticker-07, dupliqués) -->
       <div class="ticker-row">
         <div class="ticker-track ticker-track--left">
-          <img src="assets/images/ticker/ticker-01.png" alt="" />
-          <img src="assets/images/ticker/ticker-02.png" alt="" />
-          <img src="assets/images/ticker/ticker-03.png" alt="" />
-          <img src="assets/images/ticker/ticker-04.png" alt="" />
-          <img src="assets/images/ticker/ticker-05.png" alt="" />
-          <img src="assets/images/ticker/ticker-06.png" alt="" />
-          <img src="assets/images/ticker/ticker-07.png" alt="" />
+          <img src="assets/images/ticker/ticker-01.webp" alt="" />
+          <img src="assets/images/ticker/ticker-02.webp" alt="" />
+          <img src="assets/images/ticker/ticker-03.webp" alt="" />
+          <img src="assets/images/ticker/ticker-04.webp" alt="" />
+          <img src="assets/images/ticker/ticker-05.webp" alt="" />
+          <img src="assets/images/ticker/ticker-06.webp" alt="" />
+          <img src="assets/images/ticker/ticker-07.webp" alt="" />
           <!-- Duplicat pour boucle infinie -->
-          <img src="assets/images/ticker/ticker-01.png" alt="" />
-          <img src="assets/images/ticker/ticker-02.png" alt="" />
-          <img src="assets/images/ticker/ticker-03.png" alt="" />
-          <img src="assets/images/ticker/ticker-04.png" alt="" />
-          <img src="assets/images/ticker/ticker-05.png" alt="" />
-          <img src="assets/images/ticker/ticker-06.png" alt="" />
-          <img src="assets/images/ticker/ticker-07.png" alt="" />
+          <img src="assets/images/ticker/ticker-01.webp" alt="" />
+          <img src="assets/images/ticker/ticker-02.webp" alt="" />
+          <img src="assets/images/ticker/ticker-03.webp" alt="" />
+          <img src="assets/images/ticker/ticker-04.webp" alt="" />
+          <img src="assets/images/ticker/ticker-05.webp" alt="" />
+          <img src="assets/images/ticker/ticker-06.webp" alt="" />
+          <img src="assets/images/ticker/ticker-07.webp" alt="" />
         </div>
       </div>
 
       <!-- Ligne 2 : défile vers la droite (ticker-08 à ticker-14, dupliqués) -->
       <div class="ticker-row">
         <div class="ticker-track ticker-track--right">
-          <img src="assets/images/ticker/ticker-08.png" alt="" />
-          <img src="assets/images/ticker/ticker-09.png" alt="" />
-          <img src="assets/images/ticker/ticker-10.png" alt="" />
-          <img src="assets/images/ticker/ticker-11.png" alt="" />
-          <img src="assets/images/ticker/ticker-12.png" alt="" />
-          <img src="assets/images/ticker/ticker-13.png" alt="" />
-          <img src="assets/images/ticker/ticker-14.png" alt="" />
+          <img src="assets/images/ticker/ticker-08.webp" alt="" />
+          <img src="assets/images/ticker/ticker-09.webp" alt="" />
+          <img src="assets/images/ticker/ticker-10.webp" alt="" />
+          <img src="assets/images/ticker/ticker-11.webp" alt="" />
+          <img src="assets/images/ticker/ticker-12.webp" alt="" />
+          <img src="assets/images/ticker/ticker-13.webp" alt="" />
+          <img src="assets/images/ticker/ticker-14.webp" alt="" />
           <!-- Duplicat pour boucle infinie -->
-          <img src="assets/images/ticker/ticker-08.png" alt="" />
-          <img src="assets/images/ticker/ticker-09.png" alt="" />
-          <img src="assets/images/ticker/ticker-10.png" alt="" />
-          <img src="assets/images/ticker/ticker-11.png" alt="" />
-          <img src="assets/images/ticker/ticker-12.png" alt="" />
-          <img src="assets/images/ticker/ticker-13.png" alt="" />
-          <img src="assets/images/ticker/ticker-14.png" alt="" />
+          <img src="assets/images/ticker/ticker-08.webp" alt="" />
+          <img src="assets/images/ticker/ticker-09.webp" alt="" />
+          <img src="assets/images/ticker/ticker-10.webp" alt="" />
+          <img src="assets/images/ticker/ticker-11.webp" alt="" />
+          <img src="assets/images/ticker/ticker-12.webp" alt="" />
+          <img src="assets/images/ticker/ticker-13.webp" alt="" />
+          <img src="assets/images/ticker/ticker-14.webp" alt="" />
         </div>
       </div>
 
@@ -222,7 +233,7 @@
 
       <!-- Avatar centré -->
       <div class="contact__avatar-wrap">
-        <img class="contact__avatar" src="assets/images/profile/avatar-gael-trefeu.png" alt="Gaël Tréfeu" />
+        <img class="contact__avatar" src="assets/images/profile/avatar-gael-trefeu.webp" alt="Gaël Tréfeu" />
       </div>
 
       <p class="contact__intro" data-content="contact.intro"></p>

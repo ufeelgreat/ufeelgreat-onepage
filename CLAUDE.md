@@ -287,9 +287,10 @@ ufeelgreat-onepage/
   - Listener `resize` pour recalcul si orientation change
   - Hauteurs fixes CSS retirées (gérées dynamiquement)
 
-### Phase 14 — À venir
-- [ ] Optimisation images (WebP, compression)
+### Phase 14 — Contenu & finitions (en cours)
+- [x] Portfolio PEMTL : suppression "En cours", description enrichie (fonctionnalités + mention non-officiel), lien live https://pemtl.netlify.app (2026-04-14)
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.png)
+- [ ] Optimisation images (WebP, compression)
 - [ ] Activer notifications email formulaires (FR + EN) dans dashboard Netlify
 - [ ] Deploy domaine custom
 - [ ] Vérification rendu mobile complet (375px + 768px)
