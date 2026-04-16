@@ -334,6 +334,14 @@
     </div>
   </div>
 
+  <!-- Visionneuse CV in-app (iOS PWA : évite la navigation hors du WebView) -->
+  <div class="cv-viewer" id="cv-viewer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="CV">
+    <div class="cv-viewer__bar">
+      <button class="cv-viewer__close" id="cv-viewer-close" aria-label="Fermer">✕</button>
+    </div>
+    <iframe class="cv-viewer__frame" id="cv-viewer-frame" src="" title="CV" allowfullscreen></iframe>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

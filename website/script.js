@@ -1140,15 +1140,44 @@
         </a>
       </li>
     `).join('');
-    // window.open() est nécessaire pour forcer l'ouverture dans Safari en mode PWA iOS
-    // (target="_blank" seul ne suffit pas pour les liens du même domaine)
+    // Ouverture dans l'overlay in-app (évite la navigation hors du WebView en mode PWA iOS)
     list.querySelectorAll('.cv-modal__link').forEach(a => {
       a.addEventListener('click', e => {
         e.preventDefault();
-        window.open(a.href, '_blank', 'noopener,noreferrer');
+        openCvViewer(a.href);
       });
     });
   }
+
+  /* ==========================================================
+     VISIONNEUSE CV IN-APP
+  ========================================================== */
+  (function initCvViewer() {
+    const viewer = document.getElementById('cv-viewer');
+    const frame  = document.getElementById('cv-viewer-frame');
+    const close  = document.getElementById('cv-viewer-close');
+    if (!viewer || !frame || !close) return;
+
+    window.openCvViewer = function(href) {
+      frame.src = href;
+      viewer.classList.add('is-open');
+      viewer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      close.focus();
+    };
+
+    function closeCvViewer() {
+      viewer.classList.remove('is-open');
+      viewer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      frame.src = '';
+    }
+
+    close.addEventListener('click', closeCvViewer);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && viewer.classList.contains('is-open')) closeCvViewer();
+    });
+  }());
 
   (function initCvModalTrigger() {
     const modal = document.getElementById('cv-modal');
