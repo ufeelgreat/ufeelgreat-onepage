@@ -111,12 +111,12 @@ ufeelgreat-onepage/
 
 ## Portfolio — ordre des projets
 1. Film Cancun
-2. Snaaake The Game
-3. Prototype IA
-4. Mango RX (lien YouTube)
-5. Émission Twitch (carousel autoplay)
+2. App Piknic Electronik (PEMTL)
+3. Émission Twitch (carousel autoplay)
+4. Snaaake The Game
+5. Mango RX (lien YouTube)
 6. FansRevenue (lien sur demande)
-7. App Piknic (PEMTL)
+7. Prototype IA
 
 ---
 

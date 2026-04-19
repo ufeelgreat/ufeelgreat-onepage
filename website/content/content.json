@@ -242,33 +242,14 @@
         "thumbnail": "assets/images/portfolio/portfolio-cancun.webp"
       },
       {
-        "id": "snaaake",
-        "title": "Snaaake The Game",
-        "subtitle": "Jeu web · Projet perso",
-        "description": "Snake revisité en JavaScript vanilla, codé avec Claude et déployé sur Netlify. Version 4.1 : tutoriel interactif, leaderboard, polish visuel complet. Un vrai projet né d'un simple test, preuve qu'avec de la curiosité et une bonne IA, on peut aller loin.",
-        "tags": ["JavaScript", "Web", "Netlify", "Claude"],
+        "id": "pemtl",
+        "title": "App Piknic Electronik",
+        "subtitle": "Application web mobile · Projet personnel non-officiel",
+        "description": "App mobile-first pour suivre la programmation du Piknic Electronik Montréal, partager ses intérêts avec des amis et noter les DJ après chaque journée. Gestion d'amis, météo, export calendrier, trophées. React + Supabase + Netlify. Application personnelle, non affiliée à Piknic Electronik.",
+        "tags": ["React", "Supabase", "Mobile-first"],
         "display": "link",
-        "link": "https://ufeelgreat-snake.netlify.app/",
-        "thumbnail": "assets/images/portfolio/portfolio-snaaake.webp"
-      },
-      {
-        "id": "crakmedia-ai",
-        "title": "Prototype IA",
-        "subtitle": "100% IA générative · Kling · ElevenLabs · Suno",
-        "description": "Publicité parodique produite entièrement avec des outils IA — de l'image à la voix en passant par la musique. 35 à 40h de travail, usage interne. Un test grandeur nature des limites du pipeline sans équipe.",
-        "tags": ["IA générative", "Kling", "ElevenLabs", "Suno", "Prototype"],
-        "display": "carousel",
-        "link": null,
-        "linkOnRequest": true,
-        "thumbnail": "assets/images/portfolio/portfolio-crakmedia-ai-00.webp",
-        "gallery": [
-          "assets/images/portfolio/portfolio-crakmedia-ai-00.webp",
-          "assets/images/portfolio/portfolio-crakmedia-ai-01.webp",
-          "assets/images/portfolio/portfolio-crakmedia-ai-03.webp",
-          "assets/images/portfolio/portfolio-crakmedia-ai-04.webp",
-          "assets/images/portfolio/portfolio-crakmedia-ai-05.webp",
-          "assets/images/portfolio/portfolio-crakmedia-ai-06.webp"
-        ]
+        "link": "https://pemtl.netlify.app",
+        "thumbnail": "assets/images/portfolio/portfolio-pemtl.webp"
       },
       {
         "id": "twitch-motion",
@@ -289,6 +270,16 @@
           "assets/images/portfolio/twich-motion-03.webp",
           "assets/images/portfolio/twich-motion-05.webp"
         ]
+      },
+      {
+        "id": "snaaake",
+        "title": "Snaaake The Game",
+        "subtitle": "Jeu web · Projet perso",
+        "description": "Snake revisité en JavaScript vanilla, codé avec Claude et déployé sur Netlify. Version 4.1 : tutoriel interactif, leaderboard, polish visuel complet. Un vrai projet né d'un simple test, preuve qu'avec de la curiosité et une bonne IA, on peut aller loin.",
+        "tags": ["JavaScript", "Web", "Netlify", "Claude"],
+        "display": "link",
+        "link": "https://ufeelgreat-snake.netlify.app/",
+        "thumbnail": "assets/images/portfolio/portfolio-snaaake.webp"
       },
       {
         "id": "mangorx",
@@ -312,14 +303,23 @@
         "thumbnail": "assets/images/portfolio/portfolio-fansrevenue.webp"
       },
       {
-        "id": "pemtl",
-        "title": "App Piknic Electronik",
-        "subtitle": "Application web mobile · Projet personnel non-officiel",
-        "description": "App mobile-first pour suivre la programmation du Piknic Electronik Montréal, partager ses intérêts avec des amis et noter les DJ après chaque journée. Gestion d'amis, météo, export calendrier, trophées. React + Supabase + Netlify. Application personnelle, non affiliée à Piknic Electronik.",
-        "tags": ["React", "Supabase", "Mobile-first"],
-        "display": "link",
-        "link": "https://pemtl.netlify.app",
-        "thumbnail": "assets/images/portfolio/portfolio-pemtl.webp"
+        "id": "crakmedia-ai",
+        "title": "Prototype IA",
+        "subtitle": "100% IA générative · Kling · ElevenLabs · Suno",
+        "description": "Publicité parodique produite entièrement avec des outils IA — de l'image à la voix en passant par la musique. 35 à 40h de travail, usage interne. Un test grandeur nature des limites du pipeline sans équipe.",
+        "tags": ["IA générative", "Kling", "ElevenLabs", "Suno", "Prototype"],
+        "display": "carousel",
+        "link": null,
+        "linkOnRequest": true,
+        "thumbnail": "assets/images/portfolio/portfolio-crakmedia-ai-00.webp",
+        "gallery": [
+          "assets/images/portfolio/portfolio-crakmedia-ai-00.webp",
+          "assets/images/portfolio/portfolio-crakmedia-ai-01.webp",
+          "assets/images/portfolio/portfolio-crakmedia-ai-03.webp",
+          "assets/images/portfolio/portfolio-crakmedia-ai-04.webp",
+          "assets/images/portfolio/portfolio-crakmedia-ai-05.webp",
+          "assets/images/portfolio/portfolio-crakmedia-ai-06.webp"
+        ]
       }
     ]
   },

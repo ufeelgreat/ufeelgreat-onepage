@@ -242,33 +242,14 @@
         "thumbnail": "assets/images/portfolio/portfolio-cancun.webp"
       },
       {
-        "id": "snaaake",
-        "title": "Snaaake The Game",
-        "subtitle": "Web game · Personal project",
-        "description": "A reimagined Snake in vanilla JavaScript, coded with Claude and deployed on Netlify. Version 4.1: interactive tutorial, leaderboard, full visual polish. A real project born from a simple test, proof that with curiosity and a good AI, you can go far.",
-        "tags": ["JavaScript", "Web", "Netlify", "Claude"],
+        "id": "pemtl",
+        "title": "Piknic Electronik App",
+        "subtitle": "Mobile web app · Personal unofficial project",
+        "description": "Unofficial mobile-first app to track the Piknic Electronik Montréal lineup, share picks with friends, and rate DJs after each show. Friend system, weather forecast, calendar export, trophies. React + Supabase + Netlify. Personal project, not affiliated with Piknic Electronik.",
+        "tags": ["React", "Supabase", "Mobile-first"],
         "display": "link",
-        "link": "https://ufeelgreat-snake.netlify.app/",
-        "thumbnail": "assets/images/portfolio/portfolio-snaaake.webp"
-      },
-      {
-        "id": "crakmedia-ai",
-        "title": "AI Prototype",
-        "subtitle": "100% generative AI · Kling · ElevenLabs · Suno",
-        "description": "A parody ad produced entirely with AI tools — from image to voice to music. 35–40 hours of work, internal use only. A real-world test of the pipeline's limits without a team.",
-        "tags": ["Generative AI", "Kling", "ElevenLabs", "Suno", "Prototype"],
-        "display": "carousel",
-        "link": null,
-        "linkOnRequest": true,
-        "thumbnail": "assets/images/portfolio/portfolio-crakmedia-ai-00.webp",
-        "gallery": [
-          "assets/images/portfolio/portfolio-crakmedia-ai-00.webp",
-          "assets/images/portfolio/portfolio-crakmedia-ai-01.webp",
-          "assets/images/portfolio/portfolio-crakmedia-ai-03.webp",
-          "assets/images/portfolio/portfolio-crakmedia-ai-04.webp",
-          "assets/images/portfolio/portfolio-crakmedia-ai-05.webp",
-          "assets/images/portfolio/portfolio-crakmedia-ai-06.webp"
-        ]
+        "link": "https://pemtl.netlify.app",
+        "thumbnail": "assets/images/portfolio/portfolio-pemtl.webp"
       },
       {
         "id": "twitch-motion",
@@ -289,6 +270,16 @@
           "assets/images/portfolio/twich-motion-03.webp",
           "assets/images/portfolio/twich-motion-05.webp"
         ]
+      },
+      {
+        "id": "snaaake",
+        "title": "Snaaake The Game",
+        "subtitle": "Web game · Personal project",
+        "description": "A reimagined Snake in vanilla JavaScript, coded with Claude and deployed on Netlify. Version 4.1: interactive tutorial, leaderboard, full visual polish. A real project born from a simple test, proof that with curiosity and a good AI, you can go far.",
+        "tags": ["JavaScript", "Web", "Netlify", "Claude"],
+        "display": "link",
+        "link": "https://ufeelgreat-snake.netlify.app/",
+        "thumbnail": "assets/images/portfolio/portfolio-snaaake.webp"
       },
       {
         "id": "mangorx",
@@ -312,14 +303,23 @@
         "thumbnail": "assets/images/portfolio/portfolio-fansrevenue.webp"
       },
       {
-        "id": "pemtl",
-        "title": "Piknic Electronik App",
-        "subtitle": "Mobile web app · Personal unofficial project",
-        "description": "Unofficial mobile-first app to track the Piknic Electronik Montréal lineup, share picks with friends, and rate DJs after each show. Friend system, weather forecast, calendar export, trophies. React + Supabase + Netlify. Personal project, not affiliated with Piknic Electronik.",
-        "tags": ["React", "Supabase", "Mobile-first"],
-        "display": "link",
-        "link": "https://pemtl.netlify.app",
-        "thumbnail": "assets/images/portfolio/portfolio-pemtl.webp"
+        "id": "crakmedia-ai",
+        "title": "AI Prototype",
+        "subtitle": "100% generative AI · Kling · ElevenLabs · Suno",
+        "description": "A parody ad produced entirely with AI tools — from image to voice to music. 35–40 hours of work, internal use only. A real-world test of the pipeline's limits without a team.",
+        "tags": ["Generative AI", "Kling", "ElevenLabs", "Suno", "Prototype"],
+        "display": "carousel",
+        "link": null,
+        "linkOnRequest": true,
+        "thumbnail": "assets/images/portfolio/portfolio-crakmedia-ai-00.webp",
+        "gallery": [
+          "assets/images/portfolio/portfolio-crakmedia-ai-00.webp",
+          "assets/images/portfolio/portfolio-crakmedia-ai-01.webp",
+          "assets/images/portfolio/portfolio-crakmedia-ai-03.webp",
+          "assets/images/portfolio/portfolio-crakmedia-ai-04.webp",
+          "assets/images/portfolio/portfolio-crakmedia-ai-05.webp",
+          "assets/images/portfolio/portfolio-crakmedia-ai-06.webp"
+        ]
       }
     ]
   },
