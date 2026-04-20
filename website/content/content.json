@@ -344,13 +344,6 @@
         "row": 1
       },
       {
-        "label": "Téléphone",
-        "handle": "+1 (514) 431-7227",
-        "url": "tel:+15144317227",
-        "icon": "phone",
-        "row": 2
-      },
-      {
         "label": "Email",
         "handle": "gael.trefeu@gmail.com",
         "url": "mailto:gael.trefeu@gmail.com",
