@@ -278,7 +278,7 @@
         "description": "A reimagined Snake in vanilla JavaScript, coded with Claude and deployed on Netlify. Version 4.1: interactive tutorial, leaderboard, full visual polish. A real project born from a simple test, proof that with curiosity and a good AI, you can go far.",
         "tags": ["JavaScript", "Web", "Netlify", "Claude"],
         "display": "link",
-        "link": "https://ufeelgreat-snake.netlify.app/",
+        "link": "https://snaaake-the-game.netlify.app/",
         "thumbnail": "assets/images/portfolio/portfolio-snaaake.webp"
       },
       {
