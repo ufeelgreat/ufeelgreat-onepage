@@ -750,10 +750,14 @@
      FONCTIONS INTERACTIVES
   ========================================================== */
 
-  /* --- Piles de cartes Expertise (clic pour défiler) --- */
+  /* --- Piles de cartes Expertise (drag horizontal + clic) --- */
   function initPileSwipe(container) {
     const stacks = container.querySelectorAll('.expertise-pile__stack');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const TAP_THRESHOLD   = 8;    // px : sous ce seuil = clic, pas drag
+    const EJECT_DISTANCE  = 80;   // px : déplacement déclenchant éjection
+    const EJECT_VELOCITY  = 0.5;  // px/ms : vélocité déclenchant éjection
 
     stacks.forEach(stack => {
       const cardEls = () => Array.from(stack.querySelectorAll('.expertise-pile__card'));
@@ -772,33 +776,165 @@
         });
       }
 
-      function advance() {
-        if (animating) return;
-        const top = cardEls().find(c => c.classList.contains('expertise-pile__card--top'));
-        if (!top) return;
-
+      function ejectCard(card) {
+        if (!card) return;
         if (reducedMotion) {
-          top.classList.remove('expertise-pile__card--top');
-          stack.appendChild(top);
+          card.style.transform = '';
+          card.style.opacity = '';
+          card.style.transition = '';
+          card.style.animation = '';
+          card.classList.remove('expertise-pile__card--top');
+          stack.appendChild(card);
           refreshZIndexes();
           return;
         }
-
         animating = true;
-        top.style.transition = 'opacity 0.25s ease';
-        top.style.opacity = '0';
-
+        card.style.transition = 'opacity 0.25s ease';
+        card.style.opacity = '0';
         setTimeout(() => {
-          top.style.transition = 'none';
-          top.style.opacity = '1';
-          top.classList.remove('expertise-pile__card--top');
-          stack.appendChild(top);
+          card.style.transition = '';
+          card.style.transform = '';
+          card.style.opacity = '';
+          card.style.animation = '';
+          card.classList.remove('expertise-pile__card--top');
+          stack.appendChild(card);
           refreshZIndexes();
           animating = false;
         }, 260);
       }
 
-      stack.addEventListener('click', advance);
+      function advanceFromTop() {
+        if (animating) return;
+        const top = cardEls().find(c => c.classList.contains('expertise-pile__card--top'));
+        ejectCard(top);
+      }
+
+      /* État du drag */
+      let pointerId   = null;
+      let activeCard  = null;
+      let startX = 0, startY = 0, startTime = 0;
+      let isDragging = false;   // drag horizontal confirmé
+      let abandoned  = false;   // user a scrollé verticalement, on lâche
+
+      function resetCardStyles(card) {
+        if (!card) return;
+        card.style.transition = '';
+        card.style.transform  = '';
+        card.style.opacity    = '';
+        card.style.animation  = '';
+      }
+
+      function onPointerDown(e) {
+        if (animating) return;
+        // Souris : ignorer clic droit / molette
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+        const top = cardEls().find(c => c.classList.contains('expertise-pile__card--top'));
+        if (!top) return;
+
+        activeCard = top;
+        pointerId  = e.pointerId;
+        startX     = e.clientX;
+        startY     = e.clientY;
+        startTime  = performance.now();
+        isDragging = false;
+        abandoned  = false;
+
+        /* Désactive transitions et pulse pendant le suivi */
+        activeCard.style.transition = 'none';
+        activeCard.style.animation  = 'none';
+      }
+
+      function onPointerMove(e) {
+        if (pointerId === null || e.pointerId !== pointerId || !activeCard || abandoned) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        if (!isDragging) {
+          if (Math.abs(dx) < TAP_THRESHOLD && Math.abs(dy) < TAP_THRESHOLD) return;
+          /* Si l'utilisateur scrolle verticalement, on abandonne pour ne pas bloquer la page */
+          if (Math.abs(dy) > Math.abs(dx)) {
+            abandoned = true;
+            resetCardStyles(activeCard);
+            return;
+          }
+          isDragging = true;
+          try { stack.setPointerCapture(pointerId); } catch (_) {}
+        }
+
+        e.preventDefault();
+        const rot     = Math.max(-15, Math.min(15, dx / 20));
+        const opacity = Math.max(0.3, 1 - Math.abs(dx) / 300);
+        activeCard.style.transform = `translate3d(${dx}px, 0, 0) rotate(${rot}deg)`;
+        activeCard.style.opacity   = String(opacity);
+      }
+
+      function onPointerEnd(e) {
+        if (pointerId === null || e.pointerId !== pointerId || !activeCard) return;
+
+        const card  = activeCard;
+        const dx    = e.clientX - startX;
+        const dy    = e.clientY - startY;
+        const dt    = Math.max(1, performance.now() - startTime);
+        const total = Math.hypot(dx, dy);
+
+        try { stack.releasePointerCapture(pointerId); } catch (_) {}
+        pointerId = null;
+        activeCard = null;
+
+        /* Drag abandonné (scroll vertical) : rien à faire */
+        if (abandoned) {
+          isDragging = false;
+          return;
+        }
+
+        /* Aucun drag confirmé : c'est un clic → advance */
+        if (!isDragging && total < TAP_THRESHOLD) {
+          resetCardStyles(card);
+          advanceFromTop();
+          return;
+        }
+
+        const velocity = Math.abs(dx) / dt;
+        if (Math.abs(dx) > EJECT_DISTANCE || velocity > EJECT_VELOCITY) {
+          /* Éjection : fade depuis la position courante */
+          ejectCard(card);
+        } else {
+          /* Retour élastique */
+          card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+          card.style.transform  = '';
+          card.style.opacity    = '';
+          setTimeout(() => {
+            card.style.transition = '';
+            card.style.animation  = '';
+          }, 320);
+        }
+        isDragging = false;
+      }
+
+      function onPointerCancel(e) {
+        if (pointerId === null || e.pointerId !== pointerId) return;
+        try { stack.releasePointerCapture(pointerId); } catch (_) {}
+        const card = activeCard;
+        pointerId  = null;
+        activeCard = null;
+        isDragging = false;
+        if (card) {
+          card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+          card.style.transform  = '';
+          card.style.opacity    = '';
+          setTimeout(() => {
+            card.style.transition = '';
+            card.style.animation  = '';
+          }, 320);
+        }
+      }
+
+      stack.addEventListener('pointerdown',   onPointerDown);
+      stack.addEventListener('pointermove',   onPointerMove);
+      stack.addEventListener('pointerup',     onPointerEnd);
+      stack.addEventListener('pointercancel', onPointerCancel);
     });
   }
 

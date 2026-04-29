@@ -315,6 +315,18 @@ ufeelgreat-onepage/
 - [x] `background-color: var(--color-bg)` sur `html` (cohérence couleur zone overscroll)
 - [x] `padding-top: env(safe-area-inset-top)` sur `body` (contenu non masqué sous la status bar)
 
+### Phase 18 — Swipe piles expertise (2026-04-28) ✓
+- [x] Piles "Talents hybrides" : drag horizontal (pointer events) en plus du clic
+  - `pointerdown/move/up/cancel` avec `setPointerCapture` (souris + tactile + stylet)
+  - Drag confirmé si déplacement horizontal > 8px et |dx| > |dy| (sinon scroll vertical libéré)
+  - Carte top suit le pointeur : `translate3d(dx, 0, 0) rotate(dx/20)` (max ±15°), opacité dégrade jusqu'à 0.3
+  - Éjection si |dx| > 80px OU vélocité > 0.5px/ms → fade out depuis position courante puis renvoi derrière
+  - Retour élastique sinon (transition 0.3s)
+  - Clic court conservé : `total < 8px` ET pas de drag confirmé → `advanceFromTop()` (ancien comportement)
+  - Pulse `pile-top-pulse` désactivé pendant le drag (inline `animation: none`), restauré après
+  - `prefers-reduced-motion` : éjection instantanée sans fade
+  - Retrait `!important` sur `.expertise-pile__card--top { transform }` pour permettre transform inline pendant drag
+
 ### Phase 17 — À venir
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.webp)
 - [ ] Suppression des PNG/JPG originaux (doublons après conversion WebP)

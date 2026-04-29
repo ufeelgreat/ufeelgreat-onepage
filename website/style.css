@@ -544,7 +544,7 @@ mark {
 }
 
 .expertise-pile__card--top {
-  transform: rotate(0deg) !important;
+  transform: rotate(0deg);
   box-shadow: 0 4px 20px rgba(0,0,0,0.25);
   animation: pile-top-pulse 2.6s ease-in-out infinite;
 }
