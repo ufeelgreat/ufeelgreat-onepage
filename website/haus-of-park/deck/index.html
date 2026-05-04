@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Deck Haus of Park · Gaël Tréfeu · 5 mai 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+
+    /* ============================================================
+       Deck Haus of Park — Gaël Tréfeu
+       Direction 3 : hybride (blanc/coral pour "moi" → noir/coral pour "trends" → retour blanc)
+       Format slides : scroll-snap vertical, 100vh chacune
+       ============================================================ */
+
+    :root {
+      --coral:     #FF7163;
+      --orange:    #FFB347;
+      --ink:       #111111;
+      --ink-mid:   #3a3a3a;
+      --ink-light: #777777;
+      --paper:     #ffffff;
+      --night:     #0A0A0A;
+      --night-2:   #1a1a1a;
+      --border:    #e8e8e8;
+      --font:      'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--paper);
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      height: 100vh;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .slide {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      min-height: 100vh;
+      padding: clamp(2rem, 5vw, 5rem) clamp(2rem, 6vw, 7rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* slide-mode foncé pour les slides trends */
+    .slide.dark {
+      background: var(--night);
+      color: var(--paper);
+    }
+
+    /* Indicateur slide en bas */
+    .slide__nav {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 2rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      font-weight: 600;
+    }
+    .slide.dark .slide__nav { color: rgba(255,255,255,0.5); }
+
+    /* ============================
+       TYPOGRAPHIE
+       ============================ */
+    h1 {
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+    }
+    h2 {
+      font-size: clamp(2rem, 4.5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.5rem;
+    }
+    h3 {
+      font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .eyebrow {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 1rem;
+    }
+    .lead {
+      font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+      color: var(--ink-mid);
+      max-width: 60ch;
+      line-height: 1.55;
+    }
+    .slide.dark .lead { color: rgba(255,255,255,0.75); }
+
+    .accent { color: var(--coral); }
+    .underline-coral {
+      background-image: linear-gradient(180deg, transparent 60%, rgba(255,113,99,0.25) 60%);
+    }
+
+    /* ============================
+       SLIDE 1 — COUVERTURE
+       ============================ */
+    .cover {
+      background:
+        radial-gradient(1200px 600px at 100% 0%, rgba(255, 179, 71, 0.18) 0%, transparent 60%),
+        radial-gradient(900px 500px at 0% 100%, rgba(255, 113, 99, 0.18) 0%, transparent 60%),
+        var(--paper);
+    }
+    .cover__name {
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+    }
+    .cover__name .second {
+      display: block;
+      background: linear-gradient(90deg, var(--coral), var(--orange));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .cover__role {
+      margin-top: 1.5rem;
+      font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+      font-weight: 600;
+      color: var(--ink-mid);
+    }
+    .cover__meta {
+      margin-top: 3rem;
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .cover__meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .cover__meta-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+    .cover__meta-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* ============================
+       SLIDE 2 — QUI JE SUIS
+       ============================ */
+    .intro__pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+      max-width: 1100px;
+    }
+    .pillar {
+      padding: 1.5rem 1.25rem;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.6);
+      transition: all 0.2s;
+    }
+    .pillar:nth-child(odd) {
+      border-color: rgba(255,113,99,0.25);
+      background: rgba(255,113,99,0.04);
+    }
+    .pillar__num {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: var(--coral);
+      margin-bottom: 0.5rem;
+    }
+    .pillar__title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .pillar__desc {
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      line-height: 1.45;
+    }
+
+    /* Slide 2 — Facts (3 ancrages chiffrés) */
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      margin-top: 3rem;
+      margin-bottom: 2.5rem;
+      max-width: 1100px;
+    }
+    .fact {
+      border-top: 2px solid var(--coral);
+      padding-top: 1.1rem;
+    }
+    .fact__num {
+      font-size: clamp(2rem, 4.2vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .fact__label {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      line-height: 1.45;
+    }
+    .quiet-line {
+      font-size: clamp(1rem, 1.3vw, 1.15rem);
+      color: var(--ink-mid);
+      max-width: 65ch;
+      border-left: 3px solid var(--coral);
+      padding-left: 1.25rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .facts { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+
+    /* Slide 2 — Skills (4 compétences) */
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      margin-bottom: 2.5rem;
+      max-width: 1200px;
+    }
+    .skill {
+      border-top: 2px solid var(--coral);
+      padding-top: 0.9rem;
+    }
+    .skill__title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.35rem;
+      color: var(--ink);
+    }
+    .skill__desc {
+      font-size: 0.82rem;
+      color: var(--ink-mid);
+      line-height: 1.45;
+    }
+
+    /* Slide 2 — Timeline IA (rail horizontal en bas) */
+    .timeline-ia {
+      display: flex;
+      align-items: stretch;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: rgba(255,113,99,0.04);
+      border-radius: 12px;
+      border: 1px solid rgba(255,113,99,0.18);
+      max-width: 1100px;
+    }
+    .ti-item {
+      flex: 1;
+    }
+    .ti-year {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--coral);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.2rem;
+    }
+    .ti-text {
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      line-height: 1.4;
+    }
+    .ti-arrow {
+      display: flex;
+      align-items: center;
+      color: var(--coral);
+      font-size: 1.3rem;
+      opacity: 0.4;
+    }
+
+    @media (max-width: 900px) {
+      .skills { grid-template-columns: 1fr 1fr; }
+      .timeline-ia { flex-direction: column; gap: 1rem; }
+      .ti-arrow { display: none; }
+    }
+
+    /* ============================
+       MUR DE RÉALISATIONS (Slide 3, 4)
+       ============================ */
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .grid--2 { grid-template-columns: repeat(2, 1fr); }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--paper);
+      border: 1.5px solid var(--border);
+      transition: all 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .card:hover {
+      border-color: var(--coral);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(255,113,99,0.15);
+    }
+    .card__thumb {
+      aspect-ratio: 16 / 9;
+      background-color: #0f0f0f;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 0.75rem;
+    }
+    .card__thumb::after {
+      content: "▶";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      color: var(--coral);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      backdrop-filter: blur(6px);
+    }
+    .card__metric {
+      position: relative;
+      z-index: 1;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 0.3rem 0.7rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .card__body {
+      padding: 0.9rem 1rem 1rem;
+    }
+    .card__title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+      line-height: 1.25;
+    }
+    .card__context {
+      font-size: 0.78rem;
+      color: var(--ink-light);
+      line-height: 1.4;
+    }
+
+    /* ============================
+       DEEP-DIVES (Slide 5, 6, 7)
+       ============================ */
+    .deepdive {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .deepdive__media {
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--ink);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+    }
+    .deepdive__media iframe,
+    .deepdive__media img {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      object-fit: cover;
+    }
+    .deepdive__content h2 {
+      font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+    }
+    .deepdive__bullets {
+      list-style: none;
+      margin-top: 1.5rem;
+    }
+    .deepdive__bullets li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+      color: var(--ink-mid);
+      line-height: 1.5;
+    }
+    .deepdive__bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55rem;
+      width: 8px;
+      height: 8px;
+      background: var(--coral);
+      border-radius: 50%;
+    }
+    .deepdive__metric {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(90deg, var(--coral), var(--orange));
+      color: white;
+      font-weight: 700;
+      border-radius: 100px;
+      font-size: 0.9rem;
+    }
+
+    /* ============================
+       SLIDE WEB/CODE (Slide 8)
+       ============================ */
+    .webcode {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .webcode .card__thumb { background-color: #1a1733; }
+    .webcode .card__thumb::after { color: #5b8cff; content: "</>"; font-size: 0.7rem; }
+
+    /* ============================
+       SLIDES TRENDS (mode noir, slide 9-11)
+       ============================ */
+    .slide.dark h2 { color: var(--paper); }
+    .slide.dark .eyebrow { color: var(--orange); }
+
+    .trends-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+    .trend-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .trend-card__media {
+      aspect-ratio: 9 / 16;
+      max-height: 420px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--night-2);
+      border: 1px solid rgba(255,255,255,0.08);
+      align-self: center;
+      width: 100%;
+      max-width: 240px;
+    }
+    .trend-card__media iframe,
+    .trend-card__media video,
+    .trend-card__media img {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      object-fit: cover;
+    }
+    .trend-card__category {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--coral);
+    }
+    .trend-card__title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--paper);
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+    .trend-card__desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.5;
+    }
+
+    /* Stack d'images pour animations trend */
+    .trend-card__media .stack {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .trend-card__media .stack img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Crossfade lent (2 images) — Captions & Rotoscopie */
+    .stack--captions img,
+    .stack--rotoscopie img {
+      opacity: 0;
+      animation: capCycle 6s infinite;
+    }
+    .stack--captions img:nth-child(1),
+    .stack--rotoscopie img:nth-child(1) { animation-delay: 0s; }
+    .stack--captions img:nth-child(2),
+    .stack--rotoscopie img:nth-child(2) { animation-delay: 3s; }
+    @keyframes capCycle {
+      0%   { opacity: 1; }
+      40%  { opacity: 1; }
+      50%  { opacity: 0; }
+      90%  { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    /* Crossfade fluide (2 images) — Morphing */
+    .stack--morphing img {
+      opacity: 0;
+      animation: morphCycle 4s infinite ease-in-out;
+    }
+    .stack--morphing img:nth-child(1) { animation-delay: 0s; }
+    .stack--morphing img:nth-child(2) { animation-delay: 2s; }
+    @keyframes morphCycle {
+      0%   { opacity: 1; }
+      35%  { opacity: 1; }
+      50%  { opacity: 0; }
+      85%  { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    /* Stop-motion rapide (7 frames) — Match cut */
+    .stack--matchcut img {
+      opacity: 0;
+      animation: mcFlash 1.4s infinite steps(1);
+    }
+    .stack--matchcut img:nth-child(1) { animation-delay: 0s; }
+    .stack--matchcut img:nth-child(2) { animation-delay: 0.2s; }
+    .stack--matchcut img:nth-child(3) { animation-delay: 0.4s; }
+    .stack--matchcut img:nth-child(4) { animation-delay: 0.6s; }
+    .stack--matchcut img:nth-child(5) { animation-delay: 0.8s; }
+    .stack--matchcut img:nth-child(6) { animation-delay: 1.0s; }
+    .stack--matchcut img:nth-child(7) { animation-delay: 1.2s; }
+    @keyframes mcFlash {
+      0%      { opacity: 1; }
+      14.28%  { opacity: 1; }
+      14.29%  { opacity: 0; }
+      100%    { opacity: 0; }
+    }
+
+    /* Bloc rappel "fondamentaux" sur slide trends */
+    .trends-bonus {
+      margin-top: 2.5rem;
+      padding: 1.1rem 1.4rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-left: 3px solid var(--coral);
+      border-radius: 6px;
+      background: rgba(255,255,255,0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      max-width: 1100px;
+    }
+    .trends-bonus__label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .trends-bonus__item {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.5;
+    }
+    .trends-bonus__item strong { color: var(--paper); }
+
+    /* Hero pour slide 9 (intro trends) */
+    .trends-intro {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .trends-intro h1 {
+      font-size: clamp(3rem, 8vw, 7rem);
+      background: linear-gradient(90deg, var(--coral), var(--orange));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.5rem;
+    }
+    .trends-intro p {
+      color: rgba(255,255,255,0.7);
+      font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    }
+
+    /* ============================
+       SLIDE CLOSING
+       ============================ */
+    .closing {
+      background:
+        radial-gradient(1000px 500px at 0% 0%, rgba(255, 113, 99, 0.18) 0%, transparent 60%),
+        radial-gradient(800px 500px at 100% 100%, rgba(255, 179, 71, 0.18) 0%, transparent 60%),
+        var(--paper);
+    }
+    .closing__bullets {
+      list-style: none;
+      margin-top: 2.5rem;
+      display: grid;
+      gap: 1.5rem;
+      max-width: 900px;
+    }
+    .closing__bullets li {
+      padding: 1.5rem 1.75rem;
+      background: var(--paper);
+      border: 1.5px solid var(--border);
+      border-left: 4px solid var(--coral);
+      border-radius: 10px;
+      line-height: 1.55;
+    }
+    .closing__title {
+      font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+      font-weight: 800;
+      color: var(--coral);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.005em;
+    }
+    .closing__bullets li p {
+      font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+      color: var(--ink-mid);
+      line-height: 1.55;
+    }
+
+    /* ============================
+       RESPONSIVE
+       ============================ */
+    @media (max-width: 900px) {
+      .grid--3, .grid--2, .webcode, .trends-grid, .deepdive {
+        grid-template-columns: 1fr;
+      }
+      .deepdive { gap: 1.5rem; }
+      .cover__meta { gap: 1.5rem; }
+    }
+
+    /* Print fallback */
+    @media print {
+      body { scroll-snap-type: none; overflow: visible; height: auto; }
+      .slide { page-break-after: always; min-height: auto; }
+      .slide__nav { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       SLIDE 1 — MUR RÉALISATIONS PRINCIPAL (Tier 1)
+       ============================================================ -->
+  <section class="slide">
+    <div>
+      <div class="eyebrow">Réalisations · Tier 1</div>
+      <h2>Sélection portfolio</h2>
+
+      <div class="grid grid--3">
+
+        <!-- Jerkmate Ranked -->
+        <a class="card" href="https://www.instagram.com/reel/DF5nsrEx0Zh/" target="_blank" rel="noopener">
+          <div class="card__thumb" style="background-image: url('assets/img/tier1-jerkmate.png');">
+            <span class="card__metric">13.5M vues IG</span>
+          </div>
+          <div class="card__body">
+            <div class="card__title">Jerkmate Ranked · Viral IG</div>
+            <div class="card__context">Performance social · 2024 · Crakmedia</div>
+          </div>
+        </a>
+
+        <!-- Prototype IA -->
+        <a class="card" href="https://www.youtube.com/watch?v=14ql2Lp2sdo" target="_blank" rel="noopener">
+          <div class="card__thumb" style="background-image: url('assets/img/tier1-prototype-ia.webp');">
+            <span class="card__metric">Solo · 35-40h</span>
+          </div>
+          <div class="card__body">
+            <div class="card__title">Prototype IA · Capsule interne</div>
+            <div class="card__context">Kling + ElevenLabs + Suno · 2024 · Crakmedia</div>
+          </div>
+        </a>
+
+        <!-- Twitch identité visuelle -->
+        <a class="card" href="https://youtu.be/9-j3O79uMfc" target="_blank" rel="noopener">
+          <div class="card__thumb" style="background-image: url('assets/img/tier1-twitch.webp');"></div>
+          <div class="card__body">
+            <div class="card__title">Twitch · Identité visuelle</div>
+            <div class="card__context">Jingles &amp; transitions motion · 2020-2022 · Personnel</div>
+          </div>
+        </a>
+
+        <!-- Vidéo pédagogique -->
+        <a class="card" href="https://www.youtube.com/watch?v=5MkPZt5VD0o" target="_blank" rel="noopener">
+          <div class="card__thumb" style="background-image: url('assets/img/tier1-pedago.webp');"></div>
+          <div class="card__body">
+            <div class="card__title">FansRevenue Let's Learn</div>
+            <div class="card__context">Vidéo pédagogique · 2023 · Crakmedia</div>
+          </div>
+        </a>
+
+        <!-- Cancun -->
+        <a class="card" href="https://www.youtube.com/watch?v=XPVmIc-0qgc" target="_blank" rel="noopener">
+          <div class="card__thumb" style="background-image: url('assets/img/tier1-cancun.webp');"></div>
+          <div class="card__body">
+            <div class="card__title">Aftermovie Cancun</div>
+            <div class="card__context">Voyage entreprise · Solo tournage + montage · Crakmedia</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+    <div class="slide__nav">01 / 06</div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 4 — MUR RÉALISATIONS SECONDAIRE (Tier 2)
+       ============================================================ -->
+  <section class="slide">
+    <div>
+      <div class="eyebrow">Réalisations · Tier 2 · Plus anciennes / extras</div>
+      <h2>Le reste du parcours</h2>
+
+      <div class="grid grid--3">
+
+        <a class="card" href="https://www.youtube.com/watch?v=rIMTA7LAdG4" target="_blank" rel="noopener">
+          <div class="card__thumb" style="background-image: url('assets/img/tier2-fansrevenue.jpg');"></div>
+          <div class="card__body">
+            <div class="card__title">FansRevenue Contest</div>
+            <div class="card__context">Concours referal influenceurs · 2024 · Crakmedia</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.youtube.com/watch?v=pfQtplpG4o0" target="_blank" rel="noopener">
+          <div class="card__thumb" style="background-image: url('assets/img/tier2-transdev.jpg');"></div>
+          <div class="card__body">
+            <div class="card__title">Transdev · Affiches animées</div>
+            <div class="card__context">Diffusion intérieur de bus · 2018</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.youtube.com/watch?v=l3LnF7pkbAQ" target="_blank" rel="noopener">
+          <div class="card__thumb" style="background-image: url('assets/img/tier2-aktuaprod.jpg');"></div>
+          <div class="card__body">
+            <div class="card__title">Vœux AktuaProd</div>
+            <div class="card__context">Vidéo de fin d'année · 2017</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.youtube.com/watch?v=QXn7FQywE6Y" target="_blank" rel="noopener">
+          <div class="card__thumb" style="background-image: url('assets/img/tier2-cremerie.jpg');"></div>
+          <div class="card__body">
+            <div class="card__title">Crèmerie Royale</div>
+            <div class="card__context">Présentation produit · Box abonnement · 2017</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.youtube.com/watch?v=UHvNnzhVCYo" target="_blank" rel="noopener">
+          <div class="card__thumb" style="background-image: url('assets/img/tier2-mozaique.jpg');"></div>
+          <div class="card__body">
+            <div class="card__title">Festival Moz'aïque</div>
+            <div class="card__context">Présentation groupe Shubni · 2017</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.youtube.com/watch?v=NaT07laF9dE" target="_blank" rel="noopener">
+          <div class="card__thumb" style="background-image: url('assets/img/tier2-generique.jpg');"></div>
+          <div class="card__body">
+            <div class="card__title">Générique d'émission</div>
+            <div class="card__context">Projet étudiant · 2009</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+    <div class="slide__nav">02 / 06</div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 3 — INTRO TRENDS (passage en mode noir)
+       ============================================================ -->
+  <section class="slide dark">
+    <div class="trends-intro">
+      <div class="eyebrow">Veille social-first · 2026</div>
+      <h1>Ce que je regarde,<br>et ce que j'en retiens.</h1>
+      <p>Une lecture des effets qui reviennent dans les édits social-first aujourd'hui.</p>
+    </div>
+    <div class="slide__nav">03 / 06</div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 4 — TRENDS 1+2 · CAPTIONS + ROTOSCOPIE
+       ============================================================ -->
+  <section class="slide dark">
+    <div>
+      <div class="eyebrow">Trends · 1 et 2</div>
+      <h2>Les captions<br>et la rotoscopie.</h2>
+
+      <div class="trends-grid">
+
+        <div class="trend-card">
+          <div class="trend-card__media">
+            <div class="stack stack--captions">
+              <img src="assets/img/trend-captions-1.png" alt="Trend captions exemple 1">
+              <img src="assets/img/trend-captions-2.png" alt="Trend captions exemple 2">
+            </div>
+          </div>
+          <div>
+            <div class="trend-card__category">Trend 01 · Captions</div>
+            <h3 class="trend-card__title">Captions animées</h3>
+            <p class="trend-card__desc">Mot par mot ou phrase par phrase, synchronisés sur la voix. Variations de taille, de couleur, de position selon l'accent du discours. Apparitions punchées, disparitions cleans. Plus une lecture passive : un appui visuel sur ce qui est dit.</p>
+          </div>
+        </div>
+
+        <div class="trend-card">
+          <div class="trend-card__media">
+            <div class="stack stack--rotoscopie">
+              <img src="assets/img/trend-rotoscopie-1.png" alt="Trend rotoscopie exemple 1">
+              <img src="assets/img/trend-rotoscopie-2.png" alt="Trend rotoscopie exemple 2">
+            </div>
+          </div>
+          <div>
+            <div class="trend-card__category">Trend 02 · Rotoscopie</div>
+            <h3 class="trend-card__title">Sujet détouré, calques superposés</h3>
+            <p class="trend-card__desc">Rotoscopie image par image (ou via Roto Brush / outils IA) pour isoler le sujet du fond. Permet de faire passer du texte ou un élément graphique entre les deux, de remplacer l'arrière-plan, ou de créer un raccord avec le plan suivant.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="slide__nav">04 / 06</div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 5 — TRENDS 3+4 · MATCH CUT + MORPHING/TRANSITIONS
+       ============================================================ -->
+  <section class="slide dark">
+    <div>
+      <div class="eyebrow">Trends · 3 et 4</div>
+      <h2>Le match cut<br>et la transition à effet.</h2>
+
+      <div class="trends-grid">
+
+        <div class="trend-card">
+          <div class="trend-card__media">
+            <div class="stack stack--matchcut">
+              <img src="assets/img/trend-matchcut-1.png" alt="Match cut frame 1">
+              <img src="assets/img/trend-matchcut-2.png" alt="Match cut frame 2">
+              <img src="assets/img/trend-matchcut-3.png" alt="Match cut frame 3">
+              <img src="assets/img/trend-matchcut-4.png" alt="Match cut frame 4">
+              <img src="assets/img/trend-matchcut-5.png" alt="Match cut frame 5">
+              <img src="assets/img/trend-matchcut-6.png" alt="Match cut frame 6">
+              <img src="assets/img/trend-matchcut-7.png" alt="Match cut frame 7">
+            </div>
+          </div>
+          <div>
+            <div class="trend-card__category">Trend 03 · Match cut</div>
+            <h3 class="trend-card__title">Raccord forme / geste / mouvement</h3>
+            <p class="trend-card__desc">Coupe entre deux plans alignée sur un élément visuel commun : une forme, un geste, une direction de mouvement, une couleur dominante. Le cerveau lit la continuité avant de voir le changement de contexte.</p>
+          </div>
+        </div>
+
+        <div class="trend-card">
+          <div class="trend-card__media">
+            <div class="stack stack--morphing">
+              <img src="assets/img/trend-morphing-1.png" alt="Trend morphing étape 1">
+              <img src="assets/img/trend-morphing-2.png" alt="Trend morphing étape 2">
+            </div>
+          </div>
+          <div>
+            <div class="trend-card__category">Trend 04 · Transition à effet</div>
+            <h3 class="trend-card__title">Morphing &amp; transformations IA</h3>
+            <p class="trend-card__desc">Les outils IA (Runway, Kling, Luma) ouvrent des transitions impossibles à monter avant : morph fluide d'un objet à un autre, apparition / disparition générée d'éléments, transformation progressive du décor. Plus une coupe entre deux plans : un effet qui se construit dans l'image.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="trends-bonus">
+        <span class="trends-bonus__label">Et bien sûr, les fondamentaux qui marchent toujours :</span>
+        <span class="trends-bonus__item"><strong>le rythme</strong> calé sur la track, modulé selon le sujet</span>
+        <span class="trends-bonus__item"><strong>l'humain</strong> au cœur — sans visage ni voix, l'attention décroche</span>
+      </div>
+    </div>
+    <div class="slide__nav">05 / 06</div>
+  </section>
+
+
+  <!-- ============================================================
+       SLIDE 12 — CLOSING
+       ============================================================ -->
+  <section class="slide closing">
+    <div>
+      <div class="eyebrow">Ce que j'apporte à Haus of Park</div>
+      <h2>Concrètement,<br>au-delà du portfolio.</h2>
+
+      <ul class="closing__bullets">
+        <li>
+          <h3 class="closing__title">Senior, hybride, autonome</h3>
+          <p>15 ans d'expérience, profil touche-à-tout (edit, motion, color, sound, IA, code). Je n'attends pas qu'on me donne des directives : je propose, je solutionne, je livre. À l'aise en petite équipe, c'est mon environnement par défaut.</p>
+        </li>
+        <li>
+          <h3 class="closing__title">Le volume, je connais</h3>
+          <p>Je sais combien de temps prend une vidéo. Je peux proposer des idées alignées avec le brief en tenant compte du volume et de la quantité demandés, parce que j'ai pratiqué toutes les phases de production, du shoot au livrable. Pas de promesse irréaliste.</p>
+        </li>
+        <li>
+          <h3 class="closing__title">La veille, c'est un réflexe</h3>
+          <p>Curieux par défaut. La veille social-first et IA fait partie de ma routine, pas un effort. Confiant de suivre les trends et de proposer ce qui les fait tourner.</p>
+        </li>
+      </ul>
+    </div>
+    <div class="slide__nav">06 / 06</div>
+  </section>
+
+
+  <!-- ============================================================
+       NAVIGATION CLAVIER (flèches haut/bas)
+       ============================================================ -->
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function goTo(idx) {
+      idx = Math.max(0, Math.min(slides.length - 1, idx));
+      slides[idx].scrollIntoView({ behavior: 'smooth' });
+      current = idx;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(e.key)) {
+        e.preventDefault();
+        goTo(current + 1);
+      } else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) {
+        e.preventDefault();
+        goTo(current - 1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goTo(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goTo(slides.length - 1);
+      } else if (e.key === 'f' || e.key === 'F') {
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+        else document.exitFullscreen();
+      }
+    });
+
+    // Mise à jour du compteur en fonction du scroll (pour la navigation tactile)
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+          current = Array.from(slides).indexOf(entry.target);
+        }
+      });
+    }, { threshold: [0.5] });
+
+    slides.forEach((s) => obs.observe(s));
+  </script>
+
+</body>
+</html>
