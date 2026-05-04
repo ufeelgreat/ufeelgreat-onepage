@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Note entrevue · Haus of Park · 5 mai 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --coral: #FF7163;
+      --ink: #111;
+      --ink-mid: #3a3a3a;
+      --ink-light: #777;
+      --border: #e8e8e8;
+      --bg-soft: #faf8f7;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      color: var(--ink);
+      background: #f0eeec;
+      line-height: 1.35;
+      padding: 2rem 1rem;
+      font-size: 13px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      width: 8.5in;
+      height: 11in;
+      margin: 0 auto 1.5rem;
+      background: #fff;
+      padding: 0.7cm 0.9cm;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    header {
+      border-bottom: 2px solid var(--coral);
+      padding-bottom: 0.6rem;
+      margin-bottom: 0.8rem;
+    }
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .meta {
+      font-size: 0.7rem;
+      color: var(--ink-light);
+      font-weight: 600;
+      margin-top: 0.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    section { margin-bottom: 0.75rem; }
+
+    h2 {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.2rem;
+    }
+    h3 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 0.5rem;
+      margin-bottom: 0.22rem;
+    }
+
+    ul, ol {
+      padding-left: 1rem;
+    }
+    li {
+      font-size: 0.74rem;
+      color: var(--ink-mid);
+      margin-bottom: 0.18rem;
+      line-height: 1.35;
+    }
+    li::marker { color: var(--coral); }
+
+    .stories {
+      list-style: none;
+      padding-left: 0;
+      counter-reset: story;
+    }
+    .stories li {
+      counter-increment: story;
+      padding: 0.35rem 0.6rem;
+      background: var(--bg-soft);
+      border-left: 3px solid var(--coral);
+      margin-bottom: 0.3rem;
+      font-size: 0.74rem;
+    }
+    .stories li::before {
+      content: counter(story) ". ";
+      font-weight: 800;
+      color: var(--coral);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.4rem 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: var(--bg-soft);
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+    }
+    td:not(:first-child) { font-weight: 700; color: var(--coral); }
+
+    .reference {
+      font-size: 0.8rem;
+      color: var(--ink-mid);
+      font-style: italic;
+      margin-top: 0.35rem;
+    }
+
+    .logistique {
+      background: var(--bg-soft);
+      padding: 0.6rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.83rem;
+      color: var(--ink-mid);
+    }
+    .logistique strong { color: var(--ink); }
+
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4rem;
+    }
+
+    .note-tip {
+      font-size: 0.78rem;
+      color: var(--ink-light);
+      font-style: italic;
+      margin-top: 0.25rem;
+    }
+
+    .page--offre {
+      page-break-before: always;
+    }
+    .page--offre .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.25rem 1rem;
+      margin-bottom: 0.65rem;
+      padding: 0.4rem 0.65rem;
+      background: var(--bg-soft);
+      border-radius: 6px;
+      font-size: 0.72rem;
+    }
+    .page--offre .meta-grid div { color: var(--ink-mid); }
+    .page--offre .meta-grid strong { color: var(--ink); }
+    .page--offre p.intro {
+      font-size: 0.74rem;
+      color: var(--ink-mid);
+      line-height: 1.4;
+      margin-bottom: 0.4rem;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .page { box-shadow: none; margin: 0; width: 100%; height: auto; }
+      @page { size: letter; margin: 0.7cm 0.9cm; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <header>
+      <h1>Entrevue Haus of Park</h1>
+      <div class="meta">Mardi 5 mai 2026 · 11 h · Gary Bettan · Place Ville-Marie · Créatif vidéo-éditeur &amp; motion designer</div>
+    </header>
+
+    <section>
+      <h2>Mes 3 histoires ancrées (90 sec chacune)</h2>
+      <ol class="stories">
+        <li><strong>Projet vidéo dont je suis fier</strong> — contexte, mon rôle, résultat</li>
+        <li><strong>Contrainte créative résolue</strong> — deadline / brief flou / budget : comment je m'en suis sorti</li>
+        <li><strong>Collaboration réussie</strong> — avec directeur créatif ou vidéographe</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Mes questions</h2>
+
+      <div class="columns">
+        <div>
+          <h3>Contexte du poste</h3>
+          <ul>
+            <li>Pourquoi recruter aujourd'hui ce profil créatif vidéo + motion ?</li>
+            <li>Comment ce rôle s'inscrit dans l'équipe : compétence complémentaire ou remplacement ?</li>
+            <li>Comment se passe la collaboration au quotidien avec le Content Art Director et le Content Videographer/Photographer ?</li>
+            <li>« Capture to final delivery » : suis-je impliqué au tournage / shooting, ou uniquement en post ?</li>
+            <li>À quoi ressemble une réussite à 3 mois ? À 1 an ? Comment c'est mesuré concrètement ?</li>
+          </ul>
+
+          <h3>Entreprise &amp; projets</h3>
+          <ul>
+            <li>Comment vous définiriez la culture Haus of Park ?</li>
+            <li>40 personnes en moins de 2 ans : à quoi ressemble la structure aujourd'hui ?</li>
+            <li>Quels projets en cours, trajectoire 12-24 mois ?</li>
+            <li>L'angle ARG (alternate reality games) : ça représente quoi dans le mix ?</li>
+            <li>« Global brands » : quels marchés / fuseaux horaires couverts ?</li>
+            <li>L'angle « emerging formats » : qu'est-ce que vous explorez en ce moment ?</li>
+          </ul>
+
+          <h3>Suite du processus</h3>
+          <ul>
+            <li>Sous quel délai puis-je espérer une réponse ?</li>
+            <li>Pourrai-je avoir un retour même si je ne suis pas retenu ?</li>
+            <li>Combien de candidats sont en lice à ce stade ?</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Le rôle au quotidien</h3>
+          <ul>
+            <li>Volume de livrables attendu (semaine / mois) ?</li>
+            <li>« Multiple cuts and versions » : combien de variations type à partir d'un même tournage ?</li>
+            <li>« Always-on environment » : qu'est-ce que ça implique concrètement (disponibilité hors heures, week-ends) ?</li>
+            <li>Hybride : combien de jours présentiel vs remote ?</li>
+            <li>Voyage : combien de déplacements / an, durée, destinations ?</li>
+            <li>Qui pose la direction artistique ? Latitude créative ou exécution d'une vision définie ?</li>
+            <li>Temps prévu pour veille &amp; expérimentation ? (ex. automatisation captions / templates motion)</li>
+            <li>Comment se passent les premières semaines pour un nouveau créatif ?</li>
+          </ul>
+
+          <h3>Outils &amp; ressources</h3>
+          <ul>
+            <li>Plateformes créatives mises à dispo (Adobe CC, Frame.io, Runway, Kling, Topaz) ?</li>
+            <li>Budget pour abonnements / plug-ins / banques d'assets ?</li>
+          </ul>
+
+          <h3>Conditions <span class="note-tip">(laisser Gary ouvrir le sujet)</span></h3>
+          <ul>
+            <li>Fourchette salariale ?</li>
+            <li>Avantages : assurance collective (% couverture), passe STM, REER collectif, sport / mieux-être, vacances ?</li>
+          </ul>
+
+          <h3>Portfolio</h3>
+          <ul>
+            <li>Qu'est-ce qui a retenu votre attention ? Qu'est-ce qui aurait pu manquer ?</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="page page--offre">
+
+    <header>
+      <h1>Offre d'emploi · traduction</h1>
+      <div class="meta">Creative Video Editor &amp; Motion Designer · Haus of Park</div>
+    </header>
+
+    <div class="meta-grid">
+      <div><strong>Localisation :</strong> Montréal (hybride)</div>
+      <div><strong>Déplacements :</strong> Ouvert aux voyages</div>
+      <div><strong>Date de début :</strong> Disponible dès mai</div>
+      <div><strong>Langues :</strong> Français et anglais courants</div>
+    </div>
+
+    <section>
+      <h2>Aperçu</h2>
+      <p class="intro">Nous recherchons un Creative Video Editor &amp; Motion Designer qui s'épanouit dans des environnements rapides et toujours actifs. Tu vis dans le montage, comprends ce qui capte l'attention instantanément, et sais transformer des rushes en histoires nettes et percutantes, tous formats confondus.</p>
+      <p class="intro">Tu feras partie d'un moteur de contenu social agile qui travaille pour des marques globales, en produisant du contenu à fort impact avec vitesse, instinct et précision créative. Tu opéreras au sein d'une unité autonome et soudée aux côtés d'un Content Art Director et d'un Content Videographer/Photographer, en assumant la production de la captation jusqu'à la livraison finale.</p>
+    </section>
+
+    <section>
+      <h2>Responsabilités principales</h2>
+      <ul>
+        <li>Monter de gros volumes de vidéo social-first sur Instagram, TikTok, YouTube et formats émergents</li>
+        <li>Dérusher rapidement et identifier les moments narratifs forts sans storyboard</li>
+        <li>Créer des montages platform-native, actuels, dynamiques et culturellement pertinents</li>
+        <li>Livrer plusieurs versions et déclinaisons dans des délais serrés</li>
+        <li>Façonner la narration par le pacing, le rythme, les transitions et le sound design</li>
+        <li>Adapter le contenu selon les formats, ratios et placements</li>
+        <li>Collaborer étroitement avec ton unité de contenu tout en contribuant à un workflow agile plus large</li>
+        <li>Proposer des idées et élever le travail de manière proactive</li>
+      </ul>
+    </section>
+
+    <div class="columns">
+      <div>
+        <section>
+          <h2>Ton profil</h2>
+          <ul>
+            <li>3 à 5 ans d'expérience en montage vidéo et motion design, idéalement en social ou digital</li>
+            <li>Instinct narratif fort, même avec des rushes bruts ou non structurés</li>
+            <li>Capacité à monter sans storyboard et livrer un récit clair et engageant</li>
+            <li>Œil affûté pour ce qui est cool, beau et dans l'air du temps</li>
+            <li>Sens du timing, du pacing et du rythme visuel</li>
+            <li>Mentalité orientée solutions, biais pour l'action</li>
+            <li>Confort sous pression, deadlines courtes</li>
+            <li>Compréhension fine des nuances de chaque plateforme et des leviers de performance</li>
+            <li>Expérience en petites équipes créatives autonomes : atout fort</li>
+          </ul>
+        </section>
+      </div>
+
+      <div>
+        <section>
+          <h2>Compétences techniques</h2>
+          <ul>
+            <li>Maîtrise des suites Adobe et/ou Apple (Premiere Pro, After Effects, Final Cut Pro, Motion)</li>
+            <li>Familiarité avec le motion graphics, la typographie et les principes d'animation</li>
+            <li>Bonne compréhension du sound design, de la color correction et du grading de base</li>
+            <li>Connaissance solide des formats social-first, de la compression et des best practices d'export</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>À quoi ressemble la réussite</h2>
+          <ul>
+            <li>Tu livres systématiquement des montages de qualité, à grande vitesse</li>
+            <li>Ton travail est culturellement pertinent, affûté et intentionnel</li>
+            <li>Tu élèves le contenu par la narration, pas juste par l'assemblage</li>
+            <li>On te fait confiance pour plonger dans les rushes et trouver l'histoire vite</li>
+            <li>Tu contribues à une équipe qui avance vite et tire le niveau vers le haut</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page page--offre">
+
+    <header>
+      <h1>Job offer · original (EN)</h1>
+      <div class="meta">Creative Video Editor &amp; Motion Designer · Haus of Park</div>
+    </header>
+
+    <div class="meta-grid">
+      <div><strong>Location:</strong> Montréal (Hybrid)</div>
+      <div><strong>Travel:</strong> Open to travel</div>
+      <div><strong>Start Date:</strong> Available as of May</div>
+      <div><strong>Languages:</strong> Fluent in French and English</div>
+    </div>
+
+    <section>
+      <h2>Overview</h2>
+      <p class="intro">We are looking for a Creative Video Editor and Motion Designer who thrives in fast-paced, always-on environments. You live in the edit, understand what captures attention instantly, and know how to turn raw footage into sharp, compelling stories across formats.</p>
+      <p class="intro">You will be part of an agile social content engine working on global brands, producing high-impact content with speed, instinct, and creative precision. You will operate as part of a tight, autonomous unit alongside a Content Art Director and a Content Videographer/Photographer, owning output from capture to final delivery.</p>
+    </section>
+
+    <section>
+      <h2>Key Responsibilities</h2>
+      <ul>
+        <li>Edit high volumes of social-first video content across platforms including Instagram, TikTok, YouTube, and emerging formats</li>
+        <li>De-rush footage quickly and identify strong narrative moments without relying on a storyboard</li>
+        <li>Craft platform-native edits that feel current, dynamic, and culturally relevant</li>
+        <li>Deliver multiple cuts and versions within tight timelines</li>
+        <li>Shape storytelling through pacing, rhythm, transitions, and sound design</li>
+        <li>Adapt content across formats, ratios, and placements</li>
+        <li>Collaborate closely within your content unit while contributing to a broader agile workflow</li>
+        <li>Bring ideas forward and actively elevate the work</li>
+      </ul>
+    </section>
+
+    <div class="columns">
+      <div>
+        <section>
+          <h2>What You Bring</h2>
+          <ul>
+            <li>3 to 5 years of experience in video editing and motion design, ideally in social or digital environments</li>
+            <li>Strong storytelling instincts, even with raw or unstructured footage</li>
+            <li>Ability to edit without a storyboard and still deliver clear, engaging narratives</li>
+            <li>Sharp eye for what feels cool, beautiful, and on trend</li>
+            <li>Strong sense of timing, pacing, and visual rhythm</li>
+            <li>Solution-oriented mindset with a bias for action</li>
+            <li>Comfort working under pressure with fast turnarounds</li>
+            <li>Deep understanding of platform nuances and performance drivers</li>
+            <li>Experience working in small, autonomous creative teams is a strong asset</li>
+          </ul>
+        </section>
+      </div>
+
+      <div>
+        <section>
+          <h2>Technical Skills</h2>
+          <ul>
+            <li>Proficiency in Adobe and/or Apple creative suites (Premiere Pro, After Effects, Final Cut Pro, Motion)</li>
+            <li>Familiarity with motion graphics, typography, and animation principles</li>
+            <li>Solid understanding of sound design, color correction, and basic grading</li>
+            <li>Strong knowledge of social-first formats, compression, and export best practices</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>What Success Looks Like</h2>
+          <ul>
+            <li>You consistently deliver high-quality edits at speed</li>
+            <li>Your work feels culturally relevant, sharp, and intentional</li>
+            <li>You elevate content through storytelling, not just assembly</li>
+            <li>You are trusted to jump into raw footage and find the story fast</li>
+            <li>You contribute to a team that moves quickly and raises the bar</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page page--offre">
+
+    <header>
+      <h1>English interview · career walkthrough</h1>
+      <div class="meta">Antisèche EN · à lire à voix haute avant l'entrevue</div>
+    </header>
+
+    <section>
+      <h2>Career walkthrough (ready-made)</h2>
+
+      <h3>Opening</h3>
+      <p class="intro">"I have around 15 years of experience in production coordination and creative team management, mostly in video, motion and digital content. I'm based in Montréal, originally from France, and I moved here in 2017."</p>
+
+      <h3>Arkane Productions — coordinator</h3>
+      <p class="intro">"I started my career at Arkane Productions as a production coordinator, mainly on TV commercials and corporate videos. I was the link between the producer, the creative team and the clients. On the side, I was also doing motion design occasionally — lower-thirds, simple animations, end cards — whenever the project needed it."</p>
+
+      <h3>AktuaProd — producer / coordinator</h3>
+      <p class="intro">"Then I moved to AktuaProd, a press agency producing daily news content for regional French TV channels. I was coordinating a team of journalists, editors and motion designers, managing the daily editorial pipeline — from shooting to final delivery — under tight broadcast deadlines. I also kept doing some hands-on motion graphics when we were short-staffed."</p>
+
+      <h3>Crakmedia — creative team manager</h3>
+      <p class="intro">"For the last few years I've been at Crakmedia, a performance marketing agency based in Québec City. I managed a creative team of around 10 people — video editors, motion designers, AI artists — producing high volumes of social-first content for global brands. My role was to structure the pipeline, prioritize the backlog, coach the team, and make sure we shipped fast without losing creative quality. I also led our integration of generative AI tools — Kling, ElevenLabs, Suno, Midjourney — into the production workflow."</p>
+
+      <h3>Why this role</h3>
+      <p class="intro">"What I'm looking for now is to get my hands back into the craft — editing and motion — in a small, autonomous, fast-moving team. That's exactly what attracted me to Haus of Park."</p>
+    </section>
+
+    <section>
+      <h2>Skills &amp; strengths (ready-made)</h2>
+
+      <h3>Editing &amp; motion</h3>
+      <p class="intro">"On the editing side, I work mainly in Premiere Pro and After Effects. I'm comfortable cutting from raw footage, finding the story, and shaping it through pacing and sound. On motion, I do mostly social-first stuff — kinetic type, lower-thirds, animated overlays, end cards. I'm not a high-end VFX artist, but I'm fast and clean on the kind of motion that makes social content pop."</p>
+
+      <h3>Speed &amp; volume</h3>
+      <p class="intro">"At Crakmedia we were producing dozens of cuts per week across multiple platforms. So I'm very used to high-volume environments where you can't overthink every shot — you need a strong instinct, a tight pipeline, and the discipline to ship."</p>
+
+      <h3>AI &amp; new tools</h3>
+      <p class="intro">"I'm also deeply hands-on with generative AI tools — Kling for video, ElevenLabs for voice, Suno for music, Midjourney for stills. I led the integration of these tools into our production pipeline, which let us prototype faster and unlock formats we couldn't afford before."</p>
+
+      <h3>Team &amp; collaboration</h3>
+      <p class="intro">"I've spent years coordinating creative teams, so I know how to give and receive feedback, how to protect a tight deadline without crushing the work, and how to plug into a small autonomous unit. I'm comfortable being client-facing and I'm comfortable being heads-down in the timeline."</p>
+    </section>
+
+  </div>
+
+  <div class="page page--offre">
+
+    <header>
+      <h1>English interview · useful sentences</h1>
+      <div class="meta">Phrases prêtes à l'emploi · à parcourir avant l'entrevue</div>
+    </header>
+
+    <section>
+      <h2>Useful sentence starters</h2>
+      <div class="columns">
+        <div>
+          <h3>Presenting yourself</h3>
+          <ul>
+            <li>"In my last role, I was responsible for…"</li>
+            <li>"What I really enjoy about editing is…"</li>
+            <li>"A good example of that would be…"</li>
+            <li>"My approach is usually to start with…"</li>
+            <li>"I'd say my strongest skill is…"</li>
+            <li>"What I bring to the table is…"</li>
+            <li>"To give you a concrete number…"</li>
+            <li>"I've been doing this for over 15 years now."</li>
+          </ul>
+
+          <h3>Telling a story</h3>
+          <ul>
+            <li>"Let me give you a concrete example."</li>
+            <li>"The context was…"</li>
+            <li>"My role on that project was to…"</li>
+            <li>"What we ended up shipping was…"</li>
+            <li>"The result was…"</li>
+            <li>"What I learned from that is…"</li>
+          </ul>
+
+          <h3>Showing curiosity</h3>
+          <ul>
+            <li>"Could you tell me more about…?"</li>
+            <li>"What does a typical week look like for…?"</li>
+            <li>"How do you usually handle…?"</li>
+            <li>"I'd love to hear more about how you approach…"</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Buying time / clarifying</h3>
+          <ul>
+            <li>"That's a great question, let me think for a second."</li>
+            <li>"Just to make sure I understand correctly…"</li>
+            <li>"Sorry, could you rephrase that?"</li>
+            <li>"In other words, you're asking…?"</li>
+            <li>"Let me come back to your question with a concrete example."</li>
+            <li>"Bear with me, I want to give you a precise answer."</li>
+          </ul>
+
+          <h3>Showing judgement</h3>
+          <ul>
+            <li>"It really depends on the brief, but generally…"</li>
+            <li>"In my experience, the best approach is to…"</li>
+            <li>"I tend to prioritize clarity over polish when the deadline is tight."</li>
+            <li>"There's always a trade-off between speed and craft, and I usually lean…"</li>
+            <li>"Honestly, that's something I'd want to learn more about before answering."</li>
+          </ul>
+
+          <h3>Closing strong</h3>
+          <ul>
+            <li>"What excites me about this role is…"</li>
+            <li>"I think I'd be a strong fit because…"</li>
+            <li>"I'd be happy to walk you through more of my work if useful."</li>
+            <li>"Thanks for taking the time, I really enjoyed this conversation."</li>
+            <li>"Looking forward to hearing back from you."</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="page page--offre">
+
+    <header>
+      <h1>English interview · vocabulary</h1>
+      <div class="meta">Lexique EN · montage, motion, social, workflow</div>
+    </header>
+
+    <div class="columns">
+      <div>
+        <section>
+          <h2>Editing vocabulary</h2>
+          <ul>
+            <li><strong>Footage / rushes / raw footage</strong> — rushes</li>
+            <li><strong>To de-rush / to log footage</strong> — dérusher</li>
+            <li><strong>Rough cut / fine cut / final cut</strong> — montage brut / fin / final</li>
+            <li><strong>Cut, trim, splice</strong> — couper, raccourcir, raccorder</li>
+            <li><strong>Pacing, rhythm, beat</strong> — rythme, tempo</li>
+            <li><strong>Jump cut, J-cut, L-cut, match cut</strong> — types de raccords</li>
+            <li><strong>B-roll, A-roll</strong> — plans d'illustration / principaux</li>
+            <li><strong>Storyboard, shot list</strong> — découpage, liste de plans</li>
+            <li><strong>Hook, payoff, beat drop</strong> — accroche, chute, temps fort</li>
+            <li><strong>Storytelling, narrative arc</strong> — narration, arc narratif</li>
+            <li><strong>Turnaround, deadline, ETA</strong> — délai, échéance</li>
+            <li><strong>Deliverables, cuts, versions</strong> — livrables, déclinaisons</li>
+            <li><strong>Sequence, timeline, bin</strong> — séquence, timeline, chutier</li>
+            <li><strong>Trim, ripple, slip, slide</strong> — outils de coupe</li>
+            <li><strong>Reframe, recadrage, crop</strong></li>
+            <li><strong>Voice-over, narration, ADR</strong></li>
+            <li><strong>Talking head, interview cut</strong></li>
+            <li><strong>Rough assembly, paper edit</strong></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Motion &amp; post vocabulary</h2>
+          <ul>
+            <li><strong>Motion graphics, motion design</strong></li>
+            <li><strong>Keyframe, easing, ease in/out</strong></li>
+            <li><strong>Lower-third, end card, bumper</strong></li>
+            <li><strong>Title card, kinetic typography</strong></li>
+            <li><strong>Compositing, masking, rotoscoping</strong></li>
+            <li><strong>Color correction, color grading, LUT</strong></li>
+            <li><strong>Sound design, mix, foley, SFX</strong></li>
+            <li><strong>VFX, green screen / chroma key</strong></li>
+            <li><strong>Render, export, codec, compression</strong></li>
+            <li><strong>Frame rate, bitrate, resolution</strong></li>
+            <li><strong>Aspect ratio (9:16, 1:1, 16:9)</strong></li>
+            <li><strong>Template, preset, mogrt</strong></li>
+            <li><strong>Tracking, motion tracking, stabilization</strong></li>
+            <li><strong>Parenting, null object, expression</strong></li>
+            <li><strong>Loop, seamless loop</strong></li>
+            <li><strong>Particle system, generator</strong></li>
+            <li><strong>Proxy, offline / online edit</strong></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>AI &amp; generative tools</h2>
+          <ul>
+            <li><strong>Generative AI, gen AI</strong></li>
+            <li><strong>Prompt, prompting, prompt engineering</strong></li>
+            <li><strong>Text-to-image / text-to-video / image-to-video</strong></li>
+            <li><strong>Voice cloning, voice synthesis</strong></li>
+            <li><strong>Lip-sync, face swap</strong></li>
+            <li><strong>Upscaling, frame interpolation</strong></li>
+            <li><strong>Auto-caption, auto-transcript</strong></li>
+          </ul>
+        </section>
+      </div>
+
+      <div>
+        <section>
+          <h2>Social media vocabulary</h2>
+          <ul>
+            <li><strong>Social-first content</strong> — pensé pour le social</li>
+            <li><strong>Platform-native</strong> — taillé pour la plateforme</li>
+            <li><strong>Reels, Shorts, TikToks</strong></li>
+            <li><strong>Vertical / square / landscape</strong></li>
+            <li><strong>Always-on content</strong> — flux continu</li>
+            <li><strong>Organic vs paid</strong> — organique vs sponsorisé</li>
+            <li><strong>Engagement, reach, impressions, retention</strong></li>
+            <li><strong>Watch time, completion rate, hook rate</strong></li>
+            <li><strong>CTR, CTA</strong> — taux de clic, appel à l'action</li>
+            <li><strong>Trend, trending sound, meme format</strong></li>
+            <li><strong>Captions, subtitles, burned-in text</strong></li>
+            <li><strong>Thumbnail, cover, opening frame</strong></li>
+            <li><strong>UGC, user-generated content</strong></li>
+            <li><strong>Creator economy, influencer content</strong></li>
+            <li><strong>Stories, carousel, pinned post</strong></li>
+            <li><strong>Drop, launch, teaser, trailer</strong></li>
+            <li><strong>Edit pack, content batch, content calendar</strong></li>
+            <li><strong>Performance metrics, KPIs, benchmarks</strong></li>
+            <li><strong>A/B test, variant, iteration</strong></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Workflow &amp; team vocabulary</h2>
+          <ul>
+            <li><strong>Pipeline, workflow, throughput</strong></li>
+            <li><strong>Brief, creative brief, debrief</strong></li>
+            <li><strong>Backlog, priorities, scope</strong></li>
+            <li><strong>Stakeholder, client-facing, in-house</strong></li>
+            <li><strong>Feedback loop, review round, notes</strong></li>
+            <li><strong>Sign-off, approval, lock</strong></li>
+            <li><strong>Capture to delivery</strong> — du tournage à la livraison</li>
+            <li><strong>End-to-end ownership</strong></li>
+            <li><strong>Direct report, peer, cross-functional</strong></li>
+            <li><strong>To onboard, to ramp up, to scale</strong></li>
+            <li><strong>To ship, to deliver, to push live</strong></li>
+            <li><strong>To iterate, to refine, to polish</strong></li>
+            <li><strong>Hands-on, heads-down, in the weeds</strong></li>
+            <li><strong>Blocker, bottleneck, dependency</strong></li>
+            <li><strong>Standup, sync, retro, kickoff</strong></li>
+            <li><strong>Sprint, milestone, due date</strong></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Soft skills phrasing</h2>
+          <ul>
+            <li><strong>Bias for action</strong> — orienté action</li>
+            <li><strong>Solution-oriented</strong> — orienté solutions</li>
+            <li><strong>Detail-oriented</strong> — minutieux</li>
+            <li><strong>Self-starter, autonomous</strong> — autonome</li>
+            <li><strong>Strong sense of ownership</strong> — sens des responsabilités</li>
+            <li><strong>Comfortable under pressure</strong> — à l'aise sous pression</li>
+            <li><strong>Quick learner, adaptable</strong> — vite opérationnel</li>
+            <li><strong>Eye for detail / eye for craft</strong> — œil affûté</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

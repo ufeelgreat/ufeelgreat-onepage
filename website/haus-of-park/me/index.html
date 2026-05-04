@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Préparation entrevue · Haus of Park · STAR + Carnet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --coral: #FF7163;
+      --ink: #111;
+      --ink-mid: #3a3a3a;
+      --ink-light: #777;
+      --border: #e8e8e8;
+      --bg-soft: #faf8f7;
+      --bg-en: #f4f7fb;
+      --blue: #3b6cb5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      color: var(--ink);
+      background: #f0eeec;
+      line-height: 1.4;
+      padding: 2rem 1rem;
+      font-size: 13px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto 1.5rem;
+      background: #fff;
+      padding: 0.8cm 1cm;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    header.cover {
+      border-bottom: 2px solid var(--coral);
+      padding-bottom: 0.6rem;
+      margin-bottom: 0.8rem;
+    }
+    h1 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .meta {
+      font-size: 0.7rem;
+      color: var(--ink-light);
+      font-weight: 600;
+      margin-top: 0.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    h2 {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin: 0.9rem 0 0.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.22rem;
+    }
+
+    h3 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 0.6rem;
+      margin-bottom: 0.3rem;
+    }
+
+    h3 .num {
+      color: var(--coral);
+      font-weight: 800;
+      margin-right: 0.35rem;
+    }
+
+    p, li {
+      font-size: 0.78rem;
+      color: var(--ink-mid);
+      line-height: 1.5;
+    }
+
+    .star {
+      background: var(--bg-soft);
+      border-left: 3px solid var(--coral);
+      padding: 0.45rem 0.7rem;
+      margin-bottom: 0.5rem;
+      border-radius: 0 4px 4px 0;
+    }
+    .star p { margin-bottom: 0.25rem; }
+    .star p:last-child { margin-bottom: 0; }
+    .star .label {
+      font-weight: 800;
+      color: var(--coral);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-right: 0.3rem;
+    }
+
+    .quote {
+      border-left: 3px solid var(--ink-light);
+      padding: 0.4rem 0.7rem;
+      margin-bottom: 0.4rem;
+      background: #fafafa;
+      font-size: 0.78rem;
+      color: var(--ink-mid);
+      line-height: 1.55;
+    }
+    .quote strong { color: var(--ink); }
+
+    .alert {
+      background: #fff8e6;
+      border-left: 3px solid #d29e00;
+      padding: 0.4rem 0.7rem;
+      font-size: 0.72rem;
+      color: var(--ink-mid);
+      margin: 0.4rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .alert strong { color: #8a6500; }
+
+    /* EN block */
+    .page--en h2 { color: var(--blue); }
+    .page--en .star {
+      background: var(--bg-en);
+      border-left-color: var(--blue);
+    }
+    .page--en .star .label { color: var(--blue); }
+
+    /* Carnet */
+    .anchor-card {
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--coral);
+      border-radius: 4px;
+      padding: 0.55rem 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .anchor-card h4 {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+    .anchor-card .anchor {
+      display: inline-block;
+      background: var(--coral);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.72rem;
+      padding: 0.18rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 0.35rem;
+    }
+    .anchor-card ul { padding-left: 1rem; margin-bottom: 0.3rem; }
+    .anchor-card li { font-size: 0.74rem; margin-bottom: 0.1rem; }
+    .anchor-card .punch {
+      font-style: italic;
+      color: var(--ink);
+      font-size: 0.76rem;
+      margin-top: 0.25rem;
+      padding-top: 0.3rem;
+      border-top: 1px dashed var(--border);
+    }
+    .anchor-card .punch::before { content: "“"; color: var(--coral); font-weight: 800; }
+    .anchor-card .punch::after { content: "”"; color: var(--coral); font-weight: 800; }
+
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
+
+    .nav {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.7rem;
+    }
+    .nav a {
+      color: var(--coral);
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid var(--coral);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+    }
+    .nav a:hover { background: var(--coral); color: #fff; }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .page { box-shadow: none; margin: 0; width: 100%; min-height: auto; page-break-after: always; }
+      .nav { display: none; }
+      @page { size: letter; margin: 0.8cm 1cm; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== PAGE 1 — STAR FR ========== -->
+  <div class="page">
+
+    <header class="cover">
+      <h1>Préparation entrevue · STAR + Carnet</h1>
+      <div class="meta">Haus of Park · 5 mai 2026 · Forces &amp; faiblesses · FR / EN</div>
+    </header>
+
+    <div class="nav">
+      <a href="#fr">FR</a>
+      <a href="#en">EN</a>
+      <a href="#carnet">Carnet</a>
+      <a href="../itw/">← Note entrevue</a>
+    </div>
+
+    <section id="fr">
+      <h2>Forces — STAR (FR)</h2>
+
+      <h3><span class="num">1</span>Coordination &amp; anticipation — Crakmedia / Collaborate</h3>
+      <div class="star">
+        <p><span class="label">S</span>Chez Crakmedia, je coordonnais une équipe de 4 (4 et demi avec un collaborateur rattaché en partie) sur un pipeline vidéo/motion à fort volume pour le marketing et le media buying. Avant ma prise de coordination, les vidéos partaient en livraison, on recevait les retours après, on rouvrait le projet, on corrigeait, on relivrait.</p>
+        <p><span class="label">T</span>Compresser le cycle et arrêter de payer le coût des allers-retours post-livraison.</p>
+        <p><span class="label">A</span>Intégration de la plateforme Collaborate dans le pipeline pour basculer la phase de review <strong>avant</strong> la livraison, pas après. Documentation du nouveau workflow et standardisation du cadrage des briefs en amont pour réduire les retours en aval.</p>
+        <p><span class="label">R</span>Suppression de la boucle "livre → retours → ré-ouverture → correction" sur la majorité des projets. Volume variable — un livrable principal en 10-12h avec 4 dérivés A/B, jusqu'à 30h pour du premium — l'enjeu n'était pas le temps unitaire mais d'éviter qu'un livrable ne reparte pour un deuxième tour. Promu chef d'équipe après un an, à l'initiative du directeur.</p>
+      </div>
+
+      <h3><span class="num">2</span>Mindset builder + intégration LLM — Crakmedia / VO IA</h3>
+      <div class="star">
+        <p><span class="label">S</span>Toujours chez Crakmedia, début 2023. Pour les voix off, on tournait soit avec les mêmes voix internes en boucle, soit on écrivait, on envoyait à un prestataire externe et on attendait <strong>deux semaines</strong>. Goulot massif sur des campagnes marketing à cycle court.</p>
+        <p><span class="label">T</span>Trouver une voie pour ne plus subir ce délai de deux semaines, sans dégrader la qualité perçue.</p>
+        <p><span class="label">A</span>Premier dans l'équipe à intégrer les outils d'IA générative en production : écriture assistée par LLM, synthèse vocale (Revoicer puis ElevenLabs), Midjourney pour l'image, Kling pour la vidéo. Pas en remplacement du jugement créatif — comme partenaire de production. Cadrage clair de quand l'IA fait gagner du temps (VO) et quand elle en coûte (génération image = nouvelle étape, mais débloque ce qu'on n'aurait pas fait avant).</p>
+        <p><span class="label">R</span>Délai VO ramené de deux semaines à quelques heures. Ouverture de visuels qui étaient hors-budget temps avant. Cette posture builder, je la prolonge sur mes projets perso : trois sites/apps déployés en solo en 2026 avec l'IA comme partenaire.</p>
+      </div>
+
+      <h3><span class="num">3</span>Réactivité — Arcanes / live</h3>
+      <div class="star">
+        <p><span class="label">S</span>Chez Arcanes Production, captation et <strong>diffusion live en direct</strong> d'un événement. Régie live, conducteur préparé en amont.</p>
+        <p><span class="label">T</span>Tenir le direct alors que certains éléments de présentation arrivaient <strong>entre 1h30 et 30 minutes avant le début</strong>.</p>
+        <p><span class="label">A</span>Repriorisation à chaud du conducteur, intégration des nouveaux éléments dans les présentations, mise à jour de l'ensemble du conducteur jusqu'à juste avant le top antenne. Coordination en parallèle avec l'équipe technique pour que rien ne casse côté régie.</p>
+        <p><span class="label">R</span>Live diffusé sans accroc avec tous les éléments à jour. La leçon : sur du live, le plan théorique n'a pas de valeur, ce qui en a c'est la capacité à recoller les morceaux jusqu'à la dernière minute sans perdre la lisibilité du conducteur.</p>
+      </div>
+
+      <h2>Faiblesses — STAR (FR)</h2>
+
+      <div class="alert"><strong>Calibrage</strong> · Ne pas nommer Jerkmate Ranked en clair → dire "un projet de gamification sur l'une de nos plateformes". Pour la thérapie, version EN softée en "coach".</div>
+
+      <h3><span class="num">1</span>Implication forte → frustration quand un projet n'aboutit pas</h3>
+      <div class="quote">Ma plus grande faiblesse, c'est que je m'implique fortement dans les projets — et quand un projet n'aboutit pas à la hauteur de ce qu'il aurait pu être, ça me frustre. <strong>Attachement au projet, pas à l'ego dessus</strong> : ce n'est pas que je veux avoir raison, c'est que je vois le potentiel non exploité.</div>
+      <div class="quote">Exemple concret : chez Crakmedia, un projet de gamification sur l'une de nos plateformes — apporter une vraie proposition de jeu aux utilisateurs, travailler la trend. On voulait s'impliquer côté production, mais le marketing gardait la main sur la coordination, sans amener les bonnes idées. Les décideurs n'étaient pas joueurs, donc ils ne voyaient pas les problèmes d'équilibrage du clicker. Le projet aurait pu aller beaucoup plus loin avec les bonnes personnes au bon endroit.</div>
+      <div class="quote">Ce que j'ai mis en place : un travail de fond sur le détachement. J'ai suivi un thérapeute pendant environ deux ans et demi, et j'en ai retiré une chose concrète — me recentrer sur ce sur quoi j'ai du pouvoir, lâcher sur le reste. Aujourd'hui je reste autant impliqué sur les projets où je mets de moi, parce que ça se sent dans le rendu. Mais quand je dois passer la main ou que le projet n'aboutit pas pour des raisons externes, je relativise beaucoup mieux.</div>
+
+      <h3><span class="num">2</span>Sous-vendre mon travail</h3>
+      <div class="quote">Mon autre faiblesse : j'ai longtemps eu tendance à laisser les livrables parler à ma place. C'est confortable côté technicien, ça l'est moins côté coordination ou entretien. J'apprends à mieux verbaliser l'impact concret de ce que je produis — pas pour gonfler, pour rendre lisible. Cet entretien aujourd'hui, c'est précisément l'exercice.</div>
+    </section>
+
+  </div>
+
+  <!-- ========== PAGE 2 — STAR EN ========== -->
+  <div class="page page--en">
+
+    <header class="cover" style="border-bottom-color: var(--blue);">
+      <h1>Interview prep · Strengths &amp; Weaknesses (EN)</h1>
+      <div class="meta">Haus of Park · May 5, 2026</div>
+    </header>
+
+    <section id="en">
+      <h2>Strengths — STAR (EN)</h2>
+
+      <h3><span class="num" style="color: var(--blue);">1</span>Coordination &amp; anticipation — Crakmedia / Collaborate</h3>
+      <div class="star">
+        <p><span class="label">S</span>At Crakmedia, I coordinated a team of four (four and a half, with one collaborator partly under my wing) on a high-volume video and motion pipeline for marketing and media buying. Before I took the coordination role, videos went out for delivery, feedback came back after, we'd reopen the project, fix it, redeliver.</p>
+        <p><span class="label">T</span>Compress the cycle and stop paying the cost of post-delivery back-and-forth.</p>
+        <p><span class="label">A</span>I pushed for integrating the Collaborate platform into the pipeline so the review phase happened <strong>before</strong> delivery, not after. I documented the new workflow and standardized how we framed briefs upfront to cut down on revisions downstream.</p>
+        <p><span class="label">R</span>We removed the "deliver, get feedback, reopen, fix" loop on most projects. Volume varied a lot — a main asset could ship in 10-12 hours with four A/B variants, while premium projects ran up to 30 hours — so the win wasn't shaving unit time, it was making sure no asset went round a second time. I was promoted to team lead after a year, on the director's initiative.</p>
+      </div>
+
+      <h3><span class="num" style="color: var(--blue);">2</span>Builder mindset + LLM integration — Crakmedia / AI VO</h3>
+      <div class="star">
+        <p><span class="label">S</span>Still at Crakmedia, early 2023. For voice-overs, we were either reusing the same in-house voices on loop, or writing scripts and sending them to an external vendor who'd come back <strong>two weeks later</strong>. Big bottleneck on short-cycle marketing campaigns.</p>
+        <p><span class="label">T</span>Find a way out of that two-week wait without losing perceived quality.</p>
+        <p><span class="label">A</span>I was the first on the team to bring generative AI tools into production: LLM-assisted scriptwriting, voice synthesis (Revoicer first, then ElevenLabs), Midjourney for stills, Kling for video. Not as a replacement for creative judgment — as a production partner. I also drew clear lines on where AI saves time (VO) and where it costs time (image generation adds a step, but unlocks things we wouldn't have done before).</p>
+        <p><span class="label">R</span>VO turnaround went from two weeks to a few hours. Visuals that were out of time-budget became feasible. That same builder mindset — building my own tools when a need shows up — I carry into my personal projects: three websites and apps shipped solo in 2026 with AI as a partner.</p>
+      </div>
+
+      <h3><span class="num" style="color: var(--blue);">3</span>Reactivity — Arcanes / live</h3>
+      <div class="star">
+        <p><span class="label">S</span>At Arcanes Production, live capture and broadcast of an event. Live control room, run-of-show prepared in advance.</p>
+        <p><span class="label">T</span>Hold the live broadcast while some presentation elements were landing <strong>between 90 and 30 minutes before air</strong>.</p>
+        <p><span class="label">A</span>Re-prioritized the run-of-show on the fly, integrated the new content into the presentations, and pushed updates across the whole run-of-show right up to air. In parallel, kept the technical team in sync so nothing broke on the control room side.</p>
+        <p><span class="label">R</span>Live aired clean with everything up to date. What I took from it: on a live show, the theoretical plan isn't worth much — what counts is the ability to piece things back together up to the last minute without losing the thread of the run-of-show.</p>
+      </div>
+
+      <h2>Weaknesses — STAR (EN)</h2>
+
+      <h3><span class="num" style="color: var(--blue);">1</span>Strong involvement → frustration when a project falls short</h3>
+      <div class="quote">My biggest weakness is that I get deeply involved in projects — and when a project doesn't reach the level it could have, that frustrates me. It's <strong>attachment to the project, not to my ego on it</strong>: it's not about being right, it's about seeing potential left on the table.</div>
+      <div class="quote">A concrete example: at Crakmedia, a gamification project on one of our platforms — bringing a real game proposition to users, working a trend. We wanted to get involved on the production side, but marketing kept full control of the coordination without bringing the right ideas to the table. The people leading it weren't gamers, so they couldn't see the balance issues in the clicker. The project could have gone much further with the right people in the right seats.</div>
+      <div class="quote">What I put in place: real work on letting go. I worked on this with a coach over a couple of years, and I took one concrete thing from it — focus on what I can actually influence, let go of the rest. Today I still get just as involved on the projects I put myself into, because I believe it shows in the final output. But when I have to hand something off, or the project doesn't land where I'd hoped for reasons outside my control, I can put it in perspective much better.</div>
+
+      <h3><span class="num" style="color: var(--blue);">2</span>Underselling my work</h3>
+      <div class="quote">My other weakness: for a long time I let the deliverables speak for me. That's comfortable on the craft side, less so in coordination or in interviews. I'm learning to better articulate the concrete impact of what I produce — not to inflate it, just to make it readable. This interview is exactly that exercise.</div>
+    </section>
+
+  </div>
+
+  <!-- ========== PAGE 3 — CARNET ========== -->
+  <div class="page">
+
+    <header class="cover">
+      <h1>Carnet · Anchors &amp; mots-clés</h1>
+      <div class="meta">À recopier · Veille au soir : relire 1× les STAR · Matin : anchors + punchlines uniquement</div>
+    </header>
+
+    <section id="carnet">
+      <h2>Forces</h2>
+
+      <div class="columns">
+        <div class="anchor-card">
+          <h4>F1 · Coordination &amp; anticipation</h4>
+          <span class="anchor">Review BEFORE delivery, not after.</span>
+          <ul>
+            <li>Crakmedia · team of 4 (4.5)</li>
+            <li>Volume : 10-12h + 4 A/B variants → up to 30h premium</li>
+            <li>Killed the loop : deliver → feedback → reopen → fix</li>
+            <li>Promoted team lead after 1 year — director's initiative</li>
+          </ul>
+          <div class="punch">The win wasn't shaving unit time, it was making sure no asset went round a second time.</div>
+        </div>
+
+        <div class="anchor-card">
+          <h4>F2 · Builder + LLM</h4>
+          <span class="anchor">Two weeks → a few hours.</span>
+          <ul>
+            <li>Crakmedia · early 2023 · first on the team</li>
+            <li>LLM scripts · Revoicer → ElevenLabs · Midjourney · Kling</li>
+            <li>Honest framing : VO saves time, image gen costs time but unlocks</li>
+            <li>Bridge perso : 3 sites/apps shipped solo in 2026</li>
+          </ul>
+          <div class="punch">Production partner, not a replacement for creative judgment.</div>
+        </div>
+
+        <div class="anchor-card">
+          <h4>F3 · Reactivity</h4>
+          <span class="anchor">Content landing 90 to 30 minutes before air.</span>
+          <ul>
+            <li>Arcanes · live capture + broadcast</li>
+            <li>Re-prioritize run-of-show, integrate, push updates till air</li>
+            <li>Tech team kept in sync in parallel</li>
+          </ul>
+          <div class="punch">The plan isn't worth much — what counts is piecing things back together to the last minute without losing the thread.</div>
+        </div>
+
+        <div class="anchor-card">
+          <h4>W1 · Involvement → frustration</h4>
+          <span class="anchor">Attachment to the project, not to my ego on it.</span>
+          <ul>
+            <li>Example : "a gamification project on one of our platforms" (⚠️ ne pas nommer Jerkmate)</li>
+            <li>Marketing kept control · no gamers in lead → balance issues invisible</li>
+            <li>Fix : "I worked on this with a coach over a couple of years"</li>
+            <li>Lesson : focus on what I can influence, let go of the rest</li>
+          </ul>
+          <div class="punch">Still as involved on what I put myself into — but I put it in perspective much better when it's outside my control.</div>
+        </div>
+      </div>
+
+      <div class="anchor-card" style="margin-top: 0.5rem;">
+        <h4>W2 · Underselling (méta)</h4>
+        <span class="anchor">I let the deliverables speak for me.</span>
+        <ul>
+          <li>Comfortable in craft · not in interviews</li>
+          <li>Working on articulating impact — not to inflate, to make readable</li>
+        </ul>
+        <div class="punch">This interview is exactly that exercise.</div>
+      </div>
+
+      <h2>Routine de relecture</h2>
+      <ul>
+        <li><strong>Veille au soir</strong> : relire 1× chaque STAR complet (FR ou EN selon ton réglage).</li>
+        <li><strong>Matin</strong> : relire uniquement les anchors (cadres oranges) + punchlines (italiques).</li>
+        <li><strong>Avant d'entrer</strong> : 3 respirations, répéter mentalement les 3 anchors des forces dans l'ordre F1 → F2 → F3.</li>
+      </ul>
+    </section>
+
+  </div>
+
+</body>
+</html>
