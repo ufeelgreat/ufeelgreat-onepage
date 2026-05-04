@@ -682,6 +682,18 @@
       .cover__meta { gap: 1.5rem; }
     }
 
+    /* Mobile : padding bas généreux + snap moins agressif pour laisser lire la fin de slide */
+    @media (max-width: 700px) {
+      body { scroll-snap-type: y proximity; }
+      .slide {
+        justify-content: flex-start;
+        padding-top: 3rem;
+        padding-bottom: 6rem;
+        min-height: 100vh;
+      }
+      .slide__nav { bottom: 2rem; }
+    }
+
     /* Print fallback */
     @media print {
       body { scroll-snap-type: none; overflow: visible; height: auto; }
