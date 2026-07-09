@@ -259,15 +259,15 @@
         "tags": ["Production", "Coordination", "Institutionnel"],
         "display": "carousel",
         "links": [
-          { "label": "Royal de Luxe · Ville du Havre", "url": "https://www.youtube.com/watch?v=2tGcYA6KUuA" },
           { "label": "Claude Monet · Normandie Impressionniste", "url": "https://www.youtube.com/watch?v=KNOxKXPQXQA" },
+          { "label": "Royal de Luxe · Ville du Havre", "url": "https://www.youtube.com/watch?v=2tGcYA6KUuA" },
           { "label": "Impression(s) Soleil Levant · MuMa Le Havre", "url": "https://www.youtube.com/watch?v=yXx_7RoXsWE" },
           { "label": "Je suis Rouen · Ville de Rouen", "url": "https://www.youtube.com/watch?v=yxW6DnHfHPI" }
         ],
-        "thumbnail": "assets/images/portfolio/portfolio-france-00.webp",
+        "thumbnail": "assets/images/portfolio/portfolio-france-01.webp",
         "gallery": [
-          "assets/images/portfolio/portfolio-france-00.webp",
           "assets/images/portfolio/portfolio-france-01.webp",
+          "assets/images/portfolio/portfolio-france-00.webp",
           "assets/images/portfolio/portfolio-france-02.webp",
           "assets/images/portfolio/portfolio-france-03.webp"
         ]
