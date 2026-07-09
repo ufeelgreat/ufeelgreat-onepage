@@ -9,7 +9,7 @@
       "the link between ideas and their execution",
       "15 years delivering what was promised",
       "a team leader who grows people, not just manages them",
-      "video, digital, AI: the environment changes — I've always kept up"
+      "video, digital, AI: the environment changes, I've always kept up"
     ],
     "images": [
       "assets/images/hero/instagram-photo-1.webp",
@@ -22,8 +22,8 @@
   "vision": {
     "intro": "15 years in <mark>audiovisual production</mark> and <mark>project coordination</mark>. Experience in fast-paced digital environments.",
     "body": [
-      "I've always found myself between two worlds: <mark>technical</mark> enough to understand the teams that create, <mark>operational</mark> enough to make projects actually move forward. That's not common — and that's where I add the most value.",
-      "My natural role: turning a <mark>vague brief</mark> into something concrete, coordinating what needs coordinating, defusing what would block, and <mark>delivering</mark>. No smoke and mirrors, no politics — just results."
+      "I've always found myself between two worlds: <mark>technical</mark> enough to understand the teams that create, <mark>operational</mark> enough to make projects actually move forward. That's not common, and that's where I add the most value.",
+      "My natural role: turning a <mark>vague brief</mark> into something concrete, coordinating what needs coordinating, defusing what would block, and <mark>delivering</mark>. No smoke and mirrors, no politics: just results."
     ]
   },
 
@@ -42,7 +42,7 @@
       },
       {
         "title": "🎥 Floor manager & production coordinator",
-        "body": "I make sure shoot day goes smoothly for everyone — including the unexpected.",
+        "body": "I make sure shoot day goes smoothly for everyone, including the unexpected.",
         "categories": ["Audiovisual production"]
       },
       {
@@ -57,7 +57,7 @@
       },
       {
         "title": "🔧 Blocker solver",
-        "body": "When a project stalls — budget, resources, deadlines — I find the path that unblocks without sacrificing quality.",
+        "body": "When a project stalls (budget, resources, deadlines), I find the path that unblocks without sacrificing quality.",
         "categories": ["Coordination & management"]
       },
       {
@@ -97,12 +97,12 @@
       },
       {
         "title": "📡 Live directing",
-        "body": "Control room, OBS, multi-camera: I orchestrate live shows end to end — from technical setup to real-time execution.",
+        "body": "Control room, OBS, multi-camera: I orchestrate live shows end to end, from technical setup to real-time execution.",
         "categories": ["Audiovisual production"]
       },
       {
         "title": "🧠 LLM orchestration",
-        "body": "I select and combine models based on their strengths. Not just using AI — driving it.",
+        "body": "I select and combine models based on their strengths. Not just using AI: driving it.",
         "categories": ["Tools & methods"]
       }
     ]
@@ -114,7 +114,7 @@
       {
         "label": "I communicate clearly",
         "detail": "No jargon, no pointless meetings. People know where things stand.",
-        "extra": "I adapt to whoever I'm talking to: client, technical team, management. The same message doesn't land the same way depending on who's listening. What I've learned over the years is that most blockers come from a misunderstanding — not a real problem."
+        "extra": "I adapt to whoever I'm talking to: client, technical team, management. The same message doesn't land the same way depending on who's listening. What I've learned over the years is that most blockers come from a misunderstanding, not a real problem."
       },
       {
         "label": "I grow teams",
@@ -124,12 +124,12 @@
       {
         "label": "I deliver",
         "detail": "No last-minute surprises. If something's going to slip, I say so early.",
-        "extra": "Keeping your commitments is a matter of respect for others. It means anticipating, flagging early when something risks going sideways, and never promising what you can't deliver. In my career, I've shipped hundreds of projects. Even if it meant extra hours — a satisfied client is earned."
+        "extra": "Keeping your commitments is a matter of respect for others. It means anticipating, flagging early when something risks going sideways, and never promising what you can't deliver. In my career, I've shipped hundreds of projects. Even if it meant extra hours: a satisfied client is earned."
       },
       {
         "label": "I'm thorough",
-        "detail": "The details that derail a project — I catch them early.",
-        "extra": "It's not perfectionism — it's respect for the people I work with. Anticipating an error before it's costly, flagging a risk before it explodes: that's useful rigour. Everywhere else, I move fast and adapt."
+        "detail": "The details that derail a project, I catch them early.",
+        "extra": "It's not perfectionism: it's respect for the people I work with. Anticipating an error before it's costly, flagging a risk before it explodes: that's useful rigour. Everywhere else, I move fast and adapt."
       }
     ]
   },
@@ -152,7 +152,7 @@
       ]
     },
     {
-      "quote": "Creative, meticulous, organized — and he always manages to \"feel\" the project. Clients were always delighted. If Gaël comes back to France, I'd sign immediately to hire him again, or even go into business with him.",
+      "quote": "Creative, meticulous, organized, and he always manages to \"feel\" the project. Clients were always delighted. If Gaël comes back to France, I'd sign immediately to hire him again, or even go into business with him.",
       "author": "Guillaume Garet",
       "title": "Managing Director & Producer, Aktua Prod",
       "photo": "assets/images/testimonials/testimonials-guillaume.webp",
@@ -160,7 +160,7 @@
       "audioEN": "content/guillaume-ENG.mp3",
       "volume": 0.8,
       "karaoke": [
-        { "text": "Creative, meticulous, organized —", "start": 0.0, "end": 2.72 },
+        { "text": "Creative, meticulous, organized,", "start": 0.0, "end": 2.72 },
         { "text": "and he always manages to \"feel\" the project.", "start": 3.44, "end": 5.94 },
         { "text": "Clients were always delighted.", "start": 6.60, "end": 8.18 },
         { "text": "If Gaël comes back to France,", "start": 9.20, "end": 10.56 },
@@ -188,9 +188,9 @@
   "timeline": [
     {
       "period": "2022 – 2026",
-      "title": "Team Lead — Digital Production Operations",
-      "company": "Crakmedia · Montréal",
-      "impact": "Within a <mark>180-person company</mark>, I led a video team of 4. Hundreds of campaigns delivered, <mark>AI workflows deployed</mark>, a team that grew."
+      "title": "Team Lead | Digital Production Operations",
+      "company": "Crakmedia · Montréal · Performance marketing agency",
+      "impact": "Within a <mark>180-person company</mark>, I led a video team of 4: <mark>80+ video and motion assets delivered per month</mark>, 4 to 6 simultaneous campaigns, including one reel that broke through to <mark>13.5M views</mark> in a viral Instagram campaign. AI workflows deployed, a team that grew."
     },
     {
       "period": "2018 – 2021",
@@ -202,13 +202,13 @@
       "period": "2016 – 2017",
       "title": "Executive Assistant & Project Coordinator",
       "company": "Aktua Prod · Rouen",
-      "impact": "Strategic support to the director, coordination of institutional projects, business development. The clients I managed stayed, and brought others."
+      "impact": "Strategic support to the director, coordination of institutional projects, business development. <mark>Winning RFP for the City of Le Havre</mark>: a €50,000 annual mandate."
     },
     {
       "period": "2011 – 2016",
       "title": "Production Manager",
       "company": "Arcanes Production · Rouen",
-      "impact": "Full end-to-end management of audiovisual projects. That's where I learned the craft from every angle, from client brief to invoicing, including fieldwork: shoots, live captures, events.",
+      "impact": "Full end-to-end management of audiovisual projects, including <mark>public RFP responses</mark> (e.g. Festival Normandie Impressionniste, €35,000 mandate). That's where I learned the craft from every angle, from client brief to invoicing, including fieldwork: shoots, live captures, events.",
       "parallel": {
         "period": "2013 – 2016",
         "title": "Guest lecturer",
@@ -232,16 +232,6 @@
     "intro": "A few projects to put images to what I do.",
     "projects": [
       {
-        "id": "cancun",
-        "title": "Film Cancun",
-        "subtitle": "After movie · Crakmedia",
-        "description": "Crakmedia company trip filmed from A to Z: shot with my mirrorless, Insta 360 and GoPro, then full edit of the film. A 100% solo project from shoot to delivery.",
-        "tags": ["Directing", "Shooting", "Editing"],
-        "display": "link",
-        "link": "https://www.youtube.com/watch?v=XPVmIc-0qgc",
-        "thumbnail": "assets/images/portfolio/portfolio-cancun.webp"
-      },
-      {
         "id": "pemtl",
         "title": "Piknic Electronik App",
         "subtitle": "Mobile web app · Personal unofficial project",
@@ -252,10 +242,20 @@
         "thumbnail": "assets/images/portfolio/portfolio-pemtl.webp"
       },
       {
+        "id": "cancun",
+        "title": "Film Cancun",
+        "subtitle": "After movie · Crakmedia",
+        "description": "Crakmedia company trip filmed from A to Z: shot with my mirrorless, Insta 360 and GoPro, then full edit of the film. A 100% solo project from shoot to delivery.",
+        "tags": ["Directing", "Shooting", "Editing"],
+        "display": "link",
+        "link": "https://www.youtube.com/watch?v=XPVmIc-0qgc",
+        "thumbnail": "assets/images/portfolio/portfolio-cancun.webp"
+      },
+      {
         "id": "twitch-motion",
-        "title": "Twitch Show — Motion Design",
+        "title": "Twitch Show | Motion Design",
         "subtitle": "Jingles & transitions · Personal project",
-        "description": "My Twitch channel was a real daily mini-show. I created every video jingle, every scene transition in motion design. Live directing included: launches, flow, pacing — everything orchestrated solo.",
+        "description": "My Twitch channel was a real daily mini-show. I created every video jingle, every scene transition in motion design. Live directing included: launches, flow, pacing, everything orchestrated solo.",
         "tags": ["Motion Design", "After Effects", "Live production"],
         "display": "carousel",
         "links": [
@@ -275,7 +275,7 @@
         "id": "snaaake",
         "title": "Snaaake The Game",
         "subtitle": "Web game · Personal project",
-        "description": "A reimagined Snake in vanilla JavaScript, coded with Claude and deployed on Netlify. Version 4.1: interactive tutorial, leaderboard, full visual polish. A real project born from a simple test, proof that with curiosity and a good AI, you can go far.",
+        "description": "A reimagined Snake in vanilla JavaScript, coded with Claude and deployed on Netlify. Interactive tutorial, online leaderboard, full visual polish.",
         "tags": ["JavaScript", "Web", "Netlify", "Claude"],
         "display": "link",
         "link": "https://snaaake-the-game.netlify.app/",
@@ -285,28 +285,28 @@
         "id": "mangorx",
         "title": "MangoRX",
         "subtitle": "Motion design · Product advertisement",
-        "description": "Fully motion-designed product presentation video for a pharmaceutical client. Sensitive product handled with precision — clean, professional result.",
+        "description": "Fully motion-designed product presentation video for a pharmaceutical client.",
         "tags": ["Motion Design", "After Effects", "Advertising"],
         "display": "link",
         "link": "https://www.youtube.com/watch?v=bIb-yIhRCXs",
         "thumbnail": "assets/images/portfolio/portfolio-mangorx.webp"
       },
       {
-        "id": "fansrevenue",
-        "title": "FansRevenue — Let's Learn",
-        "subtitle": "Production & motion design",
-        "description": "After the FansRevenue ad produced as a team, an educational format was created to break down the project: pre-prod, shoot, post-prod. I coordinated part of the production, and handled all editing and motion design on this Let's Learn.",
+        "id": "letslearn",
+        "title": "Let's Learn | Behind the ad",
+        "subtitle": "Production & motion design · Crakmedia",
+        "description": "After an ad produced as a team, an educational format was created to break down the project: pre-prod, shoot, post-prod. I coordinated part of the production, and handled all editing and motion design on this Let's Learn.",
         "tags": ["Production", "Editing", "Motion Design", "On-camera"],
         "display": "modal",
         "link": null,
         "linkOnRequest": true,
-        "thumbnail": "assets/images/portfolio/portfolio-fansrevenue.webp"
+        "thumbnail": "assets/images/portfolio/portfolio-letslearn.webp"
       },
       {
         "id": "crakmedia-ai",
         "title": "AI Prototype",
         "subtitle": "100% generative AI · Kling · ElevenLabs · Suno",
-        "description": "A parody ad produced entirely with AI tools — from image to voice to music. 35–40 hours of work, internal use only. A real-world test of the pipeline's limits without a team.",
+        "description": "A parody ad produced entirely with AI tools: from image to voice to music. 35 to 40 hours of work, internal use only. A real-world test of the pipeline's limits without a team.",
         "tags": ["Generative AI", "Kling", "ElevenLabs", "Suno", "Prototype"],
         "display": "carousel",
         "link": null,
@@ -326,8 +326,8 @@
 
   "contact": {
     "intro": "You scrolled all the way here 🤩",
-    "cta": "If you think there's something worth exploring together — I'm in.",
-    "availability": "At your office · By video call · By email — your call.",
+    "cta": "If you think there's something worth exploring together, I'm in.",
+    "availability": "At your office · By video call · By email: your call.",
     "links": [
       {
         "label": "LinkedIn",
@@ -376,7 +376,7 @@
 
   "meta": {
     "title": "Gaël Tréfeu | Production & Coordination",
-    "description": "Gaël Tréfeu — Audiovisual production lead & project coordination. Montréal."
+    "description": "Gaël Tréfeu | Audiovisual production lead & project coordination. Montréal."
   },
 
   "ui": {
@@ -405,9 +405,7 @@
     "cvModal": {
       "closeLabel": "Close",
       "items": [
-        { "label": "CV1", "desc": "Major institutions", "href": "cv1-en.html" },
-        { "label": "CV2", "desc": "Coordination & production", "href": "cv2-en.html" },
-        { "label": "CV3", "desc": "Digital & tech", "href": "cv3-en.html" }
+        { "label": "Resume", "desc": "Full version", "href": "cv-en.html" }
       ]
     }
   }

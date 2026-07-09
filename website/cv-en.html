@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gaël Tréfeu - Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --coral:        #FF7163;
+      --orange:       #FFB347;
+      --ink:          #111111;
+      --ink-mid:      #3a3a3a;
+      --ink-light:    #777777;
+      --border:       #e8e8e8;
+      --coral-bg:     rgba(255, 113, 99, 0.05);
+      --coral-border: rgba(255, 113, 99, 0.38);
+      --font: 'Plus Jakarta Sans', 'Calibri', Arial, sans-serif;
+    }
+
+    @page { size: letter portrait; margin: 1.2cm 1.5cm; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      font-size: 9.5pt;
+      color: var(--ink);
+      background: #ffffff;
+      line-height: 1.55;
+      max-width: 780px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    ul { list-style: disc; padding-left: 1.15rem; }
+    li { margin-bottom: 2px; font-size: 9.5pt; }
+    p  { line-height: 1.6; }
+
+    .cv-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding-bottom: 1.1rem;
+      margin-bottom: 0.1rem;
+      border-bottom: 1.5px solid var(--border);
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .cv-header__qr {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+    }
+
+    .qr-wrapper {
+      border: 2.5px solid var(--coral);
+      border-radius: 12px;
+      padding: 5px;
+      background: #fff;
+      display: inline-flex;
+    }
+
+    .qr-wrapper img { display: block; width: 110px; height: auto; }
+
+    .cv-linkedin {
+      color: var(--coral);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .cv-linkedin:hover { text-decoration: underline; }
+
+    .link-sep {
+      display: inline-block;
+      margin: 0 10px;
+      color: #bbbbbb;
+      font-weight: 300;
+    }
+
+    .cv-header__info { flex: 1; padding-top: 3px; }
+
+    h1 {
+      font-size: 29pt;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+      line-height: 1.05;
+      margin-bottom: 0.3rem;
+    }
+
+    .name-accent {
+      height: 3px;
+      width: 50px;
+      background: linear-gradient(90deg, var(--coral), var(--orange));
+      border-radius: 2px;
+      margin-bottom: 0.45rem;
+    }
+
+    .cv-subtitle {
+      font-size: 11pt;
+      font-weight: 600;
+      color: var(--ink-mid);
+      margin-bottom: 0.45rem;
+    }
+
+    .cv-contact {
+      font-size: 8pt;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+
+    h2 {
+      font-size: 7.5pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: var(--ink);
+      margin: 1.1rem 0 0.55rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 3px;
+      background: linear-gradient(135deg, var(--coral), var(--orange));
+      flex-shrink: 0;
+    }
+
+    h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .profil-text {
+      font-size: 9.5pt;
+      color: var(--ink-mid);
+      line-height: 1.65;
+    }
+
+    .skills-block {
+      border: 1.5px solid var(--coral-border);
+      border-left: 3.5px solid var(--coral);
+      border-radius: 8px;
+      background: var(--coral-bg);
+      padding: 0.7rem 1rem;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .skills-block li { margin-bottom: 4px; }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    .tool-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.55rem 0.75rem;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .tool-card__title {
+      font-size: 7pt;
+      font-weight: 800;
+      color: var(--coral);
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      padding-bottom: 4px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tool-card__items {
+      font-size: 8.5pt;
+      color: var(--ink-mid);
+      line-height: 1.55;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 8px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--coral), var(--orange));
+      border-radius: 2px;
+    }
+
+    .exp-block {
+      position: relative;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: 0.6rem;
+    }
+
+    .exp-block:last-child { margin-bottom: 0; }
+
+    .exp-block::before {
+      content: '';
+      position: absolute;
+      left: -19px;
+      top: 5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2.5px solid var(--coral);
+    }
+
+    h3 {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+
+    .exp-meta {
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: var(--coral);
+      margin-bottom: 5px;
+    }
+
+    .exp-meta span { color: var(--ink-light); font-weight: 400; }
+
+    li strong { font-weight: 700; }
+
+    .note {
+      font-style: italic;
+      color: var(--ink-light);
+      font-size: 8.5pt;
+      margin-top: 4px;
+      padding-left: 0.6rem;
+    }
+
+    .exp-aside {
+      font-size: 9pt;
+      color: var(--ink-mid);
+      margin-top: 6px;
+      padding: 5px 10px;
+      background: var(--coral-bg);
+      border-left: 2px solid var(--coral);
+      border-radius: 4px;
+      line-height: 1.5;
+    }
+
+    .exp-aside strong { color: var(--ink); font-weight: 700; }
+
+    .exp-aside__meta {
+      font-size: 8pt;
+      color: var(--coral);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-right: 6px;
+    }
+
+    .simple-block {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: 0.5rem;
+      border: 1px solid var(--border);
+      border-right: 2px solid var(--coral);
+      border-radius: 8px;
+      padding: 0.55rem 0.75rem;
+    }
+
+    .simple-block:last-child { margin-bottom: 0; }
+    .simple-block h3 { margin-bottom: 2px; }
+
+    .eng-detail {
+      font-size: 8.5pt;
+      color: var(--ink-light);
+    }
+
+    @media print {
+      body {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
+      }
+      .timeline::before { background: linear-gradient(180deg, var(--coral), var(--orange)); }
+      .name-accent      { background: linear-gradient(90deg, var(--coral), var(--orange)); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="cv-header">
+  <a class="cv-header__qr" href="https://gael-trefeu.netlify.app" target="_blank" rel="noopener">
+    <div class="qr-wrapper">
+      <img src="qr-code_onepage.svg" alt="Gaël Tréfeu personal website">
+    </div>
+  </a>
+  <div class="cv-header__info">
+    <h1>Gaël Tréfeu</h1>
+    <div class="name-accent"></div>
+    <div class="cv-subtitle">Creative Project Manager &amp; Team Lead | audiovisual &amp; digital</div>
+    <div class="cv-contact">
+      Montréal, QC · Canadian citizenship · gael.trefeu@gmail.com · +1 (514) 431-7227<br>
+      <a class="cv-linkedin" href="https://gael-trefeu.netlify.app" target="_blank" rel="noopener">gael-trefeu.netlify.app</a><span class="link-sep">|</span><a class="cv-linkedin" href="https://linkedin.com/in/gaeltrefeu" target="_blank" rel="noopener">linkedin.com/in/gaeltrefeu</a>
+    </div>
+  </div>
+</header>
+
+
+<!-- ===================== PROFILE ===================== -->
+<h2>In a few words</h2>
+<p class="profil-text">15 years driving creative projects end to end: scoping, planning, budgets, client relations, coordinating teams through to delivery. Institutional production in France (Arcanes, Aktua Prod), then Montréal in 2018, up to managing a creative team at Crakmedia (4 creatives). I have been integrating generative AI into production since 2025 and I build and deploy my own web applications autonomously. What defines me: turning a still-vague request into a scoped, feasible and profitable project.</p>
+
+
+<!-- ===================== KEY SKILLS ===================== -->
+<h2>Key skills</h2>
+<div class="skills-block">
+  <ul>
+    <li><strong>Brief scoping and review</strong> | needs, scope, production options, success criteria, sign-off</li>
+    <li><strong>External and internal client relations</strong>; public RFP responses</li>
+    <li><strong>Cross-functional team management</strong> | agile rituals, performance, individual coaching</li>
+    <li><strong>Multi-stakeholder coordination</strong> and trade-offs on shifting priorities</li>
+    <li><strong>Capacity planning and production priority management</strong> | 80+ assets/month</li>
+    <li><strong>Budget tracking and schedule management</strong> across several parallel projects</li>
+    <li><strong>Workflow standardization and process documentation</strong> (from pre-production to delivery)</li>
+    <li><strong>Integration and adoption of generative AI tools</strong> in production | rollout and training</li>
+    <li><strong>Autonomous production of graphic and video deliverables</strong> (editing, motion design, graphics)</li>
+    <li><strong>Recruiting and onboarding talent</strong> (in-house and freelance)</li>
+  </ul>
+</div>
+
+
+<!-- ===================== TOOLS ===================== -->
+<h2>Tools &amp; technologies</h2>
+<div class="tools-grid">
+
+  <div class="tool-card">
+    <div class="tool-card__title">Project management</div>
+    <div class="tool-card__items">Jira · Confluence · Kollaborate (creative reviews) · Agile methods · Gantt charts</div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-card__title">Creation &amp; post-production</div>
+    <div class="tool-card__items">Adobe Suite (Premiere Pro, After Effects, Photoshop, Illustrator, InDesign) · DaVinci Resolve (basics) · Figma · WordPress · HTML/CSS</div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-card__title">Generative AI &amp; LLMs</div>
+    <div class="tool-card__items">Kling (heavy production use) · Midjourney · Nano Banana · ElevenLabs · Suno · Claude · ChatGPT · Copilot</div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-card__title">Collaboration</div>
+    <div class="tool-card__items">Google Workspace · MS Office · Slack · Teams · Notion · Miro · Keynote/PowerPoint</div>
+  </div>
+
+</div>
+
+
+<!-- ===================== EDUCATION ===================== -->
+<h2>Education, certification &amp; languages</h2>
+<p><strong>PSM I | Professional Scrum Master (Scrum.org)</strong> · Exam scheduled for fall 2026<br>
+<strong>University degree | Communication Services and Networks</strong> · University of Rouen, France · 2008<br>
+<strong>Languages:</strong> French | native · English | professional written and spoken (B2/C1)</p>
+
+
+<!-- ===================== COMMITMENTS ===================== -->
+<h2>Commitments</h2>
+<p>President | Student Federation (15 associations) · University of Rouen<br>
+<span class="eng-detail">Elected member of the Student Life Council · Representative to the French Ministry of Higher Education · 2008–2011</span></p>
+
+
+<!-- ===================== EXPERIENCE ===================== -->
+<h2>Professional experience</h2>
+<div class="timeline">
+
+  <div class="exp-block">
+    <h3>Team Lead | Video production &amp; motion design</h3>
+    <div class="exp-meta">Crakmedia · 2022 – 2026 <span>· Montréal, QC · Performance marketing agency</span></div>
+    <ul>
+      <li><strong>Direct management of a team of 4 creatives</strong> (editing, motion design): agile rituals, performance tracking, individual coaching</li>
+      <li><strong>80+ video and motion assets delivered per month</strong> by the team (originals + A/B testing variations), in weekly sprints</li>
+      <li><strong>4 to 6 simultaneous campaigns per month</strong>, from brief to launch, with the marketing and media buying teams</li>
+      <li><strong>One motion design reel reaching 13.5M views</strong> on Instagram in a viral campaign (other pieces: 496K, 352K)</li>
+      <li><strong>Scoping of creative mandates</strong>: needs, scope, production options, sign-off</li>
+      <li><strong>Workflow standardization</strong>: documentation, deliverable boards, routing, review process (Jira, Confluence, Kollaborate) · DAM implementation</li>
+      <li><strong>Budget tracking and schedule management</strong> across the entire pipeline · creative review and multi-format quality control</li>
+      <li><strong>Integration of generative AI into production starting in 2025</strong>, first on the team (Kling, Midjourney, ElevenLabs, Suno), after two years of active monitoring</li>
+      <li><strong>Promoted to team lead after one year</strong>, on the director's initiative; kept hands-on operational contributions (editing, light 2D/3D animation)</li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <h3>Video Editor / Motion Designer</h3>
+    <div class="exp-meta">Les Technologies Seedbox · 2018 – 2021 <span>· Montréal, QC · Digital content creation and distribution</span></div>
+    <ul>
+      <li><strong>Full post-production</strong> of long-form content in a multi-camera 4K environment: color grading, sound design, graphics, motion design</li>
+      <li><strong>Quality lead</strong>: edit reviews, channel quality standards</li>
+      <li>Participation in recruiting and onboarding new editors</li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <h3>Executive Assistant &amp; Project Coordinator</h3>
+    <div class="exp-meta">Aktua Prod · 2016 – 2017 <span>· Rouen, France · Institutional and corporate content</span></div>
+    <ul>
+      <li><strong>Winning RFP for the City of Le Havre</strong> | response and scoping led on a €50,000 annual mandate</li>
+      <li><strong>Simultaneous management of several institutional and corporate accounts</strong> | client relations, budgets, RFPs · ongoing partnership with Caisse d'épargne Normandie</li>
+      <li><strong>Coordination of external vendors</strong> (freelancers, partner studios): estimates, mandates, follow-ups</li>
+      <li>Field shooting and editing (video journalist) · shoot coordination at major events (festivals, public events)</li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <h3>Production Manager</h3>
+    <div class="exp-meta">Arcanes Production · 2011 – 2016 <span>· Rouen, France · Institutional, corporate and event films</span></div>
+    <ul>
+      <li><strong>Full management of audiovisual mandates</strong> | consulting, scoping, quotes, planning, team coordination, budget tracking, invoicing</li>
+      <li><strong>Public RFP responses</strong> | cities, museums, energy operators, companies (e.g. Festival Normandie Impressionniste, €35,000 mandate)</li>
+      <li><strong>Clients managed</strong>: MuMa Le Havre, cities of Le Havre and Rouen, ERDF/Enedis, Caisse d'épargne Normandie, CID Deauville, Zéniths, Le Kalif</li>
+      <li><strong>Feasibility ownership</strong> | balancing technical, budget and schedule constraints</li>
+      <li>Post-production supervision and multi-camera captures, live directing (concerts, conventions, events)</li>
+    </ul>
+    <p class="exp-aside"><span class="exp-aside__meta">In parallel</span><strong>Guest lecturer</strong> · ISCOM Rouen · 2013–2016: designed and taught audiovisual pre-production modules, supervised group projects for real advertisers</p>
+  </div>
+
+</div>
+
+
+<!-- ===================== PERSONAL PROJECTS ===================== -->
+<h2>Personal projects</h2>
+
+<div class="simple-block">
+  <h3>Web &amp; application development · 2026</h3>
+  <ul>
+    <li><strong>3 digital projects deployed autonomously</strong>, with AI as a production partner, from concept to launch, without a technical team:</li>
+    <li><strong>pemtl.app</strong>: companion web app for Piknic Électronik Montréal festival-goers (React + Supabase + Netlify): lineup, friends, DJ ratings, calendar export</li>
+    <li><strong>Snaaake</strong>: mobile-first browser game in JavaScript canvas, with online leaderboard</li>
+    <li><strong>Bilingual FR/EN personal website</strong>: gael-trefeu.netlify.app, project portfolio</li>
+  </ul>
+</div>
+
+<div class="simple-block">
+  <h3>Twitch channel · 2020 – 2022</h3>
+  <ul>
+    <li><strong>Full visual identity</strong> for a streaming channel, weekly production and broadcasting sustained for 2 years (animated overlays, transitions, graphics · After Effects, Premiere Pro)</li>
+  </ul>
+</div>
+
+</body>
+</html>

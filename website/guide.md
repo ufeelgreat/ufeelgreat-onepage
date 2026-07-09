@@ -159,13 +159,11 @@ Les CV ne sont pas accessibles depuis le menu du site, mais accessibles directem
 
 | URL | Fichier |
 |---|---|
-| `https://gael-trefeu.netlify.app/cv1-fr.html` / `cv1-en.html` | CV Grandes institutions / Major institutions |
-| `https://gael-trefeu.netlify.app/cv2-fr.html` / `cv2-en.html` | CV Coordination & production |
-| `https://gael-trefeu.netlify.app/cv3-fr.html` / `cv3-en.html` | CV Digital & tech |
+| `https://gael-trefeu.netlify.app/cv-fr.html` / `cv-en.html` | CV maître unique (version complète, générée depuis `recherche-emploi-2026/cv-maitres/cv-maitre.md`) |
 
-Accès caché : 7 clics successifs sur la photo de la section Contact ouvrent une pop-up listant les 3 CVs (liens dans la langue courante).
+Accès caché : 7 clics successifs sur la photo de la section Contact ouvrent une pop-up avec le lien du CV (dans la langue courante).
 
-Pour mettre à jour un CV : modifier le fichier `.html` correspondant dans `website/`, puis déployer (étape 6).
+Pour mettre à jour le CV : corriger d'abord `cv-maitre.md` (source de vérité), puis répercuter dans `cv-fr.html` / `cv-en.html` et déployer (étape 6).
 
 ---
 
