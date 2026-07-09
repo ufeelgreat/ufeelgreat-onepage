@@ -59,9 +59,8 @@ ufeelgreat-onepage/
     ├── index.html
     ├── style.css
     ├── script.js
-    ├── cv1.html             ← CV cachés (accès direct URL)
-    ├── cv2.html
-    ├── cv3.html
+    ├── cv-fr.html           ← CV maître unique caché (accès direct URL ou 7 clics photo Contact)
+    ├── cv-en.html           ← version EN ; source de contenu : recherche-emploi-2026/cv-maitres/cv-maitre.md
     ├── assets/
     │   └── images/
     │       ├── profile/     ← avatar-gael-trefeu.png + avatar-grand-gael-trefeu.png
@@ -95,28 +94,42 @@ ufeelgreat-onepage/
 
 ---
 
-## Sections du site (ordre actuel)
+## Sections du site (ordre actuel, depuis juillet 2026)
 1. Hero — badge + titre + highlights + photo profil
 2. Vision — intro + corps en blocs
 3. Ticker — défilement continu 2 lignes (directions opposées)
-4. Expertise ("Ma boîte à outils 🛠️") — filtres + cartes
-5. Profil ("L'humain derrière le CV") — accordion, fond gradient sur item ouvert
-6. Témoignages ("Ils en parlent mieux que moi ✍️")
-7. Parcours ("D'où je viens 📍") — timeline
-8. Ce que j'aime ("Ce que j'💛 dans ces métiers")
-9. Portfolio ("Ce que j'ai fait 🎬") — carousel horizontal, modal overlay
+4. Expertise ("Talents hybrides 🛠️") — filtres + cartes
+5. Parcours ("D'où je viens 📍") — timeline chiffrée (80+ assets/mois, reel viral 13,5 M vues, 50 000 €, 35 000 €)
+6. Portfolio ("Une sélection de projets 🎬") — grille, modal overlay
+7. Témoignages ("Ils en parlent mieux que moi ✍️")
+8. Profil ("L'humain derrière le CV") — accordion, fond gradient sur item ouvert
+9. Ce que j'aime ("Ce que j'💛 dans ces métiers")
 10. Contact ("Vous avez scrollé jusqu'ici 🤩") — fond coral gradient
+
+Logique de l'ordre : déclaration (Expertise) → preuve chiffrée (Parcours) → preuve visuelle (Portfolio) → preuve sociale (Témoignages) → sections humaines en conclusion. Le nav-pill mappe les libellés par `href` dans script.js : réordonner les `<li>` suffit.
 
 ---
 
 ## Portfolio — ordre des projets
-1. Film Cancun
-2. App Piknic Electronik (PEMTL)
+1. App Piknic Electronik (PEMTL)
+2. Film Cancun
 3. Émission Twitch (carousel autoplay)
 4. Snaaake The Game
 5. Mango RX (lien YouTube)
-6. FansRevenue (lien sur demande)
+6. Let's Learn | Coulisses d'une pub (id `letslearn`, lien sur demande — ne JAMAIS nommer FansRevenue ni les marques adultes sur le site)
 7. Prototype IA
+
+---
+
+## Alignement recherche d'emploi (juillet 2026)
+Le contenu du site suit `recherche-emploi-2026/cv-maitres/cv-maitre.md` (source de vérité) :
+- IA générative : production à partir de 2025 (veille 2023-2024) — jamais "en prod dès 2023"
+- Crakmedia : "agence de performance marketing", Montréal QC — jamais les marques adultes
+- Seedbox : monteur vidéo polyvalent — jamais "senior"
+- PSM I : examen prévu automne 2026 — jamais présenté comme obtenu
+- Pas d'em dash `—`/`–` en ponctuation (toléré uniquement dans les plages de dates)
+- Descriptions factuelles courtes (quoi + rôle + outils), pas d'auto-commentaire éditorial
+- Toute correction factuelle : d'abord dans cv-maitre.md, puis propager ici (cv-fr/cv-en.html + JSON)
 
 ---
 
@@ -326,6 +339,17 @@ ufeelgreat-onepage/
   - Pulse `pile-top-pulse` désactivé pendant le drag (inline `animation: none`), restauré après
   - `prefers-reduced-motion` : éjection instantanée sans fade
   - Retrait `!important` sur `.expertise-pile__card--top { transform }` pour permettre transform inline pendant drag
+
+### Phase 19 — Alignement cv-maitre & restructuration (2026-07-08) ✓
+- [x] Audit complet du site vs `recherche-emploi-2026/cv-maitres/cv-maitre.md` (invariants, chiffres, ton)
+- [x] CV maître unique : cv1/2/3 FR+EN supprimés (contenaient "IA prod dès 2023", interdit) → `cv-fr.html` / `cv-en.html` générés depuis cv-maitre.md complet, design gabarit canonique (coral/orange, QR 110px cliquable)
+- [x] Modale cachée : 1 seul item CV par langue (`ui.cvModal.items`)
+- [x] FansRevenue masqué : carte renommée "Let's Learn | Coulisses d'une pub", id `letslearn`, images `portfolio-letslearn.*`
+- [x] Chiffres validés dans la timeline : 180 personnes, équipe de 4, 80+ assets/mois, 4-6 campagnes, reel viral 13,5 M vues, 50 000 € Ville du Havre, 35 000 € Normandie Impressionniste
+- [x] PEMTL en tête du portfolio ; version Snaaake retirée ; auto-commentaires coupés (Snaaake, MangoRX)
+- [x] Em dashes de ponctuation purgés (JSON FR/EN, index.html, citation Guillaume + karaoké)
+- [x] Réordonnancement des sections : Parcours et Portfolio remontés après Expertise, Témoignages puis Profil ensuite (preuves avant sections humaines) ; nav-pill réaligné
+- [x] guide.md : section CV cachés mise à jour
 
 ### Phase 17 — À venir
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.webp)
