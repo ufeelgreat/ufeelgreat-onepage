@@ -252,6 +252,27 @@
         "thumbnail": "assets/images/portfolio/portfolio-cancun.webp"
       },
       {
+        "id": "france-institutionnel",
+        "title": "Institutional productions | France",
+        "subtitle": "Arcanes Production & Aktua Prod · 2011–2017",
+        "description": "Production manager, then project coordinator for public institutions and cultural events: cities, museums, festivals. Scoping, budgets, RFPs, coordination of shooting and post-production teams.",
+        "tags": ["Production", "Coordination", "Institutional"],
+        "display": "carousel",
+        "links": [
+          { "label": "Royal de Luxe · City of Le Havre", "url": "https://www.youtube.com/watch?v=2tGcYA6KUuA" },
+          { "label": "Claude Monet · Normandie Impressionniste", "url": "https://www.youtube.com/watch?v=KNOxKXPQXQA" },
+          { "label": "Impression(s) Soleil Levant · MuMa Le Havre", "url": "https://www.youtube.com/watch?v=yXx_7RoXsWE" },
+          { "label": "Je suis Rouen · City of Rouen", "url": "https://www.youtube.com/watch?v=yxW6DnHfHPI" }
+        ],
+        "thumbnail": "assets/images/portfolio/portfolio-france-00.webp",
+        "gallery": [
+          "assets/images/portfolio/portfolio-france-00.webp",
+          "assets/images/portfolio/portfolio-france-01.webp",
+          "assets/images/portfolio/portfolio-france-02.webp",
+          "assets/images/portfolio/portfolio-france-03.webp"
+        ]
+      },
+      {
         "id": "twitch-motion",
         "title": "Twitch Show | Motion Design",
         "subtitle": "Jingles & transitions · Personal project",
