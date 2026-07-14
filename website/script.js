@@ -63,6 +63,19 @@
     );
   }
 
+  // Découpe un titre en mots pour un reveal mot-par-mot (voir .reveal-word en CSS)
+  // aria-label conserve le texte complet pour les lecteurs d'écran
+  function wrapWords(el) {
+    if (!el) return;
+    const text = el.textContent.trim();
+    if (!text) return;
+    const words = text.split(/\s+/).map(w =>
+      `<span class="reveal-word"><span class="reveal-word__inner">${w}</span></span>`
+    ).join(' ');
+    el.setAttribute('aria-label', text);
+    el.innerHTML = `<span aria-hidden="true">${words}</span>`;
+  }
+
   // Karaoké — découpe la citation en blocs <span> alignés sur les timestamps
   // Fallback sur boldFirstSentence si aucun bloc n'est défini
   function wrapQuoteBlocks(quote, blocks) {
@@ -104,6 +117,12 @@
   ---------------------------------------------------------- */
   applyContent(currentLang === 'en' ? contentEN : contentFR, currentLang);
   document.documentElement.lang = currentLang;
+
+  // Entrée animée du Hero au chargement (une seule fois, pas au changement de langue)
+  // Double rAF : laisse le navigateur peindre l'état initial avant de déclencher la transition
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.querySelector('.section--hero')?.classList.add('hero-intro-visible');
+  }));
 
   // Scroll vers l'ancre initiale après injection du contenu (les sections sont vides avant ce point)
   if (location.hash) {
@@ -164,6 +183,7 @@
     renderPortfolio(content, lang);
     renderContactText(content, lang);
     renderStaticText(content);
+    document.querySelectorAll('.section__title').forEach(wrapWords);
     renderCvModal(content);
     updateLangPills(lang);
     showForm(lang);
@@ -239,7 +259,7 @@
         if (piles[primary]) piles[primary].push(card);
       });
 
-      gridEl.className = 'expertise__piles';
+      gridEl.classList.add('expertise__piles');
       gridEl.innerHTML = filters.map(filter => {
         const pileCards = piles[filter];
         const total = pileCards.length;
@@ -477,7 +497,7 @@
     }
 
     /* Structure : carte masque + dots */
-    lovesList.className = 'loves__carousel';
+    lovesList.classList.add('loves__carousel');
     lovesList.setAttribute('role', 'region');
     lovesList.setAttribute('aria-label', 'Carrousel');
 
