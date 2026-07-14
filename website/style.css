@@ -1625,6 +1625,20 @@ mark {
   transform: translateY(0);
 }
 
+/* Barre de progression de scroll */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-coral), var(--color-lime));
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 150;
+  pointer-events: none;
+}
+
 
 /* ------------------------------------------------------------
    18. RESPONSIVE — Desktop (≥ 768px)

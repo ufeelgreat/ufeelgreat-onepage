@@ -34,6 +34,9 @@
      Helpers
   ---------------------------------------------------------- */
 
+  // Centralisé : utilisé par toutes les animations custom (drag, easter egg, etc.)
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
   function setText(selector, value) {
     const el = document.querySelector(selector);
     if (el && value != null) el.textContent = value;
@@ -115,6 +118,7 @@
      4. INITIALISATIONS UNIQUES (DOM statique — sections fixes)
   ---------------------------------------------------------- */
   initScrollReveal();
+  initScrollProgress();
   initNavPill();
   initContactForms();
 
@@ -753,7 +757,6 @@
   /* --- Piles de cartes Expertise (drag horizontal + clic) --- */
   function initPileSwipe(container) {
     const stacks = container.querySelectorAll('.expertise-pile__stack');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const TAP_THRESHOLD   = 8;    // px : sous ce seuil = clic, pas drag
     const EJECT_DISTANCE  = 80;   // px : déplacement déclenchant éjection
@@ -778,7 +781,7 @@
 
       function ejectCard(card) {
         if (!card) return;
-        if (reducedMotion) {
+        if (reducedMotion.matches) {
           card.style.transform = '';
           card.style.opacity = '';
           card.style.transition = '';
@@ -864,6 +867,7 @@
         }
 
         e.preventDefault();
+        if (reducedMotion.matches) return; // détection tap/drag conservée, suivi visuel désactivé
         const rot     = Math.max(-15, Math.min(15, dx / 20));
         const opacity = Math.max(0.3, 1 - Math.abs(dx) / 300);
         activeCard.style.transform = `translate3d(${dx}px, 0, 0) rotate(${rot}deg)`;
@@ -900,6 +904,8 @@
         if (Math.abs(dx) > EJECT_DISTANCE || velocity > EJECT_VELOCITY) {
           /* Éjection : fade depuis la position courante */
           ejectCard(card);
+        } else if (reducedMotion.matches) {
+          resetCardStyles(card);
         } else {
           /* Retour élastique */
           card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
@@ -921,13 +927,17 @@
         activeCard = null;
         isDragging = false;
         if (card) {
-          card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-          card.style.transform  = '';
-          card.style.opacity    = '';
-          setTimeout(() => {
-            card.style.transition = '';
-            card.style.animation  = '';
-          }, 320);
+          if (reducedMotion.matches) {
+            resetCardStyles(card);
+          } else {
+            card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+            card.style.transform  = '';
+            card.style.opacity    = '';
+            setTimeout(() => {
+              card.style.transition = '';
+              card.style.animation  = '';
+            }, 320);
+          }
         }
       }
 
@@ -1170,6 +1180,28 @@
   }
 
 
+  /* --- Barre de progression de scroll --- */
+  function initScrollProgress() {
+    const bar = document.getElementById('scroll-progress');
+    if (!bar) return;
+    let ticking = false;
+    function update() {
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - doc.clientHeight;
+      const ratio = scrollable > 0 ? doc.scrollTop / scrollable : 0;
+      bar.style.transform = `scaleX(${ratio})`;
+      ticking = false;
+    }
+    document.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+    update();
+  }
+
+
   /* --- Navigation Pill — Active state --- */
   function initNavPill() {
     const navLinks = document.querySelectorAll('#nav-pill a');
@@ -1194,6 +1226,7 @@
      EASTER EGG — Double-clic / Double-tap : explosion de cœurs
   ---------------------------------------------------------- */
   function spawnHearts(x, y) {
+    if (reducedMotion.matches) return; // easter egg désactivé, prefers-reduced-motion respecté
     const COUNT = Math.floor(Math.random() * 3) + 3; // 3, 4 ou 5
     const STEPS = 10;
 
