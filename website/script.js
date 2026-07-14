@@ -140,6 +140,7 @@
   initScrollProgress();
   initNavPill();
   initContactForms();
+  initMagneticButtons();
 
 
   /* ----------------------------------------------------------
@@ -608,6 +609,7 @@
         }).join('');
 
       initPortfolioModal(portfolioGrid, content.portfolio.projects, content.ui);
+      initPortfolioTilt(portfolioGrid);
     }
   }
 
@@ -969,6 +971,28 @@
   }
 
 
+  /* --- Boutons CTA "magnétiques" (desktop uniquement) --- */
+  function initMagneticButtons() {
+    const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!isFinePointer || reducedMotion.matches) return;
+
+    const MAX_OFFSET = 6; // px
+
+    document.querySelectorAll('.contact-form__submit').forEach(btn => {
+      btn.classList.add('magnetic');
+      btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+        const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+        btn.style.transform = `translate(${(dx * MAX_OFFSET).toFixed(1)}px, ${(dy * MAX_OFFSET).toFixed(1)}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
+    });
+  }
+
+
   /* --- Accordion (un toujours ouvert) --- */
   function initAccordion(container) {
     const items = container.querySelectorAll('.accordion-item');
@@ -1057,6 +1081,33 @@
     });
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+  }
+
+
+  /* --- Tilt 3D léger au survol des cartes Portfolio (desktop uniquement) --- */
+  function initPortfolioTilt(gridEl) {
+    const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!isFinePointer || reducedMotion.matches) return; // pas de listener du tout sur tactile/reduced-motion
+
+    const MAX_TILT = 6; // degrés, volontairement subtil
+
+    gridEl.querySelectorAll('.portfolio-card__thumb-wrap').forEach(wrap => {
+      wrap.addEventListener('mouseenter', () => {
+        wrap.style.transition = 'transform 0.1s ease-out';
+      });
+      wrap.addEventListener('mousemove', e => {
+        const rect = wrap.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        const rotY = (px - 0.5) * MAX_TILT * 2;
+        const rotX = (0.5 - py) * MAX_TILT * 2;
+        wrap.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+      });
+      wrap.addEventListener('mouseleave', () => {
+        wrap.style.transition = 'transform 0.35s ease';
+        wrap.style.transform = '';
+      });
     });
   }
 

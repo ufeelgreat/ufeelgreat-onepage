@@ -1044,6 +1044,7 @@ mark {
   cursor: pointer;
   border: 1px solid var(--color-border);
   transition: border-color var(--transition-base), transform var(--transition-base);
+  perspective: 800px; /* tilt 3D desktop (voir initPortfolioTilt) */
 }
 
 .portfolio-card:hover {
@@ -1599,6 +1600,15 @@ mark {
 .contact-form__submit:hover {
   background: #000;
   transform: translateY(-1px);
+}
+
+/* Suivi du curseur en JS (desktop, voir initMagneticButtons) — remplace le hover CSS */
+.contact-form__submit.magnetic {
+  transition: background var(--transition-base), transform 0.15s ease-out;
+}
+
+.contact-form__submit.magnetic:hover {
+  transform: none;
 }
 
 .contact-form__success {
