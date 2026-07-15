@@ -190,7 +190,14 @@
       "period": "2022 – 2026",
       "title": "Chef d'équipe | Opérations de production digitale",
       "company": "Crakmedia · Montréal · Agence de performance marketing",
-      "impact": "Dans une <mark>entreprise de 180 personnes</mark>, j'encadrais une équipe vidéo de 4 : <mark>80+ assets vidéo et motion livrés par mois</mark>, 4 à 6 campagnes simultanées, dont un reel qui a percé à <mark>13,5 M de vues</mark> lors d'une campagne virale sur Instagram. Des workflows IA déployés, une équipe qui a grandi."
+      "impact": "Dans une <mark>entreprise de 180 personnes</mark>, j'encadrais une équipe vidéo de 4 : <mark>80+ assets vidéo et motion livrés par mois</mark>, 4 à 6 campagnes simultanées, dont un reel qui a percé à <mark>13,5 M de vues</mark> lors d'une campagne virale sur Instagram. Des workflows IA déployés, une équipe qui a grandi.",
+      "counters": [
+        { "value": 180, "suffix": "", "label": "personnes dans l'entreprise" },
+        { "value": 4, "suffix": "", "label": "personnes dans l'équipe vidéo" },
+        { "value": 80, "suffix": "+", "label": "assets vidéo/mois" },
+        { "prefix": "4-", "value": 6, "suffix": "", "label": "campagnes simultanées" },
+        { "value": 13.5, "decimals": 1, "suffix": " M", "label": "vues sur un reel viral" }
+      ]
     },
     {
       "period": "2018 – 2021",
@@ -202,13 +209,19 @@
       "period": "2016 – 2017",
       "title": "Assistant de direction & coordination projets",
       "company": "Aktua Prod · Rouen",
-      "impact": "Appui stratégique au dirigeant, coordination de projets institutionnels, développement commercial. <mark>Appel d'offres remporté pour la Ville du Havre</mark> : un mandat annuel de 50 000 €."
+      "impact": "Appui stratégique au dirigeant, coordination de projets institutionnels, développement commercial. <mark>Appel d'offres remporté pour la Ville du Havre</mark> : un mandat annuel de 50 000 €.",
+      "counters": [
+        { "value": 50000, "suffix": " €", "label": "mandat annuel Ville du Havre" }
+      ]
     },
     {
       "period": "2011 – 2016",
       "title": "Chargé de production",
       "company": "Arcanes Production · Rouen",
       "impact": "Gestion complète de projets audiovisuels de bout en bout, dont la <mark>réponse aux appels d'offres publics</mark> (ex. Festival Normandie Impressionniste, mandat de 35 000 €). C'est là que j'ai appris le métier sous toutes ses coutures, du brief client à la facturation, en passant par le terrain : tournages, captations lives, événementiels.",
+      "counters": [
+        { "value": 35000, "suffix": " €", "label": "mandat Normandie Impressionniste" }
+      ],
       "parallel": {
         "period": "2013 – 2016",
         "title": "Intervenant professionnel (formateur)",

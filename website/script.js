@@ -180,7 +180,7 @@
     renderExpertise(content);
     renderSoftSkills(content);
     renderTestimonials(content);
-    renderTimeline(content);
+    renderTimeline(content, lang);
     renderLoves(content);
     renderPortfolio(content, lang);
     renderContactText(content, lang);
@@ -449,9 +449,10 @@
   /* ----------------------------------------------------------
      TIMELINE
   ---------------------------------------------------------- */
-  function renderTimeline(content) {
+  function renderTimeline(content, lang) {
     const timelineList = document.querySelector('[data-content="timeline"]');
     if (timelineList) {
+      const locale = lang === 'en' ? 'en-US' : 'fr-FR';
       timelineList.innerHTML = content.timeline.map(item => {
 
         const parallel = item.parallel ? `
@@ -462,17 +463,84 @@
             <p class="timeline-item__parallel-detail">${item.parallel.detail}</p>
           </div>
         ` : '';
+        const counters = buildTimelineCounters(item.counters, locale);
         return `
           <li class="timeline-item">
             <p class="timeline-item__period">${item.period}</p>
             <h3 class="timeline-item__title">${item.title}</h3>
             <p class="timeline-item__company">${item.company}</p>
             <p class="timeline-item__impact">${item.impact}</p>
+            ${counters}
             ${parallel}
           </li>
         `;
       }).join('');
+      initTimelineCounters(timelineList);
     }
+  }
+
+
+  /* --- Compteurs animés Timeline : construction du markup --- */
+  function buildTimelineCounters(counters, locale) {
+    if (!counters || !counters.length) return '';
+    const items = counters.map(c => `
+      <div class="timeline-counter">
+        <p class="timeline-counter__value"
+           data-target="${c.value}"
+           data-decimals="${c.decimals || 0}"
+           data-prefix="${c.prefix || ''}"
+           data-suffix="${c.suffix || ''}"
+           data-locale="${locale}">0</p>
+        <p class="timeline-counter__label">${c.label}</p>
+      </div>
+    `).join('');
+    return `<div class="timeline-item__counters">${items}</div>`;
+  }
+
+
+  /* --- Compteurs animés Timeline : déclenchement au scroll-in --- */
+  function initTimelineCounters(container) {
+    const counters = container.querySelectorAll('.timeline-counter__value[data-target]');
+    if (!counters.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(el => observer.observe(el));
+  }
+
+  function animateCounter(el) {
+    const target   = parseFloat(el.dataset.target);
+    const decimals = parseInt(el.dataset.decimals, 10) || 0;
+    const prefix   = el.dataset.prefix || '';
+    const suffix   = el.dataset.suffix || '';
+    const locale   = el.dataset.locale || 'fr-FR';
+
+    const format = value => `${prefix}${value.toLocaleString(locale, {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    })}${suffix}`;
+
+    if (reducedMotion.matches) {
+      el.textContent = format(target);
+      return;
+    }
+
+    const DURATION = 1400; // ms
+    const start = performance.now();
+
+    function step(now) {
+      const progress = Math.min((now - start) / DURATION, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+      el.textContent = format(target * eased);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
   }
 
 

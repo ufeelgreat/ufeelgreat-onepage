@@ -190,7 +190,14 @@
       "period": "2022 – 2026",
       "title": "Team Lead | Digital Production Operations",
       "company": "Crakmedia · Montréal · Performance marketing agency",
-      "impact": "Within a <mark>180-person company</mark>, I led a video team of 4: <mark>80+ video and motion assets delivered per month</mark>, 4 to 6 simultaneous campaigns, including one reel that broke through to <mark>13.5M views</mark> in a viral Instagram campaign. AI workflows deployed, a team that grew."
+      "impact": "Within a <mark>180-person company</mark>, I led a video team of 4: <mark>80+ video and motion assets delivered per month</mark>, 4 to 6 simultaneous campaigns, including one reel that broke through to <mark>13.5M views</mark> in a viral Instagram campaign. AI workflows deployed, a team that grew.",
+      "counters": [
+        { "value": 180, "suffix": "", "label": "people company-wide" },
+        { "value": 4, "suffix": "", "label": "people on the video team" },
+        { "value": 80, "suffix": "+", "label": "video/motion assets per month" },
+        { "prefix": "4-", "value": 6, "suffix": "", "label": "simultaneous campaigns" },
+        { "value": 13.5, "decimals": 1, "suffix": "M", "label": "views on a viral reel" }
+      ]
     },
     {
       "period": "2018 – 2021",
@@ -202,13 +209,19 @@
       "period": "2016 – 2017",
       "title": "Executive Assistant & Project Coordinator",
       "company": "Aktua Prod · Rouen",
-      "impact": "Strategic support to the director, coordination of institutional projects, business development. <mark>Winning RFP for the City of Le Havre</mark>: a €50,000 annual mandate."
+      "impact": "Strategic support to the director, coordination of institutional projects, business development. <mark>Winning RFP for the City of Le Havre</mark>: a €50,000 annual mandate.",
+      "counters": [
+        { "prefix": "€", "value": 50000, "suffix": "", "label": "annual mandate, City of Le Havre" }
+      ]
     },
     {
       "period": "2011 – 2016",
       "title": "Production Manager",
       "company": "Arcanes Production · Rouen",
       "impact": "Full end-to-end management of audiovisual projects, including <mark>public RFP responses</mark> (e.g. Festival Normandie Impressionniste, €35,000 mandate). That's where I learned the craft from every angle, from client brief to invoicing, including fieldwork: shoots, live captures, events.",
+      "counters": [
+        { "prefix": "€", "value": 35000, "suffix": "", "label": "mandate, Normandie Impressionniste" }
+      ],
       "parallel": {
         "period": "2013 – 2016",
         "title": "Guest lecturer",
