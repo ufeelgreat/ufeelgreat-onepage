@@ -141,6 +141,7 @@
   initNavPill();
   initContactForms();
   initMagneticButtons();
+  initHeroParallax();
 
 
   /* ----------------------------------------------------------
@@ -990,6 +991,36 @@
         btn.style.transform = '';
       });
     });
+  }
+
+
+  /* --- Parallax léger sur l'avatar Hero au scroll (desktop uniquement) --- */
+  function initHeroParallax() {
+    const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!isFinePointer || reducedMotion.matches) return;
+
+    const heroImages = document.querySelector('.hero__images');
+    const heroSection = document.querySelector('.section--hero');
+    if (!heroImages || !heroSection) return;
+
+    const MAX_OFFSET = 24; // px, décalage volontairement subtil
+    heroImages.style.willChange = 'transform';
+
+    let ticking = false;
+    function update() {
+      const rect = heroSection.getBoundingClientRect();
+      // progress 0 → hero en haut du viewport, 1 → hero sorti par le haut
+      const progress = Math.min(Math.max(-rect.top / rect.height, 0), 1);
+      heroImages.style.transform = `translate3d(0, ${(progress * MAX_OFFSET).toFixed(1)}px, 0)`;
+      ticking = false;
+    }
+    document.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+    update();
   }
 
 
