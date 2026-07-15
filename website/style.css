@@ -63,6 +63,9 @@
   /* Transitions */
   --transition-base:   0.25s ease;
   --transition-reveal: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Fondu de fond scroll-linked (mis à jour en JS, voir initScrollColorFade) */
+  --scroll-fade-bg: #000000;
 }
 
 
@@ -78,7 +81,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  background-color: var(--color-bg);
+  background-color: var(--scroll-fade-bg);
   overscroll-behavior-y: none;
 }
 
@@ -87,7 +90,7 @@ body {
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
   color: var(--color-text);
-  background-color: var(--color-bg);
+  background-color: var(--scroll-fade-bg);
   -webkit-font-smoothing: antialiased;
   padding-top: env(safe-area-inset-top);
 }
@@ -189,7 +192,7 @@ mark {
   background:
     radial-gradient(ellipse 70% 50% at 80% 20%, rgba(255, 113, 99, 0.12), transparent 60%),
     radial-gradient(ellipse 60% 40% at 20% 80%, rgba(255, 179, 71, 0.08), transparent 60%),
-    #000;
+    transparent;
 }
 
 .hero__container {
@@ -374,7 +377,7 @@ mark {
    ------------------------------------------------------------ */
 .section--vision {
   border-top: 1px solid var(--color-border);
-  background: #0a0a0a;
+  background: transparent;
 }
 
 .vision__intro {
@@ -398,7 +401,7 @@ mark {
 .section--ticker {
   overflow: hidden;
   padding-block: var(--space-md);
-  background: #000;
+  background: transparent;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
@@ -470,7 +473,7 @@ mark {
   border-top: 1px solid var(--color-border);
   background:
     radial-gradient(ellipse 50% 40% at 90% 0%, rgba(255, 113, 99, 0.08), transparent 60%),
-    #111;
+    transparent;
 }
 
 .expertise__filters {
@@ -613,7 +616,7 @@ mark {
    ------------------------------------------------------------ */
 .section--softskills {
   border-top: 1px solid var(--color-border);
-  background: #0d0d0d;
+  background: transparent;
 }
 
 .accordion {
@@ -690,7 +693,7 @@ mark {
    ------------------------------------------------------------ */
 .section--testimonials {
   border-top: 1px solid var(--color-border);
-  background: #121212;
+  background: transparent;
 }
 
 .testimonials__list {
@@ -839,7 +842,7 @@ mark {
    ------------------------------------------------------------ */
 .section--timeline {
   border-top: 1px solid var(--color-border);
-  background: #0a0a0a;
+  background: transparent;
 }
 
 .timeline__list {
@@ -958,7 +961,7 @@ mark {
   border-top: 1px solid var(--color-border);
   background:
     radial-gradient(ellipse 40% 30% at 100% 100%, rgba(231, 255, 99, 0.06), transparent 60%),
-    #111;
+    transparent;
 }
 
 /* Carrousel vertical "Ce que j'aime" */
@@ -1056,7 +1059,7 @@ mark {
    ------------------------------------------------------------ */
 .section--portfolio {
   border-top: 1px solid var(--color-border);
-  background: #0d0d0d;
+  background: transparent;
 }
 
 /* Grille portfolio */

@@ -142,6 +142,7 @@
   initContactForms();
   initMagneticButtons();
   initHeroParallax();
+  initScrollColorFade();
 
 
   /* ----------------------------------------------------------
@@ -1369,6 +1370,74 @@
       }
     }, { passive: true });
     update();
+  }
+
+
+  /* --- Fondu de couleur de fond scroll-linked entre sections --- */
+  function initScrollColorFade() {
+    // Teintes de base actuelles de chaque section (voir style.css) : la valeur
+    // qui y était en dur passe à `transparent`, remplacée par ce fondu continu.
+    const COLORS = {
+      hero:         '#000000',
+      vision:       '#0a0a0a',
+      ticker:       '#000000',
+      expertise:    '#111111',
+      timeline:     '#0a0a0a',
+      portfolio:    '#0d0d0d',
+      testimonials: '#121212',
+      softskills:   '#0d0d0d',
+      loves:        '#111111',
+      // "contact" volontairement exclu : fond dégradé opaque, non fondu
+    };
+
+    function hexToRgb(hex) {
+      const n = parseInt(hex.slice(1), 16);
+      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    }
+
+    const stops = Array.from(document.querySelectorAll('section'))
+      .map(el => {
+        const match = el.className.match(/section--(\S+)/);
+        const hex = match && COLORS[match[1]];
+        return hex ? { el, rgb: hexToRgb(hex) } : null;
+      })
+      .filter(Boolean);
+
+    if (stops.length < 2) return;
+
+    const root = document.documentElement;
+    let anchors = [];
+
+    function computeAnchors() {
+      anchors = stops.map(s => s.el.getBoundingClientRect().top + window.scrollY);
+    }
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    let ticking = false;
+    function update() {
+      const focus = window.scrollY + window.innerHeight * 0.5;
+      let i = 0;
+      while (i < anchors.length - 1 && focus > anchors[i + 1]) i++;
+      const j = Math.min(i + 1, stops.length - 1);
+      const span = anchors[j] - anchors[i] || 1;
+      const t = Math.min(Math.max((focus - anchors[i]) / span, 0), 1);
+      const rgb = [0, 1, 2].map(c => Math.round(lerp(stops[i].rgb[c], stops[j].rgb[c], t)));
+      root.style.setProperty('--scroll-fade-bg', `rgb(${rgb.join(',')})`);
+      ticking = false;
+    }
+
+    computeAnchors();
+    update();
+
+    window.addEventListener('load', () => { computeAnchors(); update(); });
+    window.addEventListener('resize', () => { computeAnchors(); update(); });
+    document.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
   }
 
 
