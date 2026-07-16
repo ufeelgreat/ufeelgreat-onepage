@@ -62,7 +62,10 @@
 
   /* Transitions */
   --transition-base:   0.25s ease;
-  --transition-reveal: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-reveal: 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Fondu de fond scroll-linked (mis à jour en JS, voir initScrollColorFade) */
+  --scroll-fade-bg: #000000;
 }
 
 
@@ -78,7 +81,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  background-color: var(--color-bg);
+  background-color: var(--scroll-fade-bg);
   overscroll-behavior-y: none;
 }
 
@@ -87,7 +90,7 @@ body {
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-body);
   color: var(--color-text);
-  background-color: var(--color-bg);
+  background-color: var(--scroll-fade-bg);
   -webkit-font-smoothing: antialiased;
   padding-top: env(safe-area-inset-top);
 }
@@ -97,12 +100,29 @@ a      { color: inherit; text-decoration: none; }
 img    { display: block; max-width: 100%; height: auto; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
 
+/* Surlignage balayé au scroll-in : le fond se déploie de gauche à droite
+   quand le <mark> entre au viewport (classe .swept posée par initMarkSweep) */
 mark {
-  background: none;
+  background-color: transparent; /* neutralise le jaune UA par défaut */
+  background-image: linear-gradient(120deg, rgba(255, 113, 99, 0.32), rgba(255, 179, 71, 0.32));
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  background-position: 0 0;
+  border-radius: 0.3em;
+  padding: 0.02em 0.18em;
+  margin-inline: -0.08em;
   color: inherit;
-  padding: 0;
-  border-radius: 0;
   font-style: normal;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition:
+    background-size 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.5s ease;
+}
+
+mark.swept {
+  background-size: 100% 100%;
+  color: var(--color-text);
 }
 
 
@@ -121,9 +141,10 @@ mark {
 }
 
 .section__title {
-  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-size: clamp(2rem, 5.5vw, 3.25rem);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
+  letter-spacing: -0.02em;
   margin-bottom: var(--space-sm);
 }
 
@@ -189,7 +210,7 @@ mark {
   background:
     radial-gradient(ellipse 70% 50% at 80% 20%, rgba(255, 113, 99, 0.12), transparent 60%),
     radial-gradient(ellipse 60% 40% at 20% 80%, rgba(255, 179, 71, 0.08), transparent 60%),
-    #000;
+    transparent;
 }
 
 .hero__container {
@@ -231,6 +252,33 @@ mark {
   padding: 0.4rem 1rem;
   border: 1px solid var(--color-border);
   border-radius: 999px;
+}
+
+/* Intitulés de postes ciblés — lisibles en 3 secondes par un recruteur */
+.hero__roles {
+  font-size: 0.95rem;
+  font-weight: var(--font-weight-semi);
+  color: var(--color-coral);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-sm);
+}
+
+/* CTA principal : scroll vers la section Contact */
+.hero__cta {
+  display: inline-block;
+  margin-top: var(--space-md);
+  padding: 0.75rem 1.6rem;
+  background: var(--gradient-accent);
+  color: #111111;
+  font-weight: var(--font-weight-bold);
+  font-size: 0.95rem;
+  border-radius: 999px;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.hero__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(255, 113, 99, 0.35);
 }
 
 .hero__opentowork {
@@ -366,7 +414,16 @@ mark {
   white-space: nowrap;
   user-select: none;
   pointer-events: none;
+  display: inline-flex;
+  justify-content: center;
 }
+
+/* Fondu du texte seul ("double clic" ↔ "awww...") — la gélule reste opaque */
+.hero__heart-hint__text {
+  transition: opacity 0.2s ease;
+}
+
+.hero__heart-hint__text.is-fading { opacity: 0; }
 
 
 /* ------------------------------------------------------------
@@ -374,7 +431,7 @@ mark {
    ------------------------------------------------------------ */
 .section--vision {
   border-top: 1px solid var(--color-border);
-  background: #0a0a0a;
+  background: transparent;
 }
 
 .vision__intro {
@@ -385,9 +442,26 @@ mark {
 
 .vision__body p {
   color: var(--color-text-muted);
+  font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+  font-weight: var(--font-weight-semi);
+  line-height: 1.55;
   margin-bottom: var(--space-sm);
-  max-width: 70ch;
+  max-width: 60ch;
 }
+
+/* Illumination progressive du texte Vision, scroll-linked (voir initVisionIllumination)
+   Chaque mot est un span .vw ; .lit s'allume au fil du scroll, type page produit Apple */
+.vw {
+  opacity: 0.22;
+  transition: opacity 0.35s linear, color 0.35s linear;
+}
+
+.vw.lit { opacity: 1; }
+
+.vision__body .vw.lit { color: var(--color-text); }
+
+/* Les mots dans un <mark> suivent la couleur du mark, pas celle du paragraphe */
+mark .vw.lit { color: inherit; }
 
 .vision__body p:last-child { margin-bottom: 0; }
 
@@ -398,7 +472,7 @@ mark {
 .section--ticker {
   overflow: hidden;
   padding-block: var(--space-md);
-  background: #000;
+  background: transparent;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
@@ -470,7 +544,7 @@ mark {
   border-top: 1px solid var(--color-border);
   background:
     radial-gradient(ellipse 50% 40% at 90% 0%, rgba(255, 113, 99, 0.08), transparent 60%),
-    #111;
+    transparent;
 }
 
 .expertise__filters {
@@ -501,111 +575,102 @@ mark {
   background: rgba(255, 113, 99, 0.1);
 }
 
-/* --- Piles de cartes --- */
-.expertise__piles {
+/* --- Grille de cartes flip 3D ---
+   Face avant : emoji + mot-clé visible sans interaction (scan recruteur, SEO).
+   Clic → la carte se retourne (rotateY) et révèle le détail. --- */
+.expertise__flip-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg);
-  justify-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+  perspective: 1200px;
 }
 
-.expertise-pile {
+.flip-card {
+  position: relative;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.flip-card__inner {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.flip-card.flipped .flip-card__inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card__face {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-sm);
-  width: 100%;
-  max-width: 280px;
-}
-
-.expertise-pile__stack {
-  position: relative;
-  width: 100%;
-  cursor: pointer;
-}
-
-.expertise-pile__card {
-  position: absolute;
-  inset: 0;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 1rem 0.85rem;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--card-radius);
-  padding: var(--card-padding);
-  padding-bottom: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  transform: rotate(var(--pile-rot, 0deg));
-  transition: transform 0.35s ease, opacity 0.35s ease;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: pan-y;
-  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
-.expertise-pile__card--top {
-  transform: rotate(0deg);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-  animation: pile-top-pulse 2.6s ease-in-out infinite;
+.flip-card:hover .flip-card__face,
+.flip-card:focus-visible .flip-card__face {
+  border-color: rgba(255, 113, 99, 0.4);
+  box-shadow: 0 6px 24px rgba(255, 113, 99, 0.12);
 }
 
-@keyframes pile-top-pulse {
-  0%, 100% {
-    transform: rotate(0deg) scale(1);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-  }
-  50% {
-    transform: rotate(0deg) scale(1.015);
-    box-shadow: 0 6px 28px rgba(255, 113, 99, 0.25);
-  }
+.flip-card__emoji {
+  display: block;
+  font-size: 1.9rem;
+  line-height: 1;
+  transition: transform var(--transition-base);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .expertise-pile__card--top {
-    animation: none;
-  }
-}
+.flip-card:hover .flip-card__emoji { transform: scale(1.15); }
 
-
-.expertise-pile__card__title {
-  font-size: 1rem;
-  font-weight: var(--font-weight-bold);
-  margin-bottom: 0.4rem;
-}
-
-.expertise-pile__card__body {
+.flip-card__title {
+  display: block;
   font-size: 0.9rem;
-  color: var(--color-text-muted);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+  color: var(--color-text);
 }
 
-.expertise-pile__card__num {
+.flip-card__hint {
   position: absolute;
-  bottom: 0.75rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.7rem;
-  color: var(--color-text-muted);
-  opacity: 0.4;
-}
-
-.expertise-pile__label {
-  display: inline-block;
-  font-size: 0.75rem;
+  bottom: 0.55rem;
+  right: 0.8rem;
+  font-size: 0.9rem;
   font-weight: var(--font-weight-semi);
-  color: var(--color-lime);
-  border: 1px solid var(--color-lime);
-  border-radius: 999px;
-  padding: 0.3rem 0.8rem;
-  text-align: center;
+  color: var(--color-text-muted);
+  opacity: 0.45;
 }
 
-
-@media (prefers-reduced-motion: reduce) {
-  .expertise-pile__card {
-    transform: none !important;
-    transition: none !important;
-  }
+.flip-card__back {
+  transform: rotateY(180deg);
+  background: linear-gradient(150deg, rgba(255, 113, 99, 0.10), rgba(255, 179, 71, 0.06)), var(--color-surface);
 }
+
+.flip-card__body {
+  display: block;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.flip-card.is-hidden { display: none; }
 
 
 /* ------------------------------------------------------------
@@ -613,7 +678,7 @@ mark {
    ------------------------------------------------------------ */
 .section--softskills {
   border-top: 1px solid var(--color-border);
-  background: #0d0d0d;
+  background: transparent;
 }
 
 .accordion {
@@ -690,7 +755,7 @@ mark {
    ------------------------------------------------------------ */
 .section--testimonials {
   border-top: 1px solid var(--color-border);
-  background: #121212;
+  background: transparent;
 }
 
 .testimonials__list {
@@ -839,7 +904,7 @@ mark {
    ------------------------------------------------------------ */
 .section--timeline {
   border-top: 1px solid var(--color-border);
-  background: #0a0a0a;
+  background: transparent;
 }
 
 .timeline__list {
@@ -905,6 +970,50 @@ mark {
   color: var(--color-text-muted);
 }
 
+.timeline-item__counters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: var(--space-sm);
+}
+
+.timeline-counter {
+  flex: 1 1 130px;
+  min-width: 110px;
+  padding: 0.6rem 0.8rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.timeline-counter__value {
+  font-size: 1.7rem;
+  font-weight: var(--font-weight-bold);
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+/* Pop d'atterrissage quand le compteur démarre (classe posée par animateCounter) */
+.timeline-counter__value.pop {
+  animation: counter-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes counter-pop {
+  0%   { transform: scale(0.55); }
+  65%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.timeline-counter__label {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
+}
+
 .timeline-item__parallel {
   margin-top: var(--space-sm);
   padding: var(--space-sm);
@@ -928,7 +1037,7 @@ mark {
   border-top: 1px solid var(--color-border);
   background:
     radial-gradient(ellipse 40% 30% at 100% 100%, rgba(231, 255, 99, 0.06), transparent 60%),
-    #111;
+    transparent;
 }
 
 /* Carrousel vertical "Ce que j'aime" */
@@ -1026,7 +1135,7 @@ mark {
    ------------------------------------------------------------ */
 .section--portfolio {
   border-top: 1px solid var(--color-border);
-  background: #0d0d0d;
+  background: transparent;
 }
 
 /* Grille portfolio */
@@ -1044,6 +1153,7 @@ mark {
   cursor: pointer;
   border: 1px solid var(--color-border);
   transition: border-color var(--transition-base), transform var(--transition-base);
+  perspective: 800px; /* tilt 3D desktop (voir initPortfolioTilt) */
 }
 
 .portfolio-card:hover {
@@ -1601,6 +1711,15 @@ mark {
   transform: translateY(-1px);
 }
 
+/* Suivi du curseur en JS (desktop, voir initMagneticButtons) — remplace le hover CSS */
+.contact-form__submit.magnetic {
+  transition: background var(--transition-base), transform 0.15s ease-out;
+}
+
+.contact-form__submit.magnetic:hover {
+  transform: none;
+}
+
 .contact-form__success {
   font-size: 0.9rem;
   color: rgba(255,255,255,0.9);
@@ -1614,7 +1733,7 @@ mark {
    ------------------------------------------------------------ */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(44px) scale(0.985);
   transition:
     opacity var(--transition-reveal),
     transform var(--transition-reveal);
@@ -1622,7 +1741,164 @@ mark {
 
 .reveal.visible {
   opacity: 1;
+  transform: none;
+}
+
+/* Orchestration : enfants directs d'une section, révélés en cascade */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible .reveal-item,
+.hero-intro.hero-intro-visible .reveal-item {
+  opacity: 1;
   transform: translateY(0);
+}
+
+.reveal-item:nth-child(1) { transition-delay: 0ms; }
+.reveal-item:nth-child(2) { transition-delay: 90ms; }
+.reveal-item:nth-child(3) { transition-delay: 180ms; }
+.reveal-item:nth-child(4) { transition-delay: 270ms; }
+.reveal-item:nth-child(n+5) { transition-delay: 360ms; }
+
+/* Hero : contenu déjà présent en HTML statique (LCP) — reste visible sans JS */
+html:not(.js) .hero-intro .reveal-item {
+  opacity: 1;
+  transform: none;
+}
+
+/* Titres de section — reveal mot par mot */
+.reveal-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.reveal-word__inner {
+  display: inline-block;
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible .reveal-word__inner {
+  transform: translateY(0);
+}
+
+.reveal-word:nth-child(2) .reveal-word__inner { transition-delay: 40ms; }
+.reveal-word:nth-child(3) .reveal-word__inner { transition-delay: 80ms; }
+.reveal-word:nth-child(4) .reveal-word__inner { transition-delay: 120ms; }
+.reveal-word:nth-child(n+5) .reveal-word__inner { transition-delay: 160ms; }
+
+/* ------------------------------------------------------------
+   17b. ANIMATIONS — Effet WOW (Phase 7)
+   Hero 3D scroll-linked, glare, cascades d'apparition
+   ------------------------------------------------------------ */
+
+/* Sortie de scène scroll-linked : le contenu de chaque section recule et
+   s'estompe quand elle quitte le viewport par le haut (--exit-p mis à jour
+   en JS, voir initExitScenes ; Contact exclu — dernière section) */
+.section:not(.section--contact) > .container {
+  transform: translateY(calc(var(--exit-p, 0) * -40px)) scale(calc(1 - var(--exit-p, 0) * 0.06));
+  opacity: calc(1 - var(--exit-p, 0) * 1.2);
+  transform-origin: center top;
+}
+
+/* Grille bento portfolio : les cartes --wide s'étendent sur 2 colonnes
+   à hauteur de rangée constante (l'image s'étend par object-fit: cover).
+   Sur une rangée mixte, la hauteur vient de la carte simple (16/9) ;
+   sur une rangée 2 colonnes où la carte large est seule, ratio 21/9. */
+@media (min-width: 768px) {
+  .portfolio__grid { grid-auto-flow: dense; }
+
+  .portfolio-card--wide { grid-column: span 2; }
+
+  .portfolio-card--wide .portfolio-card__thumb-wrap {
+    aspect-ratio: 21 / 9;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* La vignette large remplit la carte en absolu : elle ne contribue plus
+     à la hauteur de rangée, dictée par les cartes simples 16/9 */
+  .portfolio-card--wide {
+    position: relative;
+  }
+
+  .portfolio-card--wide .portfolio-card__thumb-wrap {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+  }
+}
+
+/* Carte portfolio vedette (PEMTL) : halo coral qui pulse lentement
+   pour attirer le clic — coupé au survol (le hover prend le relais) */
+.portfolio-card--featured {
+  border-color: rgba(255, 113, 99, 0.35);
+  animation: featured-halo 3.2s ease-in-out infinite;
+}
+
+.portfolio-card--featured:hover {
+  animation: none;
+}
+
+@keyframes featured-halo {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 113, 99, 0.10), 0 0 22px rgba(255, 113, 99, 0.18); }
+  50%      { box-shadow: 0 0 0 5px rgba(255, 113, 99, 0.14), 0 0 44px rgba(255, 113, 99, 0.42); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-card--featured {
+    animation: none;
+    box-shadow: 0 0 28px rgba(255, 113, 99, 0.3);
+  }
+}
+
+/* Vignettes portfolio : glare au survol pendant le tilt 3D */
+.portfolio-card__thumb-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 255, 255, 0.22), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.portfolio-card__thumb-wrap.tilting::after { opacity: 1; }
+
+/* Cascades d'apparition : les enfants des listes montent un par un
+   (délais posés en JS par initCascades, classe .cascade-in) */
+.js :is(.timeline__list, .testimonials__list, .expertise__flip-grid):not(.cascade-off) > *:not(.cascade-in) {
+  opacity: 0;
+  transform: translateY(44px) scale(0.97);
+}
+
+.js :is(.timeline__list, .testimonials__list, .expertise__flip-grid) > * {
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color var(--transition-base);
+}
+
+/* Barre de progression de scroll */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-coral), var(--color-lime));
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 150;
+  pointer-events: none;
 }
 
 
@@ -1665,7 +1941,7 @@ mark {
     margin-top: 0;
   }
 
-  .expertise__piles { grid-template-columns: repeat(3, 1fr); }
+  .expertise__flip-grid { grid-template-columns: repeat(3, 1fr); }
   .portfolio__grid  { grid-template-columns: repeat(2, 1fr); }
 
   .ticker-track img { height: 160px; }
@@ -1674,6 +1950,7 @@ mark {
 @media (min-width: 1024px) {
   .hero__images    { width: 320px; }
   .portfolio__grid  { grid-template-columns: repeat(3, 1fr); }
+  .expertise__flip-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 
@@ -1702,7 +1979,21 @@ a, button, [role="button"], input, textarea, select,
     opacity: 1;
     transform: none;
   }
+  .reveal-item {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-word__inner {
+    transform: none;
+  }
   .ticker-track { animation: none; }
+  .vw { opacity: 1; }
+  mark { background-size: 100% 100%; color: var(--color-text); }
+  .section:not(.section--contact) > .container { transform: none; opacity: 1; }
+  .js :is(.timeline__list, .testimonials__list, .expertise__flip-grid) > *:not(.cascade-in) {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 
