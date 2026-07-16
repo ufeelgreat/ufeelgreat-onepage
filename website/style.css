@@ -1922,6 +1922,14 @@ html:not(.js) .hero-intro .reveal-item {
 @media (max-width: 767px) {
   #nav-pill { display: none; }
 
+  /* Sorties de scène désactivées sur mobile : le fondu + translateY(-40px)
+     des sections au-dessus provoque un saut à contre-sens en remontant
+     (la section se "recharge" sous le doigt). Effet conservé sur desktop. */
+  .section:not(.section--contact) > .container {
+    transform: none;
+    opacity: 1;
+  }
+
   .contact__links-wrapper {
     grid-template-columns: 1fr;
   }
