@@ -645,8 +645,8 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           animateCounter(entry.target);
-        } else {
-          // Réarme le compteur pour le prochain passage
+        } else if (entry.boundingClientRect.top > 0) {
+          // Sorti par le bas : réarme le compteur pour la prochaine descente
           entry.target._countRun = (entry.target._countRun || 0) + 1;
           entry.target.classList.remove('pop');
           entry.target.textContent = '0';
@@ -1189,8 +1189,9 @@
           clearTimeout(timers.get(container));
           timers.set(container, setTimeout(() =>
             kids.forEach(el => { el.style.transitionDelay = ''; }), 1800));
-        } else {
-          // Réarme la cascade pour le prochain passage
+        } else if (entry.boundingClientRect.top > 0) {
+          // Sorti par le bas : réarme la cascade pour la prochaine descente
+          // (sorti par le haut : on ne touche à rien, sinon saut au scroll up)
           container.dataset.cascaded = '0';
           clearTimeout(timers.get(container));
           kids.forEach(el => {
@@ -1465,12 +1466,19 @@
   }
 
 
-  /* --- Scroll Reveal — rejoué à chaque entrée au viewport --- */
+  /* --- Scroll Reveal — rejoué à chaque descente ---
+     Réarmé uniquement quand l'élément sort par le BAS du viewport : en
+     remontant, les sections au-dessus restent en place (sinon elles
+     rejouent leur entrée sous le doigt → saut de scroll). --- */
   function initScrollReveal() {
     const elements = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        entry.target.classList.toggle('visible', entry.isIntersecting);
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else if (entry.boundingClientRect.top > 0) {
+          entry.target.classList.remove('visible');
+        }
       });
     }, { threshold: 0.1 });
     elements.forEach(el => observer.observe(el));
