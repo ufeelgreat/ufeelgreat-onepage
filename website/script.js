@@ -813,7 +813,7 @@
           const thumbEl = project.thumbnail
             ? `<img class="portfolio-card__thumb" src="${project.thumbnail}" alt="${project.title}" loading="lazy" />`
             : `<div class="portfolio-card__thumb-placeholder">🎞️</div>`;
-          const featured = project.id === 'pemtl' ? ' portfolio-card--featured' : '';
+          const featured = ['pemtl', 'twitch-motion'].includes(project.id) ? ' portfolio-card--featured' : '';
           const wide = WIDE_IDS.includes(project.id) ? ' portfolio-card--wide' : '';
           return `
             <article class="portfolio-card${featured}${wide}" role="button" tabindex="0" data-project-id="${project.id}" aria-label="${ariaPrefix} ${project.title}">
@@ -848,8 +848,10 @@
         const iconEl = getContactIcon(link.icon);
         const isExternal = link.icon === 'linkedin' || link.icon === 'instagram';
         const isCv = link.icon === 'cv';
+        // CV : nouvel onglet en plus du download — sur mobile le PDF s'affiche
+        // dans l'onglet au lieu de se télécharger, il faut pouvoir revenir au site
         return `
-          <a class="contact-link${isCv ? ' contact-link--cv' : ''}" href="${link.url}"${isCv ? ' download' : ''}${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}>
+          <a class="contact-link${isCv ? ' contact-link--cv' : ''}" href="${link.url}"${isCv ? ' download' : ''}${isExternal || isCv ? ' target="_blank" rel="noopener noreferrer"' : ''}>
             <span class="contact-link__icon">${iconEl}</span>
             <span class="contact-link__text">
               <span class="contact-link__label">${link.label}</span>
