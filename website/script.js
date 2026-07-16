@@ -37,6 +37,14 @@
   // Centralisé : utilisé par toutes les animations custom (drag, easter egg, etc.)
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+  // État partagé de l'illumination Vision (mots .vw allumés au scroll)
+  // update est branché par initVisionIllumination, les mots par renderVision
+  const visionIllum = { words: [], lit: 0, update: null };
+
+  // Listeners resize/load de la grille flip Expertise : bind unique
+  // (déclaré ici : renderExpertise tourne dès le rendu initial)
+  let flipListenersBound = false;
+
   function setText(selector, value) {
     const el = document.querySelector(selector);
     if (el && value != null) el.textContent = value;
@@ -74,6 +82,31 @@
     ).join(' ');
     el.setAttribute('aria-label', text);
     el.innerHTML = `<span aria-hidden="true">${words}</span>`;
+  }
+
+  // Enveloppe chaque mot des nœuds texte de root dans un <span class="vw">
+  // en préservant les éléments existants (<mark>, etc.) — voir illumination Vision
+  function wrapTextWords(root) {
+    if (!root) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+    textNodes.forEach(node => {
+      if (!node.textContent.trim()) return;
+      const frag = document.createDocumentFragment();
+      node.textContent.split(/(\s+)/).forEach(part => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) {
+          frag.appendChild(document.createTextNode(part));
+        } else {
+          const span = document.createElement('span');
+          span.className = 'vw';
+          span.textContent = part;
+          frag.appendChild(span);
+        }
+      });
+      node.parentNode.replaceChild(frag, node);
+    });
   }
 
   // Karaoké — découpe la citation en blocs <span> alignés sur les timestamps
@@ -141,8 +174,11 @@
   initNavPill();
   initContactForms();
   initMagneticButtons();
-  initHeroParallax();
+  initHeroScene();
   initScrollColorFade();
+  initVisionIllumination();
+  initCascades();
+  initExitScenes();
 
 
   /* ----------------------------------------------------------
@@ -178,7 +214,7 @@
     stopTestimonialAudio();
     renderHero(content, lang);
     renderVision(content);
-    renderExpertise(content);
+    renderExpertise(content, lang);
     renderSoftSkills(content);
     renderTestimonials(content);
     renderTimeline(content, lang);
@@ -190,6 +226,10 @@
     renderCvModal(content);
     updateLangPills(lang);
     showForm(lang);
+    initMarkSweep();
+    // Conteneurs déjà révélés : re-marquer les enfants réinjectés (sans délai)
+    document.querySelectorAll('[data-cascaded="1"]').forEach(c =>
+      Array.from(c.children).forEach(el => el.classList.add('cascade-in')));
   }
 
 
@@ -198,8 +238,10 @@
   ---------------------------------------------------------- */
   function renderHero(content, lang) {
     setText('[data-content="hero.badge"]', content.hero.badge);
+    setText('[data-content="hero.roles"]', content.hero.roles);
     setText('[data-content="hero.description"]', content.hero.description);
     setText('[data-content="hero.openToWork"]', content.hero.openToWork);
+    setText('[data-content="hero.contactCta"]', content.hero.contactCta);
 
     const titleEl = document.querySelector('[data-content="hero.title"]');
     if (titleEl && content.hero.title) {
@@ -219,7 +261,7 @@
         : (isTouch ? 'taper deux fois' : 'double clic');
       heroImages.innerHTML = `
         <img src="${content.hero.avatar}" alt="Gaël Tréfeu" loading="eager" />
-        <span class="hero__heart-hint">${hintText}</span>
+        <span class="hero__heart-hint"><span class="hero__heart-hint__text">${hintText}</span></span>
       `;
     }
   }
@@ -234,73 +276,168 @@
     if (visionBody) {
       visionBody.innerHTML = content.vision.body.map(p => `<p>${p}</p>`).join('');
     }
+    // Illumination progressive : chaque mot devient un span .vw allumé au scroll
+    if (!reducedMotion.matches) {
+      wrapTextWords(document.querySelector('[data-html="vision.intro"]'));
+      wrapTextWords(visionBody);
+    }
+    visionIllum.words = Array.from(document.querySelectorAll('#vision .vw'));
+    visionIllum.lit = 0;
+    if (visionIllum.update) visionIllum.update();
   }
 
 
   /* ----------------------------------------------------------
      EXPERTISE
   ---------------------------------------------------------- */
-  function renderExpertise(content) {
+  function renderExpertise(content, lang) {
     setText('[data-content="expertise.intro"]', content.expertise.intro);
 
     const filtersEl = document.querySelector('[data-content="expertise.filters"]');
     const gridEl    = document.querySelector('[data-content="expertise.cards"]');
+    if (!filtersEl || !gridEl) return;
 
-    if (filtersEl && gridEl) {
-      /* Plus de boutons filtre — on cache le conteneur */
-      filtersEl.style.display = 'none';
+    const filters = content.expertise.filters;
+    const cards   = content.expertise.cards;
+    const allLabel = lang === 'en' ? 'All' : 'Tous';
 
-      /* Construire les 4 piles */
-      const filters = content.expertise.filters;
-      const cards   = content.expertise.cards;
+    /* Filtres par thème : gélules cliquables */
+    filtersEl.style.display = '';
+    filtersEl.innerHTML = [allLabel, ...filters].map((f, i) =>
+      `<button class="filter-btn${i === 0 ? ' active' : ''}" type="button"
+        data-filter="${i === 0 ? '*' : f}">${f}</button>`
+    ).join('');
 
-      /* Assigner chaque carte à sa 1ère catégorie uniquement */
-      const piles = {};
-      filters.forEach(f => { piles[f] = []; });
-      cards.forEach(card => {
-        const primary = card.categories[0];
-        if (piles[primary]) piles[primary].push(card);
+    /* Grille de cartes flip : mot-clé visible devant, détail au dos */
+    gridEl.classList.add('expertise__flip-grid');
+    gridEl.innerHTML = cards.map(card => {
+      const m = card.title.match(/^(\S+)\s+(.*)$/);
+      const emoji = m ? m[1] : '';
+      const label = m ? m[2] : card.title;
+      return `<button class="flip-card" type="button" aria-expanded="false"
+          data-cats="${card.categories.join('|')}">
+        <span class="flip-card__inner">
+          <span class="flip-card__face flip-card__front">
+            <span class="flip-card__emoji" aria-hidden="true">${emoji}</span>
+            <span class="flip-card__title">${label}</span>
+            <span class="flip-card__hint" aria-hidden="true">+</span>
+          </span>
+          <span class="flip-card__face flip-card__back">
+            <span class="flip-card__body">${card.body}</span>
+          </span>
+        </span>
+      </button>`;
+    }).join('');
+
+    initFlipGrid(filtersEl, gridEl);
+  }
+
+  /* --- Grille flip : retournement, filtres, hauteur uniforme --- */
+  function equalizeFlipHeights(gridEl) {
+    const cards = gridEl.querySelectorAll('.flip-card');
+    cards.forEach(c => { c.style.height = ''; });
+    let max = 0;
+    gridEl.querySelectorAll('.flip-card__face').forEach(face => {
+      face.style.position = 'static';
+      if (face.offsetHeight > max) max = face.offsetHeight;
+      face.style.position = '';
+    });
+    if (max > 0) cards.forEach(c => { c.style.height = `${max}px`; });
+  }
+
+  function initFlipGrid(filtersEl, gridEl) {
+    gridEl.querySelectorAll('.flip-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const flipped = card.classList.toggle('flipped');
+        card.setAttribute('aria-expanded', flipped);
+      });
+    });
+
+    /* Filtre animé (FLIP) : les cartes sortantes s'estompent via un clone
+       fantôme, les restantes glissent vers leur nouvelle position, les
+       entrantes apparaissent en fondu + scale. */
+    function applyFilter(f) {
+      const cards = Array.from(gridEl.querySelectorAll('.flip-card'));
+      const matches = c => f === '*' || c.dataset.cats.split('|').includes(f);
+
+      if (reducedMotion.matches) {
+        cards.forEach(c => c.classList.toggle('is-hidden', !matches(c)));
+        return;
+      }
+
+      const firstRects = new Map();
+      cards.forEach(c => {
+        if (!c.classList.contains('is-hidden')) firstRects.set(c, c.getBoundingClientRect());
+      });
+      const gridH0 = gridEl.offsetHeight;
+
+      cards.forEach(c => {
+        const wasVisible = !c.classList.contains('is-hidden');
+        const willShow = matches(c);
+        if (wasVisible && !willShow) {
+          const r = firstRects.get(c);
+          const ghost = c.cloneNode(true);
+          ghost.style.cssText =
+            `position:fixed; left:${r.left}px; top:${r.top}px; width:${r.width}px; ` +
+            `height:${r.height}px; margin:0; z-index:5; pointer-events:none;`;
+          document.body.appendChild(ghost);
+          ghost.animate(
+            [{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(0.82)' }],
+            { duration: 300, easing: 'ease-out', fill: 'forwards' }
+          ).onfinish = () => ghost.remove();
+        }
+        c.classList.toggle('is-hidden', !willShow);
       });
 
-      gridEl.classList.add('expertise__piles');
-      gridEl.innerHTML = filters.map(filter => {
-        const pileCards = piles[filter];
-        const total = pileCards.length;
-        const stackHTML = pileCards.map((card, i) => {
-          const rot = (Math.random() * 10 - 5).toFixed(1);
-          const zIndex = total - i;
-          const isTop = i === 0;
-          return `<article class="expertise-pile__card${isTop ? ' expertise-pile__card--top' : ''}"
-                    style="z-index:${zIndex}; --pile-rot:${rot}deg"
-                    data-pile-index="${i}" data-pile-num="${i + 1}" data-pile-total="${total}">
-              <h3 class="expertise-pile__card__title">${card.title}</h3>
-              <p class="expertise-pile__card__body">${card.body}</p>
-              <span class="expertise-pile__card__num">${i + 1}/${total}</span>
-            </article>`;
-        }).join('');
+      /* Hauteur de la grille : accompagne la réorganisation au lieu de sauter */
+      const gridH1 = gridEl.offsetHeight;
+      if (gridH0 !== gridH1) {
+        gridEl.animate(
+          [{ height: `${gridH0}px` }, { height: `${gridH1}px` }],
+          { duration: 450, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+        );
+      }
 
-        return `<div class="expertise-pile">
-          <div class="expertise-pile__stack" aria-label="${filter} — swipe pour parcourir">${stackHTML}</div>
-          <span class="expertise-pile__label">${filter}</span>
-        </div>`;
-      }).join('');
-
-      /* Hauteur unique pour toutes les piles : la carte la plus haute toutes piles confondues */
-      const allStacks = gridEl.querySelectorAll('.expertise-pile__stack');
-      let globalMaxH = 0;
-      allStacks.forEach(stack => {
-        stack.querySelectorAll('.expertise-pile__card').forEach(card => {
-          card.style.position = 'static';
-          card.style.transform = 'none';
-          const h = card.offsetHeight;
-          if (h > globalMaxH) globalMaxH = h;
-          card.style.position = '';
-          card.style.transform = '';
-        });
+      cards.forEach(c => {
+        if (c.classList.contains('is-hidden')) return;
+        const rect = c.getBoundingClientRect();
+        const from = firstRects.get(c);
+        if (from) {
+          const dx = from.left - rect.left;
+          const dy = from.top - rect.top;
+          if (dx || dy) {
+            c.animate(
+              [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'translate(0, 0)' }],
+              { duration: 450, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+            );
+          }
+        } else {
+          c.animate(
+            [{ opacity: 0, transform: 'scale(0.8)' }, { opacity: 1, transform: 'scale(1)' }],
+            { duration: 420, delay: 120, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' }
+          );
+        }
       });
-      allStacks.forEach(stack => { stack.style.height = globalMaxH + 'px'; });
+    }
 
-      initPileSwipe(gridEl);
+    filtersEl.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        filtersEl.querySelectorAll('.filter-btn').forEach(b =>
+          b.classList.toggle('active', b === btn));
+        applyFilter(btn.dataset.filter);
+      });
+    });
+
+    equalizeFlipHeights(gridEl);
+
+    if (!flipListenersBound) {
+      flipListenersBound = true;
+      const recalc = () => {
+        const g = document.querySelector('.expertise__flip-grid');
+        if (g) equalizeFlipHeights(g);
+      };
+      window.addEventListener('resize', recalc);
+      window.addEventListener('load', recalc);
     }
   }
 
@@ -315,8 +452,8 @@
     if (accordionEl) {
       accordionEl.innerHTML = content.softSkills.items
         .map((item, i) => `
-          <div class="accordion-item${i === 0 ? ' open' : ''}" role="listitem">
-            <button class="accordion-item__trigger" aria-expanded="${i === 0}" aria-controls="acc-content-${i}">
+          <div class="accordion-item" role="listitem">
+            <button class="accordion-item__trigger" aria-expanded="false" aria-controls="acc-content-${i}">
               <div class="accordion-item__content" id="acc-content-${i}">
                 <p class="accordion-item__label">${item.label}</p>
                 <p class="accordion-item__text">${item.extra}</p>
@@ -506,9 +643,14 @@
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        animateCounter(entry.target);
-        observer.unobserve(entry.target);
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+        } else {
+          // Réarme le compteur pour le prochain passage
+          entry.target._countRun = (entry.target._countRun || 0) + 1;
+          entry.target.classList.remove('pop');
+          entry.target.textContent = '0';
+        }
       });
     }, { threshold: 0.5 });
 
@@ -532,10 +674,14 @@
       return;
     }
 
+    el.classList.add('pop');
+
     const DURATION = 1400; // ms
     const start = performance.now();
+    const run = el._countRun = (el._countRun || 0) + 1;
 
     function step(now) {
+      if (el._countRun !== run) return; // annulé (sorti du viewport)
       const progress = Math.min((now - start) / DURATION, 1);
       const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
       el.textContent = format(target * eased);
@@ -660,13 +806,17 @@
     const portfolioGrid = document.querySelector('[data-content="portfolio.projects"]');
     if (portfolioGrid) {
       const ariaPrefix = lang === 'en' ? 'View project' : 'Voir le projet';
+      // Cartes larges (2 colonnes) : projets mis en avant (grille bento)
+      const WIDE_IDS = ['pemtl', 'twitch-motion', 'france-institutionnel'];
       portfolioGrid.innerHTML = content.portfolio.projects
         .map(project => {
           const thumbEl = project.thumbnail
             ? `<img class="portfolio-card__thumb" src="${project.thumbnail}" alt="${project.title}" loading="lazy" />`
             : `<div class="portfolio-card__thumb-placeholder">🎞️</div>`;
+          const featured = project.id === 'pemtl' ? ' portfolio-card--featured' : '';
+          const wide = WIDE_IDS.includes(project.id) ? ' portfolio-card--wide' : '';
           return `
-            <article class="portfolio-card" role="button" tabindex="0" data-project-id="${project.id}" aria-label="${ariaPrefix} ${project.title}">
+            <article class="portfolio-card${featured}${wide}" role="button" tabindex="0" data-project-id="${project.id}" aria-label="${ariaPrefix} ${project.title}">
               <div class="portfolio-card__thumb-wrap">
                 ${thumbEl}
                 <div class="portfolio-card__overlay">
@@ -846,200 +996,6 @@
      FONCTIONS INTERACTIVES
   ========================================================== */
 
-  /* --- Piles de cartes Expertise (drag horizontal + clic) --- */
-  function initPileSwipe(container) {
-    const stacks = container.querySelectorAll('.expertise-pile__stack');
-
-    const TAP_THRESHOLD   = 8;    // px : sous ce seuil = clic, pas drag
-    const EJECT_DISTANCE  = 80;   // px : déplacement déclenchant éjection
-    const EJECT_VELOCITY  = 0.5;  // px/ms : vélocité déclenchant éjection
-
-    stacks.forEach(stack => {
-      const cardEls = () => Array.from(stack.querySelectorAll('.expertise-pile__card'));
-      let animating = false;
-
-      function refreshZIndexes() {
-        const cards = cardEls();
-        const total = cards.length;
-        cards.forEach((card, i) => {
-          card.style.zIndex = total - i;
-          card.classList.toggle('expertise-pile__card--top', i === 0);
-          if (i !== 0) {
-            const rot = (Math.random() * 10 - 5).toFixed(1);
-            card.style.setProperty('--pile-rot', rot + 'deg');
-          }
-        });
-      }
-
-      function ejectCard(card) {
-        if (!card) return;
-        if (reducedMotion.matches) {
-          card.style.transform = '';
-          card.style.opacity = '';
-          card.style.transition = '';
-          card.style.animation = '';
-          card.classList.remove('expertise-pile__card--top');
-          stack.appendChild(card);
-          refreshZIndexes();
-          return;
-        }
-        animating = true;
-        card.style.transition = 'opacity 0.25s ease';
-        card.style.opacity = '0';
-        setTimeout(() => {
-          card.style.transition = '';
-          card.style.transform = '';
-          card.style.opacity = '';
-          card.style.animation = '';
-          card.classList.remove('expertise-pile__card--top');
-          stack.appendChild(card);
-          refreshZIndexes();
-          animating = false;
-        }, 260);
-      }
-
-      function advanceFromTop() {
-        if (animating) return;
-        const top = cardEls().find(c => c.classList.contains('expertise-pile__card--top'));
-        ejectCard(top);
-      }
-
-      /* État du drag */
-      let pointerId   = null;
-      let activeCard  = null;
-      let startX = 0, startY = 0, startTime = 0;
-      let isDragging = false;   // drag horizontal confirmé
-      let abandoned  = false;   // user a scrollé verticalement, on lâche
-
-      function resetCardStyles(card) {
-        if (!card) return;
-        card.style.transition = '';
-        card.style.transform  = '';
-        card.style.opacity    = '';
-        card.style.animation  = '';
-      }
-
-      function onPointerDown(e) {
-        if (animating) return;
-        // Souris : ignorer clic droit / molette
-        if (e.pointerType === 'mouse' && e.button !== 0) return;
-
-        const top = cardEls().find(c => c.classList.contains('expertise-pile__card--top'));
-        if (!top) return;
-
-        activeCard = top;
-        pointerId  = e.pointerId;
-        startX     = e.clientX;
-        startY     = e.clientY;
-        startTime  = performance.now();
-        isDragging = false;
-        abandoned  = false;
-
-        /* Désactive transitions et pulse pendant le suivi */
-        activeCard.style.transition = 'none';
-        activeCard.style.animation  = 'none';
-      }
-
-      function onPointerMove(e) {
-        if (pointerId === null || e.pointerId !== pointerId || !activeCard || abandoned) return;
-
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-
-        if (!isDragging) {
-          if (Math.abs(dx) < TAP_THRESHOLD && Math.abs(dy) < TAP_THRESHOLD) return;
-          /* Si l'utilisateur scrolle verticalement, on abandonne pour ne pas bloquer la page */
-          if (Math.abs(dy) > Math.abs(dx)) {
-            abandoned = true;
-            resetCardStyles(activeCard);
-            return;
-          }
-          isDragging = true;
-          try { stack.setPointerCapture(pointerId); } catch (_) {}
-        }
-
-        e.preventDefault();
-        if (reducedMotion.matches) return; // détection tap/drag conservée, suivi visuel désactivé
-        const rot     = Math.max(-15, Math.min(15, dx / 20));
-        const opacity = Math.max(0.3, 1 - Math.abs(dx) / 300);
-        activeCard.style.transform = `translate3d(${dx}px, 0, 0) rotate(${rot}deg)`;
-        activeCard.style.opacity   = String(opacity);
-      }
-
-      function onPointerEnd(e) {
-        if (pointerId === null || e.pointerId !== pointerId || !activeCard) return;
-
-        const card  = activeCard;
-        const dx    = e.clientX - startX;
-        const dy    = e.clientY - startY;
-        const dt    = Math.max(1, performance.now() - startTime);
-        const total = Math.hypot(dx, dy);
-
-        try { stack.releasePointerCapture(pointerId); } catch (_) {}
-        pointerId = null;
-        activeCard = null;
-
-        /* Drag abandonné (scroll vertical) : rien à faire */
-        if (abandoned) {
-          isDragging = false;
-          return;
-        }
-
-        /* Aucun drag confirmé : c'est un clic → advance */
-        if (!isDragging && total < TAP_THRESHOLD) {
-          resetCardStyles(card);
-          advanceFromTop();
-          return;
-        }
-
-        const velocity = Math.abs(dx) / dt;
-        if (Math.abs(dx) > EJECT_DISTANCE || velocity > EJECT_VELOCITY) {
-          /* Éjection : fade depuis la position courante */
-          ejectCard(card);
-        } else if (reducedMotion.matches) {
-          resetCardStyles(card);
-        } else {
-          /* Retour élastique */
-          card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-          card.style.transform  = '';
-          card.style.opacity    = '';
-          setTimeout(() => {
-            card.style.transition = '';
-            card.style.animation  = '';
-          }, 320);
-        }
-        isDragging = false;
-      }
-
-      function onPointerCancel(e) {
-        if (pointerId === null || e.pointerId !== pointerId) return;
-        try { stack.releasePointerCapture(pointerId); } catch (_) {}
-        const card = activeCard;
-        pointerId  = null;
-        activeCard = null;
-        isDragging = false;
-        if (card) {
-          if (reducedMotion.matches) {
-            resetCardStyles(card);
-          } else {
-            card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-            card.style.transform  = '';
-            card.style.opacity    = '';
-            setTimeout(() => {
-              card.style.transition = '';
-              card.style.animation  = '';
-            }, 320);
-          }
-        }
-      }
-
-      stack.addEventListener('pointerdown',   onPointerDown);
-      stack.addEventListener('pointermove',   onPointerMove);
-      stack.addEventListener('pointerup',     onPointerEnd);
-      stack.addEventListener('pointercancel', onPointerCancel);
-    });
-  }
-
 
   /* --- Boutons CTA "magnétiques" (desktop uniquement) --- */
   function initMagneticButtons() {
@@ -1048,7 +1004,7 @@
 
     const MAX_OFFSET = 6; // px
 
-    document.querySelectorAll('.contact-form__submit').forEach(btn => {
+    document.querySelectorAll('.contact-form__submit, .hero__cta').forEach(btn => {
       btn.classList.add('magnetic');
       btn.addEventListener('mousemove', e => {
         const rect = btn.getBoundingClientRect();
@@ -1063,24 +1019,61 @@
   }
 
 
-  /* --- Parallax léger sur l'avatar Hero au scroll (desktop uniquement) --- */
-  function initHeroParallax() {
-    const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    if (!isFinePointer || reducedMotion.matches) return;
+  /* --- Scène Hero : parallax de l'avatar au scroll ---
+     (la sortie de scène du container est gérée par initExitScenes) --- */
+  function initHeroScene() {
+    if (reducedMotion.matches) return;
 
     const heroImages = document.querySelector('.hero__images');
     const heroSection = document.querySelector('.section--hero');
     if (!heroImages || !heroSection) return;
 
-    const MAX_OFFSET = 24; // px, décalage volontairement subtil
+    const PARALLAX = 46; // px de dérive verticale de l'avatar
     heroImages.style.willChange = 'transform';
 
     let ticking = false;
-    function update() {
+    function onScroll() {
       const rect = heroSection.getBoundingClientRect();
       // progress 0 → hero en haut du viewport, 1 → hero sorti par le haut
       const progress = Math.min(Math.max(-rect.top / rect.height, 0), 1);
-      heroImages.style.transform = `translate3d(0, ${(progress * MAX_OFFSET).toFixed(1)}px, 0)`;
+      heroImages.style.transform = `translate3d(0, ${(progress * PARALLAX).toFixed(1)}px, 0)`;
+      ticking = false;
+    }
+    document.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+    onScroll();
+  }
+
+
+  /* --- Sorties de scène scroll-linked de toutes les sections ---
+     Chaque section (sauf Contact) reçoit --exit-p : 0 tant qu'elle est à
+     l'écran, 1 quand elle est sortie par le haut. Le CSS fait reculer et
+     fondre son .container (voir .section > .container). --- */
+  function initExitScenes() {
+    if (reducedMotion.matches) return;
+    const sections = Array.from(document.querySelectorAll('.section'))
+      .filter(s => !s.classList.contains('section--contact'));
+    if (!sections.length) return;
+
+    const lastP = new Map();
+
+    let ticking = false;
+    function update() {
+      const vh = window.innerHeight;
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        // Démarre quand le bas de la section passe sous 50 % du viewport,
+        // se termine quand il atteint 15 %
+        const p = Math.min(Math.max((vh * 0.5 - rect.bottom) / (vh * 0.35), 0), 1).toFixed(3);
+        if (lastP.get(sec) !== p) {
+          lastP.set(sec, p);
+          sec.style.setProperty('--exit-p', p);
+        }
+      });
       ticking = false;
     }
     document.addEventListener('scroll', () => {
@@ -1089,7 +1082,121 @@
         ticking = true;
       }
     }, { passive: true });
+    window.addEventListener('resize', () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    });
     update();
+  }
+
+
+  /* --- Surlignage balayé des <mark> au scroll-in ---
+     Rappelé après chaque applyContent (les marks sont réinjectés).
+     Exclus : Vision (sweep déclenché par l'illumination progressive) et
+     les blocs accordion fermés (sweep déclenché à l'ouverture, voir initAccordion). --- */
+  function initMarkSweep() {
+    const marks = Array.from(document.querySelectorAll('mark:not(.swept)'))
+      .filter(m => !m.closest('#vision') && !m.closest('.accordion-item:not(.open)'));
+    if (!marks.length) return;
+    if (reducedMotion.matches) {
+      marks.forEach(m => m.classList.add('swept'));
+      return;
+    }
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('swept');
+        obs.unobserve(entry.target);
+      });
+    }, { threshold: 0.6, rootMargin: '0px 0px -10% 0px' });
+    marks.forEach(m => observer.observe(m));
+  }
+
+
+  /* --- Illumination progressive de la Vision, scroll-linked ---
+     Les mots (.vw, créés par renderVision) s'allument un à un au fil du
+     scroll, type page produit Apple. Bidirectionnel (ré-assombrit en remontant). --- */
+  function initVisionIllumination() {
+    if (reducedMotion.matches) return;
+    const section = document.getElementById('vision');
+    if (!section) return;
+
+    function update() {
+      const words = visionIllum.words;
+      const n = words.length;
+      if (!n) return;
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // p = 0 quand le haut de la section atteint 80 % du viewport,
+      // p = 1 quand son bas remonte à 55 % — terminé avant la sortie de
+      // scène (--exit-p démarre à 50 %), quelle que soit sa hauteur
+      const span = vh * 0.25 + rect.height;
+      const p = Math.min(Math.max((vh * 0.8 - rect.top) / span, 0), 1);
+      const target = Math.round(p * n);
+      if (target === visionIllum.lit) return;
+      if (target > visionIllum.lit) {
+        for (let i = visionIllum.lit; i < target; i++) {
+          words[i].classList.add('lit');
+          const mark = words[i].closest('mark');
+          if (mark) mark.classList.add('swept');
+        }
+      } else {
+        for (let i = visionIllum.lit - 1; i >= target; i--) words[i].classList.remove('lit');
+      }
+      visionIllum.lit = target;
+    }
+    visionIllum.update = update;
+
+    let ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { update(); ticking = false; });
+    }
+    document.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+
+
+  /* --- Cascades d'apparition : timeline et témoignages ---
+     Les enfants montent un par un quand la liste entre au viewport.
+     État initial masqué géré en CSS (.cascade-in absent). --- */
+  function initCascades() {
+    const containers = document.querySelectorAll('.timeline__list, .testimonials__list, .expertise__flip-grid');
+    if (reducedMotion.matches) {
+      containers.forEach(c => c.classList.add('cascade-off'));
+      return;
+    }
+    const timers = new WeakMap();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const container = entry.target;
+        const kids = Array.from(container.children);
+        if (entry.isIntersecting) {
+          container.dataset.cascaded = '1';
+          kids.forEach((el, i) => {
+            el.style.transitionDelay = `${Math.min(i * 110, 660)}ms`;
+            el.classList.add('cascade-in');
+          });
+          // Purge des délais une fois la cascade jouée (sinon ils retardent les hovers)
+          clearTimeout(timers.get(container));
+          timers.set(container, setTimeout(() =>
+            kids.forEach(el => { el.style.transitionDelay = ''; }), 1800));
+        } else {
+          // Réarme la cascade pour le prochain passage
+          container.dataset.cascaded = '0';
+          clearTimeout(timers.get(container));
+          kids.forEach(el => {
+            el.style.transitionDelay = '';
+            el.classList.remove('cascade-in');
+          });
+        }
+      });
+    }, { threshold: 0.12 });
+    containers.forEach(c => observer.observe(c));
   }
 
 
@@ -1111,11 +1218,19 @@
           other.querySelector('.accordion-item__trigger').setAttribute('aria-expanded', 'false');
           const otherContent = other.querySelector('.accordion-item__content');
           if (otherContent) otherContent.setAttribute('aria-hidden', 'true');
+          // Réarme le surlignage pour rejouer le sweep à la prochaine ouverture
+          other.querySelectorAll('mark.swept').forEach(m => m.classList.remove('swept'));
         });
         item.classList.add('open');
         trigger.setAttribute('aria-expanded', 'true');
         const content = item.querySelector('.accordion-item__content');
         if (content) content.setAttribute('aria-hidden', 'false');
+        // Après le reveal (dé-floutage), surligne l'élément clé du bloc
+        setTimeout(() => {
+          if (item.classList.contains('open')) {
+            item.querySelectorAll('mark').forEach(m => m.classList.add('swept'));
+          }
+        }, 500);
       });
     });
   }
@@ -1145,6 +1260,10 @@
       closeBtn.focus();
       const carouselEl = modalBody.querySelector('.modal-carousel');
       if (carouselEl) initCarousel(carouselEl);
+      // Balayage des <mark> de la modale après l'ouverture (contenu hors flux de scroll)
+      setTimeout(() => {
+        modalBody.querySelectorAll('mark').forEach(m => m.classList.add('swept'));
+      }, 350);
     }
 
     function closeModal() {
@@ -1190,11 +1309,12 @@
     const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (!isFinePointer || reducedMotion.matches) return; // pas de listener du tout sur tactile/reduced-motion
 
-    const MAX_TILT = 6; // degrés, volontairement subtil
+    const MAX_TILT = 9; // degrés
 
     gridEl.querySelectorAll('.portfolio-card__thumb-wrap').forEach(wrap => {
       wrap.addEventListener('mouseenter', () => {
         wrap.style.transition = 'transform 0.1s ease-out';
+        wrap.classList.add('tilting');
       });
       wrap.addEventListener('mousemove', e => {
         const rect = wrap.getBoundingClientRect();
@@ -1202,11 +1322,14 @@
         const py = (e.clientY - rect.top) / rect.height;
         const rotY = (px - 0.5) * MAX_TILT * 2;
         const rotX = (0.5 - py) * MAX_TILT * 2;
-        wrap.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+        wrap.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale(1.04)`;
+        wrap.style.setProperty('--gx', `${(px * 100).toFixed(1)}%`);
+        wrap.style.setProperty('--gy', `${(py * 100).toFixed(1)}%`);
       });
       wrap.addEventListener('mouseleave', () => {
         wrap.style.transition = 'transform 0.35s ease';
         wrap.style.transform = '';
+        wrap.classList.remove('tilting');
       });
     });
   }
@@ -1251,7 +1374,7 @@
         `<a class="modal-project__link" href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label} ↗</a>`
       ).join('');
     } else if (project.display === 'link' && project.link) {
-      cta = `<a class="modal-project__link" href="${project.link}" target="_blank" rel="noopener noreferrer">${m.viewProject || 'Voir le projet ↗'}</a>`;
+      cta = `<a class="modal-project__link" href="${project.link}" target="_blank" rel="noopener noreferrer">${project.linkLabel || m.viewProject || 'Voir le projet ↗'}</a>`;
     } else if (project.display === 'coming-soon') {
       cta = `<span class="modal-project__badge">${m.comingSoon || '⏳ En cours de développement'}</span>`;
     } else if (project.linkOnRequest) {
@@ -1336,15 +1459,12 @@
   }
 
 
-  /* --- Scroll Reveal --- */
+  /* --- Scroll Reveal — rejoué à chaque entrée au viewport --- */
   function initScrollReveal() {
     const elements = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+        entry.target.classList.toggle('visible', entry.isIntersecting);
       });
     }, { threshold: 0.1 });
     elements.forEach(el => observer.observe(el));
@@ -1628,9 +1748,41 @@
   })();
 
 
+  /* Gélule hint de l'avatar : "double clic" → "awww..." quelques secondes
+     (fondu aller-retour) quand le double-clic/tap touche la photo du hero */
+  let awwTimer = null;
+  function awwHeartHint(target) {
+    if (!target || !target.closest || !target.closest('.hero__images')) return;
+    const textEl = document.querySelector('.hero__heart-hint__text');
+    if (!textEl) return;
+    if (!textEl.dataset.defaultText) textEl.dataset.defaultText = textEl.textContent;
+    // Fige la largeur de la gélule sur le texte par défaut (le plus large) :
+    // seul le texte change, pas la taille
+    const pill = textEl.closest('.hero__heart-hint');
+    if (pill && !pill.style.width) pill.style.width = `${pill.offsetWidth}px`;
+    clearTimeout(awwTimer);
+    textEl.classList.add('is-fading');
+    setTimeout(() => {
+      const t = document.querySelector('.hero__heart-hint__text');
+      if (!t) return;
+      t.textContent = 'awww...';
+      t.classList.remove('is-fading');
+    }, 200);
+    awwTimer = setTimeout(() => {
+      const t = document.querySelector('.hero__heart-hint__text');
+      if (!t || !t.dataset.defaultText) return;
+      t.classList.add('is-fading');
+      setTimeout(() => {
+        t.textContent = t.dataset.defaultText;
+        t.classList.remove('is-fading');
+      }, 200);
+    }, 2800);
+  }
+
   /* Desktop */
   document.addEventListener('dblclick', e => {
     spawnHearts(e.clientX, e.clientY);
+    awwHeartHint(e.target);
   });
 
   /* Mobile : double-tap manuel (dblclick peu fiable sur touch) */
@@ -1642,6 +1794,7 @@
     const dy  = Math.abs(t.clientY - lastTapY);
     if (now - lastTap < 300 && dx < 30 && dy < 30) {
       spawnHearts(t.clientX, t.clientY);
+      awwHeartHint(e.target);
       lastTap = 0;
     } else {
       lastTap   = now;
