@@ -1902,7 +1902,9 @@ html:not(.js) .hero-intro .reveal-item {
 /* Barre de progression de scroll */
 #scroll-progress {
   position: fixed;
-  top: 0;
+  /* En web app iOS (bookmark écran d'accueil), top: 0 passe sous la barre
+     de statut translucide — on décale de la safe-area */
+  top: env(safe-area-inset-top, 0);
   left: 0;
   width: 100%;
   height: 3px;
