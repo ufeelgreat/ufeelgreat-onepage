@@ -1476,7 +1476,11 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-        } else if (entry.boundingClientRect.top > 0) {
+        } else if (entry.boundingClientRect.top > 0 &&
+                   !entry.target.classList.contains('section--contact')) {
+          // Contact (dernière section) exclue du réarmement : son translateY
+          // de réarmement agrandit la hauteur scrollable du document (~35px,
+          // transition 0.85s) → le bas de page bouge sous le doigt en remontant
           entry.target.classList.remove('visible');
         }
       });
