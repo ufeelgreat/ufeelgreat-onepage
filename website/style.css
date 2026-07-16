@@ -1614,6 +1614,18 @@ mark .vw.lit { color: inherit; }
   display: block;
 }
 
+/* Bloc CV : bordure lime pour ressortir sans capter toute l'attention */
+.contact-link--cv {
+  border: 2px solid var(--color-lime);
+}
+
+.contact-link--cv:hover {
+  border-color: #f2ffa1;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.contact-link--cv .contact-link__label { color: var(--color-lime); }
+
 /* Séparateur formulaire */
 .contact__divider {
   display: flex;

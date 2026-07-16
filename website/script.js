@@ -847,8 +847,9 @@
       linksWrapper.innerHTML = content.contact.links.map(link => {
         const iconEl = getContactIcon(link.icon);
         const isExternal = link.icon === 'linkedin' || link.icon === 'instagram';
+        const isCv = link.icon === 'cv';
         return `
-          <a class="contact-link" href="${link.url}"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}>
+          <a class="contact-link${isCv ? ' contact-link--cv' : ''}" href="${link.url}"${isCv ? ' download' : ''}${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}>
             <span class="contact-link__icon">${iconEl}</span>
             <span class="contact-link__text">
               <span class="contact-link__label">${link.label}</span>
@@ -857,6 +858,7 @@
           </a>
         `;
       }).join('');
+
     }
 
     // Divider
@@ -1453,6 +1455,8 @@
         return `📞`;
       case 'email':
         return `✉️`;
+      case 'cv':
+        return `📝`;
       default:
         return '';
     }

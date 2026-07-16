@@ -547,6 +547,13 @@
         "url": "mailto:gael.trefeu@gmail.com",
         "icon": "email",
         "row": 2
+      },
+      {
+        "label": "Curriculum vitae",
+        "handle": "télécharger le PDF",
+        "url": "gael-trefeu-cv.pdf",
+        "icon": "cv",
+        "row": 2
       }
     ]
   },

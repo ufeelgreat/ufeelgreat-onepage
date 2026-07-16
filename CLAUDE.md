@@ -372,6 +372,12 @@ Le contenu du site suit `recherche-emploi-2026/cv-maitres/cv-maitre.md` (source 
 - [x] Titres de section agrandis (clamp 2rem → 3.25rem), reveals plus amples (44px + scale, 0.85s)
 - [x] `prefers-reduced-motion` respecté partout (garde JS + overrides CSS)
 
+### Bloc CV Contact & PDF (2026-07-16) ✓
+- [x] 4ᵉ bloc dans les liens Contact : "CURRICULUM VITAE / télécharger le PDF" (icône 📝, bordure lime 2px seule — fond identique aux autres blocs)
+- [x] PDF générés depuis cv-fr/en.html : `website/gael-trefeu-cv.pdf` + `gael-trefeu-cv-en.pdf` (Letter, marges 0, headless Edge via Playwright)
+- [x] ⚠️ Les PDF sont figés : à régénérer après toute modification de cv-fr/en.html (serveur local port 8000 + script make-cv-pdf.js du scratchpad, ou impression PDF navigateur)
+- [x] L'easter egg 7 clics (modale CVs) et la visionneuse in-app restent inchangés
+
 ### Phase 17 — À venir
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.webp)
 - [ ] Suppression des PNG/JPG originaux (doublons après conversion WebP)
