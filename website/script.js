@@ -51,6 +51,88 @@
   let lastUserScrollTs = 0;
   document.addEventListener('scroll', () => { lastUserScrollTs = Date.now(); }, { passive: true });
 
+  /* ----------------------------------------------------------
+     INSTRUMENTATION DIAGNOSTIC MOBILE (temporaire)
+     - ?noautoplay=1 : coupe l'autoplay du carrousel loves
+     - ?debug=1 ou triple-tap sur le badge de version : overlay
+       (scrollY, hauteur du document et ses deltas, resize,
+        visualViewport, ticks carrousel, equalizeSlideHeights)
+  ---------------------------------------------------------- */
+  const dbgParams = new URLSearchParams(location.search);
+  let dbgNoAutoplay = dbgParams.has('noautoplay');
+  const dbgT0 = Date.now();
+  const dbgEvents = [];
+  let dbgEl = null;
+  let dbgLastDocH = 0;
+
+  function dbgLog(msg) {
+    if (!dbgEl) return;
+    dbgEvents.unshift(((Date.now() - dbgT0) / 1000).toFixed(1) + 's ' + msg);
+    if (dbgEvents.length > 9) dbgEvents.length = 9;
+    dbgRender();
+  }
+
+  function dbgRender() {
+    if (!dbgEl) return;
+    const vv = window.visualViewport;
+    dbgEl.firstChild.textContent =
+      'scrollY ' + Math.round(window.scrollY) +
+      '  docH ' + document.documentElement.scrollHeight +
+      '\nvvH ' + (vv ? Math.round(vv.height) : '-') +
+      '  autoplay ' + (dbgNoAutoplay ? 'OFF' : 'ON') +
+      '\n' + dbgEvents.join('\n');
+  }
+
+  // Détecte tout changement de hauteur du document (la cause directe d'un saut)
+  function dbgCheckDocH(origin) {
+    if (!dbgEl) return;
+    const h = document.documentElement.scrollHeight;
+    if (dbgLastDocH && h !== dbgLastDocH) {
+      dbgLog('docH ' + (h > dbgLastDocH ? '+' : '') + (h - dbgLastDocH) + 'px (' + origin + ')');
+    }
+    dbgLastDocH = h;
+  }
+
+  function initDebugOverlay() {
+    if (dbgEl) return;
+    dbgEl = document.createElement('div');
+    dbgEl.className = 'dbg-overlay';
+    dbgEl.appendChild(document.createTextNode(''));
+    const btn = document.createElement('button');
+    btn.className = 'dbg-overlay__btn';
+    btn.textContent = 'toggle autoplay';
+    btn.addEventListener('click', () => { dbgNoAutoplay = !dbgNoAutoplay; dbgRender(); });
+    dbgEl.appendChild(btn);
+    document.body.appendChild(dbgEl);
+    dbgLastDocH = document.documentElement.scrollHeight;
+    document.addEventListener('scroll', () => { dbgCheckDocH('scroll'); dbgRender(); }, { passive: true });
+    window.addEventListener('resize', () => dbgLog('resize win ' + window.innerWidth + 'x' + window.innerHeight), { passive: true });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => dbgLog('resize vv ' + Math.round(window.visualViewport.height)), { passive: true });
+    }
+    setInterval(() => { dbgCheckDocH('poll'); dbgRender(); }, 500);
+    dbgLog('overlay on');
+  }
+
+  if (dbgParams.has('debug')) initDebugOverlay();
+
+  // Triple-tap sur le badge de version → toggle overlay (utile en mode
+  // bookmark épinglé iOS où l'URL n'est pas éditable)
+  (function () {
+    const badge = document.getElementById('site-version');
+    if (!badge) return;
+    let taps = 0, tapTimer = null;
+    badge.addEventListener('click', () => {
+      taps++;
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(() => { taps = 0; }, 600);
+      if (taps >= 3) {
+        taps = 0;
+        if (dbgEl) { dbgEl.remove(); dbgEl = null; } else { initDebugOverlay(); }
+      }
+    });
+  })();
+
   function setText(selector, value) {
     const el = document.querySelector(selector);
     if (el && value != null) el.textContent = value;
@@ -761,6 +843,8 @@
       const maxH = Math.max(...Array.from(slides).map(s => s.offsetHeight));
       slides.forEach(s => { s.style.height = maxH + 'px'; });
       mask.style.height = maxH + 'px';
+      dbgLog('equalize ' + maxH + 'px');
+      dbgCheckDocH('equalize');
     }
     equalizeSlideHeights();
     window.addEventListener('resize', equalizeSlideHeights, { passive: true });
@@ -777,9 +861,12 @@
     function startAutoplay() {
       stopAutoplay();
       autoplayTimer = setInterval(() => {
+        if (dbgNoAutoplay) return;
         // Pas d'avancement pendant un scroll actif (anti scroll-anchoring)
-        if (Date.now() - lastUserScrollTs < 450) return;
+        if (Date.now() - lastUserScrollTs < 450) { dbgLog('tick loves (skip)'); return; }
+        dbgLog('tick loves → slide');
         goTo(current + 1);
+        dbgCheckDocH('tick');
       }, 4000);
     }
 
