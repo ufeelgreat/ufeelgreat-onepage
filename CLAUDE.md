@@ -378,6 +378,13 @@ Le contenu du site suit `recherche-emploi-2026/cv-maitres/cv-maitre.md` (source 
 - [x] ⚠️ Les PDF sont figés : à régénérer après toute modification de cv-fr/en.html (serveur local port 8000 + script make-cv-pdf.js du scratchpad, ou impression PDF navigateur)
 - [x] L'easter egg 7 clics (modale CVs) et la visionneuse in-app restent inchangés
 
+### Fix saut de scroll iOS bas de page (2026-07-17) ✓
+- [x] Bug : en remontant depuis Contact sur iOS, scroll tiré vers le haut d'un coup (systématique, mobile only)
+- [x] Cause racine : la barre d'outils iOS émet des `resize` hauteur-seule pendant le scroll ; `equalizeSlideHeights` (loves) et `equalizeFlipHeights` (Expertise) remettaient les hauteurs à `''` avant de remesurer → document transitoirement plus court le temps d'un reflow → Safari clampe scrollY (visible uniquement près du bas de page). `overflow-anchor: none` sans effet (non supporté iOS)
+- [x] Fix : dispatcher `widthResizeHandlers` dans script.js — les recalculs de hauteur ne s'exécutent que si `window.innerWidth` change (rotation, split view) ; fix bonus : plus d'empilement de listeners equalize à chaque changement de langue
+- [x] Diagnostiqué via overlay de debug on-device temporaire (scrollY, docH + deltas, events resize/vv horodatés, triple-tap sur badge de version) — retiré après confirmation du fix en réel ; à réintroduire au besoin (voir mémoire `feedback_ios_resize_height_only`)
+- [x] Fausses pistes éliminées en amont : réarmement des reveals, translateY de Contact, sorties de scène mobile, scroll-anchoring, transforms des reveals, autoplay du carrousel (testé OFF, bug persistant)
+
 ### Phase 17 — À venir
 - [ ] Image portfolio Piknic Electronik (portfolio-pemtl.webp)
 - [ ] Suppression des PNG/JPG originaux (doublons après conversion WebP)
