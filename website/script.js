@@ -116,6 +116,30 @@
 
   if (dbgParams.has('debug')) initDebugOverlay();
 
+  /* ----------------------------------------------------------
+     RESIZE FILTRÉ PAR LARGEUR
+     iOS émet des resize hauteur-seule quand la barre d'outils se
+     replie/déplie pendant le scroll. Les recalculs de hauteurs
+     (loves, grille Expertise) remettent des hauteurs à '' avant de
+     remesurer : le document raccourcit le temps d'un reflow et Safari
+     clampe alors scrollY près du bas de page → saut. Un recalcul n'est
+     utile que si la LARGEUR change (rotation, split view).
+  ---------------------------------------------------------- */
+  const widthResizeHandlers = [];
+  let lastResizeW = window.innerWidth;
+  window.addEventListener('resize', () => {
+    if (window.innerWidth === lastResizeW) { dbgLog('resize h-only → ignoré'); return; }
+    lastResizeW = window.innerWidth;
+    dbgLog('resize largeur → recalculs');
+    widthResizeHandlers.forEach(fn => fn());
+  }, { passive: true });
+
+  // Réf vers l'equalize du carrousel loves courant (réassignée à chaque
+  // applyContent — corrige aussi l'empilement de listeners sur des slides
+  // détachées à chaque changement de langue)
+  let lovesEqualizeRef = null;
+  widthResizeHandlers.push(() => { if (lovesEqualizeRef) lovesEqualizeRef(); });
+
   // Triple-tap sur le badge de version → toggle overlay (utile en mode
   // bookmark épinglé iOS où l'URL n'est pas éditable)
   (function () {
@@ -524,7 +548,7 @@
         const g = document.querySelector('.expertise__flip-grid');
         if (g) equalizeFlipHeights(g);
       };
-      window.addEventListener('resize', recalc);
+      widthResizeHandlers.push(recalc);
       window.addEventListener('load', recalc);
     }
   }
@@ -847,7 +871,7 @@
       dbgCheckDocH('equalize');
     }
     equalizeSlideHeights();
-    window.addEventListener('resize', equalizeSlideHeights, { passive: true });
+    lovesEqualizeRef = equalizeSlideHeights;
 
     function goTo(index) {
       slides[current].classList.remove('loves__slide--active');
