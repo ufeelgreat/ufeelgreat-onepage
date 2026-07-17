@@ -83,6 +83,10 @@ html {
   font-size: 16px;
   background-color: var(--scroll-fade-bg);
   overscroll-behavior-y: none;
+  /* Scroll anchoring désactivé : le site anime en continu (carrousel loves,
+     cascades, reveals) et le navigateur peut ancrer le scroll sur un élément
+     animé → la page "suit" le contenu et saute toute seule */
+  overflow-anchor: none;
 }
 
 body {

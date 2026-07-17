@@ -45,6 +45,12 @@
   // (déclaré ici : renderExpertise tourne dès le rendu initial)
   let flipListenersBound = false;
 
+  // Horodatage du dernier scroll utilisateur — le carrousel "Ce que j'aime"
+  // ne doit pas avancer pendant un scroll actif (le navigateur peut ancrer
+  // le scroll sur le bloc et faire sauter la page en suivant son contenu)
+  let lastUserScrollTs = 0;
+  document.addEventListener('scroll', () => { lastUserScrollTs = Date.now(); }, { passive: true });
+
   function setText(selector, value) {
     const el = document.querySelector(selector);
     if (el && value != null) el.textContent = value;
@@ -645,8 +651,8 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           animateCounter(entry.target);
-        } else if (entry.boundingClientRect.top > 0) {
-          // Sorti par le bas : réarme le compteur pour la prochaine descente
+        } else {
+          // Réarme le compteur pour le prochain passage (les deux sens)
           entry.target._countRun = (entry.target._countRun || 0) + 1;
           entry.target.classList.remove('pop');
           entry.target.textContent = '0';
@@ -770,7 +776,11 @@
 
     function startAutoplay() {
       stopAutoplay();
-      autoplayTimer = setInterval(() => goTo(current + 1), 4000);
+      autoplayTimer = setInterval(() => {
+        // Pas d'avancement pendant un scroll actif (anti scroll-anchoring)
+        if (Date.now() - lastUserScrollTs < 450) return;
+        goTo(current + 1);
+      }, 4000);
     }
 
     function stopAutoplay() {
@@ -1189,9 +1199,8 @@
           clearTimeout(timers.get(container));
           timers.set(container, setTimeout(() =>
             kids.forEach(el => { el.style.transitionDelay = ''; }), 1800));
-        } else if (entry.boundingClientRect.top > 0) {
-          // Sorti par le bas : réarme la cascade pour la prochaine descente
-          // (sorti par le haut : on ne touche à rien, sinon saut au scroll up)
+        } else {
+          // Réarme la cascade pour le prochain passage (les deux sens)
           container.dataset.cascaded = '0';
           clearTimeout(timers.get(container));
           kids.forEach(el => {
@@ -1476,11 +1485,10 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-        } else if (entry.boundingClientRect.top > 0 &&
-                   !entry.target.classList.contains('section--contact')) {
+        } else if (!entry.target.classList.contains('section--contact')) {
           // Contact (dernière section) exclue du réarmement : son translateY
           // de réarmement agrandit la hauteur scrollable du document (~35px,
-          // transition 0.85s) → le bas de page bouge sous le doigt en remontant
+          // transition 0.85s) → le bas de page bougerait sous le doigt
           entry.target.classList.remove('visible');
         }
       });
