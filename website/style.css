@@ -1934,6 +1934,22 @@ html:not(.js) .hero-intro .reveal-item {
     opacity: 1;
   }
 
+  /* Reveals et cascades en FONDU PUR sur mobile : les translateY d'entrée
+     font glisser le contenu sous le doigt quand une section rejoue son
+     apparition au scroll up ("ça tire le scroll"). Le rejeu bidirectionnel
+     est conservé, seuls les déplacements sont neutralisés. Desktop intact. */
+  .reveal,
+  .reveal.visible,
+  .reveal-item,
+  .reveal.visible .reveal-item,
+  .hero-intro.hero-intro-visible .reveal-item {
+    transform: none;
+  }
+
+  .js :is(.timeline__list, .testimonials__list, .expertise__flip-grid):not(.cascade-off) > *:not(.cascade-in) {
+    transform: none;
+  }
+
   .contact__links-wrapper {
     grid-template-columns: 1fr;
   }
